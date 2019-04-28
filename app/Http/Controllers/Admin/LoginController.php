@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -14,6 +15,32 @@ class LoginController extends Controller
      */
     public function showLogin()
     {
+        $fbRedirectToURL = '';
+        $twRedirectToURL = '';
+        $goRedirectToURL = '';
+
         return view('admin.login');
+    }
+
+    /**
+     * 認可サーバにリダイレクト
+     *
+     * @return mixed
+     */
+    public function redirectToProvider(Request $request)
+    {
+
+
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * ユーザによるSNS認証後、アクセストークンを使ってリソースサーバからユーザ情報を取得
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        dd($user);
     }
 }
