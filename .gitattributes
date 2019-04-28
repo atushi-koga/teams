@@ -1,0 +1,13 @@
+* text=auto eol=lf
+*.css linguist-vendored
+*.scss linguist-vendored
+*.js linguist-vendored
+*.jpg -text
+*.gif -text
+*.png -text
+*.ico -text
+*.ttf -text
+*.woff -text
+*.woff2 -text
+*.xlsx -text
+CHANGELOG.md export-ignore
