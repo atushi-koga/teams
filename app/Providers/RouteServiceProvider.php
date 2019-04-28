@@ -35,39 +35,50 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        //
+//        $this->mapApiRoutes();
+        $this->mapAdminRoutes();
+        $this->mapMemberRoutes();
     }
 
     /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
+     * API
+     * 現状APIは無いためコメントアウト
      *
      * @return void
      */
-    protected function mapWebRoutes()
+//    protected function mapApiRoutes()
+//    {
+//        Route::prefix('api')
+//             ->middleware('api')
+//             ->namespace($this->namespace)
+//             ->group(base_path('routes/api.php'));
+//    }
+
+    /**
+     * 管理者ユーザ
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes()
     {
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+        Route::prefix('admin')
+             ->middleware('web')
+             ->namespace($this->namespace . '\Admin')
+             ->as('Admin::')
+             ->group(base_path('routes/admin.php'));
     }
 
     /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
+     * 一般ユーザ
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapMemberRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+        Route::prefix('member')
+             ->middleware('web')
+             ->namespace($this->namespace . '\Member')
+             ->as('Member::')
+             ->group(base_path('routes/member.php'));
     }
 }
