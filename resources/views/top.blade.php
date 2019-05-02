@@ -10,8 +10,8 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    <a href="{{ route('') }}">新規会員登録</a>
-                    <a href="{{ route('') }}">ログイン</a>
+                    {{--<a href="{{ route('') }}">新規会員登録</a>--}}
+                    <a href="{{ route('showLoginForm') }}">ログイン</a>
                 </div>
         </div>
     </body>

@@ -17,6 +17,7 @@ class LoginTest extends TestCase
     {
         $response = $this->get('/login');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertViewIs('auth.login');
     }
 }
