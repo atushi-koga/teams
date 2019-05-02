@@ -2,33 +2,22 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Eloquent\EloquentUser;
+use App\Http\Requests\Auth\RegisterUserFormRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use packages\Domain\Domain\Common\Prefecture;
+use packages\Domain\Domain\User\BirthDay;
+use packages\Domain\Domain\User\Email;
+use packages\Domain\Domain\User\Gender;
+use packages\Domain\Domain\User\Password;
+use packages\Domain\Domain\User\User;
+use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
+use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -37,36 +26,69 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')
+             ->except('showComplete');
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * 新規会員登録画面を表示
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param RegisterUserFormUseCaseInterface $interactor
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function validator(array $data)
+    public function showRegistrationForm(RegisterUserFormUseCaseInterface $interactor)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $response = $interactor->handle();
+
+        return view('auth.register.form', compact('response'));
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * 新規会員を登録し完了画面を表示
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param RegisterUserFormRequest      $request
+     * @param RegisterUserUseCaseInterface $interactor
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function create(array $data)
+    public function register(RegisterUserFormRequest $request, RegisterUserUseCaseInterface $interactor)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User(
+            $request->nickname,
+            Prefecture::of($request->prefecture_id),
+            Gender::of($request->gender),
+            BirthDay::assemble($request->birth_year, $request->birth_month, $request->birth_day),
+            Email::of($request->email),
+            Password::ofRowPassword($request->password)
+        );
+
+        /** @var User $created_user */
+        $created_user = $interactor->handle($user);
+
+        $loginUser = new EloquentUser(
+            [
+                'id'            => $created_user->getId(),
+                'nickname'      => $created_user->getNickName(),
+                'gender'        => $created_user->getGenderKey(),
+                'prefecture_id' => $created_user->getPrefectureKey(),
+                'birthday'      => $created_user->getBirthDate(),
+                'email'         => $created_user->getEmail(),
+                'password'      => $created_user->getPassword(),
+            ]
+        );
+
+        $this->guard()
+             ->login($loginUser);
+
+        return redirect(route('register.showComplete'));
+    }
+
+    /**
+     * 登録完了画面を表示
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showComplete()
+    {
+        return view('auth.register.complete');
     }
 }

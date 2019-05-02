@@ -36,8 +36,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
 //        $this->mapApiRoutes();
-        $this->mapAdminRoutes();
-        $this->mapMemberRoutes();
+        $this->mapWebRoutes();
     }
 
     /**
@@ -54,31 +53,14 @@ class RouteServiceProvider extends ServiceProvider
 //             ->group(base_path('routes/api.php'));
 //    }
 
-    /**
-     * 管理者ユーザ
-     *
-     * @return void
-     */
-    protected function mapAdminRoutes()
-    {
-        Route::prefix('admin')
-             ->middleware('web')
-             ->namespace($this->namespace . '\Admin')
-             ->as('Admin::')
-             ->group(base_path('routes/admin.php'));
-    }
 
     /**
-     * 一般ユーザ
-     *
      * @return void
      */
-    protected function mapMemberRoutes()
+    protected function mapWebRoutes()
     {
-        Route::prefix('member')
-             ->middleware('web')
-             ->namespace($this->namespace . '\Member')
-             ->as('Member::')
-             ->group(base_path('routes/member.php'));
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web.php'));
     }
 }
