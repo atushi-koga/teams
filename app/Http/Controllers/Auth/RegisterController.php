@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\RegisterUserFormRequest;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
+use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
     /**
@@ -38,6 +30,35 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * 新規会員登録画面を表示
+     *
+     * @param RegisterUserFormUseCaseInterface $interactor
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showRegistrationForm(RegisterUserFormUseCaseInterface $interactor)
+    {
+        $response = $interactor->handle();
+
+        return view('auth.register.form', compact('response'));
+    }
+
+    /**
+     * 新規会員を登録
+     *
+     * @param RegisterUserFormRequest      $request
+     * @param RegisterUserUseCaseInterface $interactor
+     */
+    public function register(RegisterUserFormRequest $request, RegisterUserUseCaseInterface $interactor)
+    {
+        $interactor->handle();
+
+//        $this->guard()->login($user);
+//
+//        return $this->registered($request, $user)
+//            ?: redirect($this->redirectPath());
     }
 
     /**

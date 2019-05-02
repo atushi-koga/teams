@@ -4,7 +4,11 @@ Route::get('/', 'TopController@showTop');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')
     ->name('showLoginForm');
-//Route::get('register-user', 'TopController@showTop');
+
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')
+    ->name('showRegistrationForm');
+Route::post('register', 'Auth\RegisterController@register')
+     ->name('register');
 
 //Auth::routes();
 
