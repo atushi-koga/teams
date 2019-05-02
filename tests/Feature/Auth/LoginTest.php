@@ -20,4 +20,15 @@ class LoginTest extends TestCase
         $response->assertStatus(200)
             ->assertViewIs('auth.login');
     }
+
+    /**
+     * ログイントップは未認証では表示されず、
+     * ログイン画面にリダイレクトされる事を確認
+     */
+    public function testCanNotDisplayWithoutAuth()
+    {
+        $response = $this->get('/my-page');
+
+        $response->assertRedirect('/login');
+    }
 }
