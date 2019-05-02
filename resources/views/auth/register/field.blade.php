@@ -20,8 +20,8 @@
     <div class="col-md-6">
       <select id="prefecture_id" class="form-control @error('prefecture_id') is-invalid @enderror" name="prefecture_id" required>
         <option value="">選択してください</option>
-        @foreach($response->prefectures as $p)
-          <option value="{{ $p->getId() }}" @if(old('prefecture_id') == $p->getId()) selected @endif>{{ $p->getName() }}</option>
+        @foreach($response->prefectures as $key => $value)
+          <option value="{{ $key }}" @if(old('prefecture_id') == $key) selected @endif>{{ $value }}</option>
         @endforeach
       </select>
       @error('prefecture_id')

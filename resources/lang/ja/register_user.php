@@ -11,4 +11,5 @@ return [
     'password'              => 'パスワード',
     'password_confirmation' => 'パスワード確認用',
     'register'              => '登録',
+    'complete'              => '登録完了',
 ];

@@ -28,8 +28,7 @@ class RegisterUserFormRequest extends FormRequest
         return [
             'nickname'      => ['required', 'string', 'max:255'],
             'prefecture_id' => ['required', 'exists:prefectures,id'],
-            'gender'        => ['required', Rule::in(array_keys(Gender::ENUM))],
-            'birthday'      => ['required', 'date_format:Y-m-d'],
+            'gender'        => ['required', Rule::in(array_keys(Gender::Enum()))],
             'email'         => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'      => ['required', 'string', 'min:8', 'confirmed'],
         ];
@@ -38,16 +37,16 @@ class RegisterUserFormRequest extends FormRequest
     /**
      * @return array
      */
-    public function validationData(): array
-    {
-        $data = parent::validationData();
-
-        // 生年月日を連結する。
-        if (isset($data['birth_year']) && isset($data['birth_month']) && isset($data['birth_day'])) {
-            $data['birthday'] = $data['birth_year'] . '-' . $data['birth_month'] . '-' . $data['birth_day'];
-        }
-
-        return $data;
-    }
+//    public function validationData(): array
+//    {
+//        $data = parent::validationData();
+//
+//        // 生年月日を連結する。
+//        if (isset($data['birth_year']) && isset($data['birth_month']) && isset($data['birth_day'])) {
+//            $data['birthday'] = $data['birth_year'] . '-' . $data['birth_month'] . '-' . $data['birth_day'];
+//        }
+//
+//        return $data;
+//    }
 
 }

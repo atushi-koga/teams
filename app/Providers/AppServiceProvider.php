@@ -6,10 +6,12 @@ use App;
 use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\RegisterUserInteractor;
+use packages\Domain\Domain\Prefecture\PrefectureRepositoryInterface;
+use packages\Domain\Domain\User\UserRepositoryInterface;
 use packages\Infrustructure\Prefecture\PrefectureRepository;
+use packages\Infrustructure\User\UserRepository;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
 use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
-use PrefectureRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,7 +51,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Repository
         $this->app->bind(PrefectureRepositoryInterface::class, PrefectureRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
+
     /**
      *
      * @return void

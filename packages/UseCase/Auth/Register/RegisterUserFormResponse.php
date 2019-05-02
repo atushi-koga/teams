@@ -2,11 +2,9 @@
 
 namespace packages\UseCase\Auth\Register;
 
-use packages\Domain\Domain\Prefecture\Prefecture;
-
 class RegisterUserFormResponse
 {
-    /** @var Prefecture[] */
+    /** @var array */
     public $prefectures;
 
     /** @var array */

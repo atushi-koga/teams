@@ -2,11 +2,11 @@
 
 namespace packages\Domain\Application\Auth\Register;
 
-use packages\Domain\Domain\Prefecture\Prefecture;
+use packages\Domain\Domain\Common\Prefecture;
+use packages\Domain\Domain\Prefecture\PrefectureRepositoryInterface;
 use packages\Domain\Domain\User\Gender;
 use packages\UseCase\Auth\Register\RegisterUserFormResponse;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
-use PrefectureRepositoryInterface;
 
 class RegisterUserFormInteractor implements RegisterUserFormUseCaseInterface
 {
@@ -22,11 +22,11 @@ class RegisterUserFormInteractor implements RegisterUserFormUseCaseInterface
      */
     public function handle(): RegisterUserFormResponse
     {
-        /** @var Prefecture[] $prefectures */
-        $prefectures = $this->prefectureRepository->all();
+        /** @var array $prefectures */
+        $prefectures = Prefecture::Enum();
 
         /** @var array $genders */
-        $genders = Gender::ENUM;
+        $genders = Gender::Enum();
 
         return new RegisterUserFormResponse($prefectures, $genders);
     }

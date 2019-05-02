@@ -3,27 +3,19 @@
 namespace packages\Infrustructure\Prefecture;
 
 use App\Eloquent\EloquentPrefecture;
-use packages\Domain\Domain\Prefecture\Prefecture;
-use PrefectureRepositoryInterface;
+use Illuminate\Support\Collection;
+use packages\Domain\Domain\Prefecture\PrefectureRepositoryInterface;
 
 class PrefectureRepository implements PrefectureRepositoryInterface
 {
     /**
-     * @return Prefecture[]
+     * @return Collection
      */
-    public function all(): array
+    public function all(): Collection
     {
-        /** @var EloquentPrefecture[] $records */
-        $records = EloquentPrefecture::query()
-                                     ->orderBy('id')
-                                     ->get();
-        $results = [];
-        foreach ($records as $r) {
-            $prefecture = new Prefecture($r->name);
-            $prefecture->setId($r->id);
-            $results[] = $prefecture;
-        }
-
-        return $results;
+        return EloquentPrefecture::query()
+                                 ->orderBy('id')
+                                 ->get()
+                                 ->pluck('name', 'id');
     }
 }

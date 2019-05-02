@@ -10,6 +10,11 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')
 Route::post('register', 'Auth\RegisterController@register')
      ->name('register');
 
+Route::get('my-page', 'MyPage\TopController@showTop')
+    ->name('my-page.top');
+Route::get('my-page/logout', 'MyPage\TopController@logout')
+     ->name('my-page.logout');
+
 //Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

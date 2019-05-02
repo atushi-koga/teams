@@ -7,11 +7,20 @@ use InvalidArgumentException;
 
 trait EnumTrait
 {
+    /** @var mixed */
     private $key;
 
     /** @var string */
     private $value;
 
+    /** @return array */
+    abstract static function Enum();
+
+    /**
+     * EnumTrait constructor.
+     *
+     * @param mixed $key
+     */
     final public function __construct($key)
     {
         if (!self::isValidateValue($key)) {
@@ -19,16 +28,16 @@ trait EnumTrait
         }
 
         $this->key   = $key;
-        $this->value = self::ENUM[$key];
+        $this->value = self::Enum()[$key];
     }
 
     /**
      * @param $key
      * @return bool
      */
-    final public static function isValidateValue($key)
+    final public static function isValidateValue($key): bool
     {
-        return array_key_exists($key, self::ENUM);
+        return array_key_exists($key, self::Enum());
     }
 
     /**
@@ -42,7 +51,7 @@ trait EnumTrait
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -50,7 +59,7 @@ trait EnumTrait
     /**
      * @return string
      */
-    final public function __toString()
+    final public function __toString(): string
     {
         return $this->value;
     }
