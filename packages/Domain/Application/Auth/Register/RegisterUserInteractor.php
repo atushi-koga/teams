@@ -1,6 +1,6 @@
 <?php
 
-namespace packages\Domain\Application\Auth;
+namespace packages\Domain\Application\Auth\Register;
 
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserRepositoryInterface;

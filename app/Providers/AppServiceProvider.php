@@ -5,7 +5,7 @@ namespace App\Providers;
 use App;
 use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
-use packages\Domain\Application\Auth\RegisterUserInteractor;
+use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
 use packages\Domain\Domain\Prefecture\PrefectureRepositoryInterface;
 use packages\Domain\Domain\User\UserRepositoryInterface;
 use packages\Infrustructure\Prefecture\PrefectureRepository;
@@ -22,11 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (App::environment() === 'testing') {
-            $this->registerForMock();
-        } else {
-            $this->registerForProduction();
-        }
+        $this->registerForProduction();
+//        if (App::environment() === 'testing') {
+//            $this->registerForMock();
+//        } else {
+//            $this->registerForProduction();
+//        }
     }
 
     /**

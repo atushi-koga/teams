@@ -24,17 +24,18 @@ class UserRepository implements UserRepositoryInterface
      */
     public function create(User $user): User
     {
-        $record = EloquentUser::create(
-            [
-                'nickname'      => $user->getNickName(),
-                'gender'        => $user->getGenderKey(),
-                'prefecture_id' => $user->getPrefectureKey(),
-                'birthday'      => $user->getBirthDate(),
-                'email'         => $user->getEmail(),
-                'password'      => $user->getPassword(),
-                'created_at'    => Carbon::now(),
-            ]
-        );
+        $record = EloquentUser::query()
+                              ->create(
+                                  [
+                                      'nickname'      => $user->getNickName(),
+                                      'gender'        => $user->getGenderKey(),
+                                      'prefecture_id' => $user->getPrefectureKey(),
+                                      'birthday'      => $user->getBirthDate(),
+                                      'email'         => $user->getEmail(),
+                                      'password'      => $user->getPassword(),
+                                      'created_at'    => Carbon::now(),
+                                  ]
+                              );
 
         $created_user = new User(
             $record->nickname,
