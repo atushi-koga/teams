@@ -26,7 +26,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')
+             ->except('showComplete');
     }
 
     /**
@@ -51,8 +52,6 @@ class RegisterController extends Controller
      */
     public function register(RegisterUserFormRequest $request, RegisterUserUseCaseInterface $interactor)
     {
-        dd('test');
-
         $user = new User(
             $request->nickname,
             Prefecture::of($request->prefecture_id),
@@ -62,22 +61,34 @@ class RegisterController extends Controller
             Password::ofRowPassword($request->password)
         );
 
-        dd('test');
         /** @var User $created_user */
         $created_user = $interactor->handle($user);
 
-        $loginUser = new EloquentUser([
-            'id' => $created_user->getId(),
-            'nickname' => $created_user->getNickName(),
-            'gender'        => $created_user->getGenderKey(),
-            'prefecture_id' => $created_user->getPrefectureKey(),
-            'birthday'      => $created_user->getBirthDate(),
-            'email'         => $created_user->getEmail(),
-            'password'      => $created_user->getPassword(),
-        ]);
+        $loginUser = new EloquentUser(
+            [
+                'id'            => $created_user->getId(),
+                'nickname'      => $created_user->getNickName(),
+                'gender'        => $created_user->getGenderKey(),
+                'prefecture_id' => $created_user->getPrefectureKey(),
+                'birthday'      => $created_user->getBirthDate(),
+                'email'         => $created_user->getEmail(),
+                'password'      => $created_user->getPassword(),
+            ]
+        );
 
-        $this->guard()->login($loginUser);
+        $this->guard()
+             ->login($loginUser);
 
+        return redirect(route('register.showComplete'));
+    }
+
+    /**
+     * 登録完了画面を表示
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showComplete()
+    {
         return view('auth.register.complete');
     }
 }

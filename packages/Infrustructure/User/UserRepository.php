@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace packages\Infrustructure\User;
 
-use App\EloquentUser;
+use App\Eloquent\EloquentUser;
 use Carbon\Carbon;
 use packages\Domain\Domain\Common\Prefecture;
 use packages\Domain\Domain\User\BirthDay;

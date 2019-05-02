@@ -9,11 +9,15 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')
     ->name('showRegistrationForm');
 Route::post('register', 'Auth\RegisterController@register')
      ->name('register');
+Route::get('register/complete', 'Auth\RegisterController@showComplete')
+     ->name('register.showComplete');
 
-Route::get('my-page', 'MyPage\TopController@showTop')
-    ->name('my-page.top');
-Route::get('my-page/logout', 'MyPage\TopController@logout')
-     ->name('my-page.logout');
+Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function(){
+    Route::get('/', 'MyPage\TopController@showTop')
+         ->name('my-page.top');
+    Route::get('logout', 'MyPage\TopController@logout')
+         ->name('my-page.logout');
+});
 
 //Auth::routes();
 
