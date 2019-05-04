@@ -9,17 +9,25 @@ use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
 
 class RegisterUserInteractor implements RegisterUserUseCaseInterface
 {
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
+    /**
+     * RegisterUserInteractor constructor.
+     *
+     * @param UserRepositoryInterface $userRepository
+     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function handle(User $user)
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function handle(User $user): User
     {
-        $created_user = $this->userRepository->create($user);
-
-        return $created_user;
+        return $this->userRepository->create($user);
     }
 }

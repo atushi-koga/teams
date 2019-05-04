@@ -97,7 +97,7 @@
   <div class="form-group row">
     <label class="col-md-4 col-form-label text-md-right" for="gender_limit">{{ __('recruitment.gender_limit') }}</label>
     <div class="col-md-6">
-      <select id="gender_limit" name="gender_limit" class="form-control @error('gender_limit') is-invalid @enderror" required>
+      <select id="gender_limit" name="gender_limit" class="form-control @error('gender_limit') is-invalid @enderror">
         <option value="">選択してください</option>
         @foreach($response->genders as $key => $val)
           <option value="{{ $key }}" @if(old('gender_limit') == $key) selected @endif>{{ $val }}</option>
@@ -114,6 +114,14 @@
       @error('upper_age')
       <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
       @enderror
+    </div>
+  </div>
+
+  <div class="form-group row mb-0">
+    <div class="col-md-6 offset-md-4">
+      <button type="submit" class="btn btn-primary">
+        {{ __('recruitment.register') }}
+      </button>
     </div>
   </div>
 </form>
