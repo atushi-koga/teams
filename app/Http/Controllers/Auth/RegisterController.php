@@ -54,7 +54,7 @@ class RegisterController extends Controller
     {
         $user = new User(
             $request->nickname,
-            Prefecture::of($request->prefecture_id),
+            Prefecture::of($request->prefecture),
             Gender::of($request->gender),
             BirthDay::assemble($request->birth_year, $request->birth_month, $request->birth_day),
             Email::of($request->email),
@@ -66,13 +66,13 @@ class RegisterController extends Controller
 
         $loginUser = new EloquentUser(
             [
-                'id'            => $created_user->getId(),
-                'nickname'      => $created_user->getNickName(),
-                'gender'        => $created_user->getGenderKey(),
-                'prefecture_id' => $created_user->getPrefectureKey(),
-                'birthday'      => $created_user->getBirthDate(),
-                'email'         => $created_user->getEmail(),
-                'password'      => $created_user->getPassword(),
+                'id'         => $created_user->getId(),
+                'nickname'   => $created_user->getNickName(),
+                'gender'     => $created_user->getGenderKey(),
+                'prefecture' => $created_user->getPrefectureKey(),
+                'birthday'   => $created_user->getBirthDate(),
+                'email'      => $created_user->getEmail(),
+                'password'   => $created_user->getPassword(),
             ]
         );
 

@@ -13,15 +13,15 @@
   </div>
 
   <div class="form-group row">
-    <label for="prefecture_id" class="col-md-4 col-form-label text-md-right">{{ __('register_user.residence') }}</label>
+    <label for="prefecture" class="col-md-4 col-form-label text-md-right">{{ __('register_user.residence') }}</label>
     <div class="col-md-6">
-      <select id="prefecture_id" class="form-control @error('prefecture_id') is-invalid @enderror" name="prefecture_id" required>
+      <select id="prefecture" class="form-control @error('prefecture') is-invalid @enderror" name="prefecture" required>
         <option value="">選択してください</option>
         @foreach($response->prefectures as $key => $value)
-          <option value="{{ $key }}" @if(old('prefecture_id') == $key) selected @endif>{{ $value }}</option>
+          <option value="{{ $key }}" @if(old('prefecture') == $key) selected @endif>{{ $value }}</option>
         @endforeach
       </select>
-      @error('prefecture_id')
+      @error('prefecture')
       <span class="invalid-feedback" role="alert">
       <strong>{{ $message }}</strong>
       </span>
