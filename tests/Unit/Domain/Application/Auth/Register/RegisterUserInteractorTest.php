@@ -49,7 +49,7 @@ class RegisterUserInteractorTest extends TestCase
         $this->assertEquals('user test', $createdUser->getNickName());
         $this->assertEquals(1, $createdUser->getPrefectureKey());
         $this->assertEquals(2, $createdUser->getGenderKey());
-        $this->assertEquals('2000/1/11', $createdUser->getFormatBirthDate());
+        $this->assertEquals('2000-1-11', $createdUser->getFormatBirthDate());
         $this->assertEquals('test@gmail.com', $createdUser->getEmail());
         $this->assertTrue(Hash::check('1234abcd', $createdUser->getPassword()));
     }

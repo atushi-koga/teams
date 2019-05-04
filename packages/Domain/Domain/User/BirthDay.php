@@ -30,7 +30,7 @@ class BirthDay
      */
     public function getFormatBirthDate()
     {
-        return $this->birth_date->format('Y/n/j');
+        return $this->birth_date->format('Y-n-j');
     }
 
     /**

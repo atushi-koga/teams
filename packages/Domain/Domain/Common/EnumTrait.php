@@ -24,7 +24,7 @@ trait EnumTrait
     final public function __construct($key)
     {
         if (!self::isValidateValue($key)) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('class' . __CLASS__ . " key:{$key}");
         }
 
         $this->key   = $key;
