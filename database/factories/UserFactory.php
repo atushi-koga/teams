@@ -1,8 +1,13 @@
 <?php
 
-use App\User;
-use Illuminate\Support\Str;
+use App\Eloquent\EloquentUser;
 use Faker\Generator as Faker;
+use Carbon\Carbon;
+use packages\Domain\Domain\Common\Prefecture;
+use packages\Domain\Domain\User\BirthDay;
+use packages\Domain\Domain\User\Email;
+use packages\Domain\Domain\User\Gender;
+use packages\Domain\Domain\User\Password;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +20,22 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(
+    EloquentUser::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'nickname'          => $faker->name,
+        'gender'            => Gender::of(1)
+                                     ->getKey(),
+        'prefecture'        => Prefecture::of(1)
+                                         ->getKey(),
+        'birthday'          => BirthDay::of(Carbon::parse('1989-7-10'))
+                                       ->getFormatBirthDate(),
+        'email'             => Email::of($faker->unique()->safeEmail)
+                                    ->getValue(),
+        'email_verified_at' => Carbon::now(),
+        'password'          => Password::ofRowPassword('11111111')
+                                       ->getHash(),
+        'created_at'        => Carbon::now(),
     ];
-});
+}
+);
