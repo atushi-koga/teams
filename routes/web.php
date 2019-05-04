@@ -2,15 +2,22 @@
 
 Route::get('/', 'TopController@showTop');
 
-Route::get('login', 'Auth\LoginController@showLoginForm')
-    ->name('showLoginForm');
+Route::group(['prefix' => 'login'], function(){
+    Route::get('/', 'Auth\LoginController@showLoginForm')
+         ->name('showLoginForm');
+    Route::post('/', 'Auth\LoginController@login')
+         ->name('login');
+});
 
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')
-    ->name('showRegistrationForm');
-Route::post('register', 'Auth\RegisterController@register')
-     ->name('register');
-Route::get('register/complete', 'Auth\RegisterController@showComplete')
-     ->name('register.showComplete');
+
+Route::group(['prefix' => 'register'], function(){
+    Route::get('/', 'Auth\RegisterController@showRegistrationForm')
+         ->name('showRegistrationForm');
+    Route::post('/', 'Auth\RegisterController@register')
+         ->name('register');
+    Route::get('complete', 'Auth\RegisterController@showComplete')
+         ->name('register.showComplete');
+});
 
 Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function(){
     Route::get('/', 'MyPage\TopController@showTop')
