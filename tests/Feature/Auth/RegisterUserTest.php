@@ -39,7 +39,7 @@ class RegisterUserTest extends TestCase
         $this->post(
             '/register', [
                 'nickname'              => 'test user',
-                'prefecture_id'         => '1',
+                'prefecture'            => '1',
                 'gender'                => '1',
                 'birth_year'            => '1989',
                 'birth_month'           => '7',

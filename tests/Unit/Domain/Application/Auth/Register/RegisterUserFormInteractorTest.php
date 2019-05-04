@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domain\Application\Auth\Register;
 
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
-use packages\Infrustructure\Prefecture\PrefectureRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -24,8 +23,7 @@ class RegisterUserFormInteractorTest extends TestCase
      */
     public function testCanResponse()
     {
-        $repository = new PrefectureRepository();
-        $interactor = new RegisterUserFormInteractor($repository);
+        $interactor = new RegisterUserFormInteractor();
         $response = $interactor->handle();
 
         $this->assertEquals(47, count($response->prefectures));

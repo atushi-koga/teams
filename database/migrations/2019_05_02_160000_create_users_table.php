@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('nickname');
             $table->integer('gender');
-            $table->integer('prefecture_id');
+            $table->integer('prefecture');
             $table->date('birthday');
             $table->string('email')
                   ->unique();
@@ -30,10 +30,6 @@ class CreateUsersTable extends Migration
                   ->nullable();
             $table->timestamp('update_id')
                   ->nullable();
-
-            $table->foreign('prefecture_id')
-                  ->references('id')
-                  ->on('prefectures');
         });
     }
 

@@ -3,20 +3,12 @@
 namespace packages\Domain\Application\Auth\Register;
 
 use packages\Domain\Domain\Common\Prefecture;
-use packages\Domain\Domain\Prefecture\PrefectureRepositoryInterface;
 use packages\Domain\Domain\User\Gender;
 use packages\UseCase\Auth\Register\RegisterUserFormResponse;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
 
 class RegisterUserFormInteractor implements RegisterUserFormUseCaseInterface
 {
-    private $prefectureRepository;
-
-    public function __construct(PrefectureRepositoryInterface $prefectureRepository)
-    {
-        $this->prefectureRepository = $prefectureRepository;
-    }
-
     /**
      * @return RegisterUserFormResponse
      */

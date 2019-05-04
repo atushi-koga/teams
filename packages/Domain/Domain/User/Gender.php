@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace packages\Domain\Domain\User;
 
@@ -13,7 +14,7 @@ class Gender
     /**
      * @return array
      */
-    public static function Enum()
+    public static function Enum(): array
     {
         return [
             1 => '男性',
