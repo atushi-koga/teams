@@ -16,4 +16,12 @@ class EloquentRecruitment extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function usersRecruitment()
+    {
+        return $this->hasMany(EloquentUsersRecruitment::class, 'recruitment_id', 'id');
+    }
 }

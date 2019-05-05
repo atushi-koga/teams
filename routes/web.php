@@ -39,6 +39,9 @@ Route::group(
     Route::get('logout', 'MyPage\TopController@logout')
          ->name('my-page.logout');
 
+    /**
+     * 募集内容登録
+     */
     Route::group(
         ['prefix' => '/new-recruitment'], function () {
         Route::get('/', 'MyPage\NewRecruitmentController@showForm')
@@ -47,6 +50,11 @@ Route::group(
              ->name('new-recruitment.create');
     }
     );
+
+    Route::group(['prefix' => 'recruitment/{id}'], function(){
+        Route::get('/', 'MyPage\DetailRecruitmentController@detail')
+             ->name('detail-recruitment.detail');
+    });
 }
 );
 

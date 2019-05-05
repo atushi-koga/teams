@@ -4,15 +4,21 @@ declare(strict_types=1);
 namespace packages\Infrustructure\Recruitment;
 
 use App\Eloquent\EloquentRecruitment;
+use App\Eloquent\EloquentUser;
 use App\Eloquent\EloquentUsersRecruitment;
 use Carbon\Carbon;
 use packages\Domain\Domain\Common\Date;
 use packages\Domain\Domain\Common\Prefecture;
 use packages\Domain\Domain\Recruitment\Capacity;
+use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
+use packages\Domain\Domain\User\BirthDay;
 use packages\Domain\Domain\User\BrowsingRestriction;
+use packages\Domain\Domain\User\Gender;
+use packages\Domain\Domain\User\ParticipantInfo;
 use packages\Domain\Domain\User\UserStatus;
+use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
 
 class RecruitmentRepository implements RecruitmentRepositoryInterface
 {
@@ -98,5 +104,60 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $recruitmentList;
+    }
+
+    /**
+     * @param DetailRecruitmentRequest $request
+     * @return DetailRecruitment
+     */
+    public function detail(DetailRecruitmentRequest $request): DetailRecruitment
+    {
+        $record = EloquentRecruitment::query()
+                                     ->findOrFail($request->recruitment_id);
+
+        $recruitment = new Recruitment(
+            $record->title,
+            $record->mount,
+            Prefecture::of($record->prefecture),
+            $record->schedule,
+            Date::of($record->date),
+            Capacity::of($record->capacity),
+            Date::of($record->deadline),
+            $record->create_id
+        );
+        $recruitment->setId($record->id);
+
+        $createUserRecord = EloquentUser::query()
+                                        ->findOrFail($record->create_id);
+        $createUser       = new ParticipantInfo(
+            $createUserRecord->id,
+            $createUserRecord->nickname,
+            Gender::of($createUserRecord->gender),
+            Prefecture::of($createUserRecord->prefecture),
+            Birthday::of($createUserRecord->birthday)
+        );
+
+        $participantInfoList = [];
+        foreach ($record->usersRecruitment as $userRecruitment) {
+            $user            = $userRecruitment->user;
+            $participantInfo = new ParticipantInfo(
+                $user->id,
+                $user->nickname,
+                Gender::of($user->gender),
+                Prefecture::of($user->prefecture),
+                Birthday::of($user->birthday)
+            );
+
+            $participantInfoList[] = $participantInfo;
+        }
+
+        $detailRecruitment = new DetailRecruitment(
+            $recruitment,
+            $createUser,
+            $request->browsing_user_id,
+            $participantInfoList
+        );
+
+        return $detailRecruitment;
     }
 }

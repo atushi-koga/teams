@@ -3,6 +3,7 @@
 namespace packages\Domain\Domain\Recruitment;
 
 use packages\Domain\Domain\User\BrowsingRestriction;
+use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
 
 interface RecruitmentRepositoryInterface
 {
@@ -17,4 +18,10 @@ interface RecruitmentRepositoryInterface
      * @return Recruitment[]
      */
     public function searchForTop(BrowsingRestriction $criteria);
+
+    /**
+     * @param DetailRecruitmentRequest $request
+     * @return DetailRecruitment
+     */
+    public function detail(DetailRecruitmentRequest $request);
 }
