@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace packages\Infrustructure\User;
+namespace packages\Infrustructure\Recruitment;
 
 use App\Eloquent\EloquentRecruitment;
 use App\Eloquent\EloquentUsersRecruitment;

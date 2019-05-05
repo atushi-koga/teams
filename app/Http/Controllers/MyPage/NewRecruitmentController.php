@@ -48,7 +48,6 @@ class NewRecruitmentController extends Controller
 
         $interactor->handle($recruitment);
 
-        dd('Create');
 
         // フラッシュメッセージを入れる
 

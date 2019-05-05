@@ -10,7 +10,7 @@ use packages\Domain\Application\MyPage\NewRecruitmentFormInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentInteractor;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\User\UserRepositoryInterface;
-use packages\Infrustructure\User\RecruitmentRepository;
+use packages\Infrustructure\Recruitment\RecruitmentRepository;
 use packages\Infrustructure\User\UserRepository;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
 use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
@@ -68,5 +68,6 @@ class AppServiceProvider extends ServiceProvider
     public function registerForMock()
     {
         // UseCase
+        // Repository
     }
 }
