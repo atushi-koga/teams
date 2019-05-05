@@ -33,7 +33,7 @@ class Recruitment
     private $deadline;
 
     // @todo: UserId Value Objectに置き換える
-    /** @var int  */
+    /** @var int */
     private $createUserId;
 
     /**
@@ -66,6 +66,14 @@ class Recruitment
         $this->capacity     = $capacity;
         $this->deadline     = $deadline;
         $this->createUserId = $createUserId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
