@@ -46,4 +46,23 @@ class BirthDay
 
         return new self(Carbon::create($birth_year, $birth_month,$birth_day));
     }
+
+    /**
+     * @param string $birthday
+     * @return BirthDay
+     */
+    public static function ofFormat(string $birthday): self
+    {
+        //@todo: 日付形式が無効であればthrow exceptionとする
+
+        return new self(Carbon::parse($birthday));
+    }
+
+    /**
+     * @return Age
+     */
+    public function calculateAge(): Age
+    {
+        return Age::of($this->birth_date->age);
+    }
 }
