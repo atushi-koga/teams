@@ -6,6 +6,7 @@ use App;
 use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
+use packages\Domain\Application\MyPage\DetailRecruitmentInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentFormInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentInteractor;
 use packages\Domain\Application\MyPage\ShowTopInteractor;
@@ -15,6 +16,7 @@ use packages\Infrustructure\Recruitment\RecruitmentRepository;
 use packages\Infrustructure\User\UserRepository;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
 use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\DetailRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Top\ShowTopUseCaseInterface;
@@ -58,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(NewRecruitmentFormUseCaseInterface::class, NewRecruitmentFormInteractor::class);
         $this->app->bind(NewRecruitmentUseCaseInterface::class, NewRecruitmentInteractor::class);
         $this->app->bind(ShowTopUseCaseInterface::class, ShowTopInteractor::class);
+        $this->app->bind(DetailRecruitmentUseCaseInterface::class, DetailRecruitmentInteractor::class);
 
         // Repository
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);

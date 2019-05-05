@@ -9,8 +9,7 @@
           <div class="card-body">
             @foreach($response->recruitment as $recruitment)
               <div>
-                <p>{{ $recruitment->getId() }}</p>
-                <p>{{ $recruitment->getTitle() }}</p>
+                <p><a href="{{ route('detail-recruitment.detail', ['id' => $recruitment->getId()]) }}">{{ $recruitment->getTitle() }}</a></p>
                 <p>{{ $recruitment->getMount() }}</p>
                 <p>{{ $recruitment->getPrefectureKey() }}</p>
                 <p>{{ $recruitment->getPrefectureValue() }}</p>
