@@ -23,7 +23,7 @@ use packages\Domain\Domain\User\Password;
 $factory->define(
     EloquentUser::class, function (Faker $faker) {
     return [
-        'nickname'          => $faker->name,
+        'nickname'          => mb_substr($faker->name, 0, 20),
         'gender'            => Gender::of(1)
                                      ->getKey(),
         'prefecture'        => Prefecture::of(1)

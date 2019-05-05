@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace packages\UseCase\Auth\Register;
+namespace packages\UseCase\MyPage\Recruitment;
 
-class RegisterUserFormResponse
+class NewRecruitmentFormResponse
 {
     /** @var array */
     public $prefectures;
@@ -12,7 +12,7 @@ class RegisterUserFormResponse
     public $genders;
 
     /**
-     * RegisterUserFormResponse constructor.
+     * NewRecruitmentFormResponse constructor.
      *
      * @param array $prefectures
      * @param array $genders
@@ -22,5 +22,4 @@ class RegisterUserFormResponse
         $this->prefectures = $prefectures;
         $this->genders     = $genders;
     }
-
 }

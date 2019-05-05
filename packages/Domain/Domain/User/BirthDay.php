@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace packages\Domain\Domain\User;
 
@@ -41,8 +42,8 @@ class BirthDay
      */
     public static function assemble(string $birth_year, string $birth_month, string $birth_day): self
     {
-        $birth_date = Carbon::parse($birth_year . '-' . $birth_month . '-' . $birth_day);
+        //@todo: 日付形式が無効であればthrow exceptionとする
 
-        return new self($birth_date);
+        return new self(Carbon::create($birth_year, $birth_month,$birth_day));
     }
 }
