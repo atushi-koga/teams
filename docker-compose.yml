@@ -12,6 +12,7 @@ services:
       - db
     volumes:
       - "./:/var/www/html"
+      - "not_mount:/var/www/html/node_modules"
       - "not_mount:/var/www/html/storage/app/admin/bulk-in"
     container_name: "apache-php"
   db:

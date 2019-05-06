@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<<<<<<< HEAD
 <head>
   <meta charset="utf-8">
   <title>トップ</title>
@@ -24,5 +25,9 @@
     </ul>
   </div>
 </div>
+<div id="app">
+  <example-component></example-component>
+</div>
 </body>
+<script src="{{ asset('js/app.js') }}"></script>
 </html>
