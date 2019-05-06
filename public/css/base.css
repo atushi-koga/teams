@@ -9,6 +9,10 @@ body {
     font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif;
 }
 
+.header-border{
+    border-top: 4px solid #57b53c;
+}
+
 .title {
     position: relative;
     padding-bottom: 10px;
@@ -79,6 +83,14 @@ td {
     text-align: left;
     vertical-align: middle;
     background-color: #fff;
+}
+
+@media screen and (max-width: 640px) {
+    th, td {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 .required {

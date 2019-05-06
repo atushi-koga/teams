@@ -39,7 +39,10 @@
     @if(!$response->browsingUserIsCreateUser())
       <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">
-          <button type="button" class="btn btn-primary">
+          <button id="join-btn" type="button" class="btn btn-primary"
+                  data-user-id="{{ $response->getBrowsingUserId() }}" data-join-url="{{ route('detail-recruitment.join', ['id' => $response->getBrowsingUserId()]) }}"
+                  data-recruitment-id="{{ $response->recruitment->getId() }}"
+          >
             参加する
           </button>
         </div>
