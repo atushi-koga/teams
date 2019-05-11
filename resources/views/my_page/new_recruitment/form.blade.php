@@ -1,16 +1,14 @@
 @extends('layouts.app')
-
+@push('css')
+  <link rel="stylesheet" href="/css/base.css">
+@endpush
 @section('content')
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">{{ __('recruitment.register_recruitment') }}</div>
-          <div class="card-body">
-            @include('my_page.new_recruitment.field')
-          </div>
-        </div>
-      </div>
+    <div>
+      <h2 class="title">{{ __('recruitment.register_recruitment') }}</h2>
+    </div>
+    <div>
+      @include('my_page.new_recruitment.field')
     </div>
   </div>
 @endsection
