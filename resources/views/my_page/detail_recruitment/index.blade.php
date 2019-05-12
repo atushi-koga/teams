@@ -5,7 +5,6 @@
 @endpush
 @section('content')
   <div class="container">
-    {{--<div class="card-header">募集内容</div>--}}
     @include('my_page.detail_recruitment.field')
   </div>
 @endsection

@@ -138,3 +138,12 @@ td {
 .txt-black:active{
     color:#000;
 }
+.area{
+    margin-bottom: 8px;
+}
+.label-area{
+    background-color: #31b69f;
+    color: #fff;
+    padding: 4px 12px;
+    font-size: 12px;
+}
