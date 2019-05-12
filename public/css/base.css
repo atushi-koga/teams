@@ -9,8 +9,11 @@ body {
     font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif;
 }
 
+/**
+メインカラー： #0a8443
+ */
 .header-border{
-    border-top: 4px solid #57b53c;
+    border-top: 4px solid #0a8443;
 }
 
 .title {
@@ -27,7 +30,7 @@ body {
     content: '';
     width: 20%;
     height: 4px;
-    background-color: #57b53c;
+    background-color: #0a8443;
 }
 
 .btn {
@@ -36,7 +39,7 @@ body {
     border: none;
     border-radius: 4px;
     background-image: none;
-    background-color: #57b53c;
+    background-color: #0a8443;
     color: #fff;
     font-family: inherit;
     font-size: 16px;
@@ -70,8 +73,6 @@ table, th, td {
 }
 
 th {
-    min-width: 300px;
-    width: 300px;
     background-color: #f1f1f1;
     padding: 6px;
     text-align: left;
@@ -84,9 +85,14 @@ td {
     vertical-align: middle;
     background-color: #fff;
 }
+.input-table th{
+    min-width: 300px;
+    width: 300px;
+}
 
 @media screen and (max-width: 640px) {
-    th, td {
+    .input-table th,
+    .input-table td {
         width: 100%;
         display: block;
         margin: 0 auto;
@@ -120,8 +126,15 @@ td {
 }
 
 .form-control:focus {
-    border: solid 1px #57b53c;
+    border: solid 1px #0a8443;
     outline: none;
-    -webkit-box-shadow: 0 0 5px 0 #57b53c;
-    box-shadow: 0 0 5px 0 #57b53c;
+    -webkit-box-shadow: 0 0 5px 0 #0a8443;
+    box-shadow: 0 0 5px 0 #0a8443;
+}
+
+.txt-black:visited,
+.txt-black:focus,
+.txt-black:hover,
+.txt-black:active{
+    color:#000;
 }
