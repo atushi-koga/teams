@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @push('css')
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="stylesheet" href="/css/detail_recruitment.css">
+  <link rel="stylesheet" href="/css/attend_conf.css">
 @endpush
 @section('content')
   <div class="container">
-    参加申込が完了しました。
-    マイページトップから参加情報を確認できます。
+    @include('my_page.attend_recruitment.finish_field')
   </div>
 @endsection

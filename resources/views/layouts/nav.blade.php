@@ -23,6 +23,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="" role="button">
+              参加申込一覧
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#" role="button"> 会員情報 </a>
           </li>
         @endguest
