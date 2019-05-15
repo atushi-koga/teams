@@ -51,14 +51,16 @@ Route::group(
     }
     );
 
-    Route::group(
-        ['prefix' => 'recruitment/{id}'], function () {
+    Route::group(['prefix' => 'recruitment/{id}'], function () {
         Route::get('/', 'MyPage\DetailRecruitmentController@detail')
              ->name('detail-recruitment.detail');
-        Route::post('join', 'MyPage\DetailRecruitmentController@join')
-             ->name('detail-recruitment.join');
-    }
-    );
+        Route::get('join', 'MyPage\JoinController@showConf')
+             ->name('attend-recruitment.showConf');
+        Route::post('join', 'MyPage\JoinController@join')
+             ->name('attend-recruitment.join');
+        Route::get('join/finish', 'MyPage\JoinController@showFinish')
+             ->name('attend-recruitment.finish');
+    });
 }
 );
 

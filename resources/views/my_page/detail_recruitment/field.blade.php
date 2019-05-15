@@ -53,9 +53,12 @@
     </div>
     <div class="event-aside">
       <h2 class="event-aside-header mb-0">活動日時</h2>
-      <div class="event-aside-body ac font16">
-        <p class="mb-0">2019年5月18日(土)</p>
-        <p>13:00～18:00</p>
+      <div class="event-aside-body ac">
+        <p class="mb-0 font18">2019/5/18(土)</p>
+        <p class="mb-0 font16">13:00～18:00</p>
+      </div>
+      <div class="ac">
+        <a href="" class="btn">参加する</a>
       </div>
     </div>
     <div class="event-aside">

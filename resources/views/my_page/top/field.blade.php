@@ -12,7 +12,7 @@
     </div>
     <div class="recruitment-info">
       <div class="recruitment-image-box">
-        <a href="" class="link"><img class="recruitment-image" src="/test_img.png"></a>
+        <a href="" target="_blank" class="link"><img class="recruitment-image" src="/test_img.png"></a>
       </div>
       <div class="recruitment-outline">
         <div class="area">
