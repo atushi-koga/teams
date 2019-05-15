@@ -8,15 +8,18 @@
     align-items: center;
     justify-content: flex-start;
 }
-.recruitment-date{
+
+.recruitment-date {
     text-align: center;
     width: 160px;
     min-height: 120px;
 }
-.year, time{
+
+.year, time {
     font-size: 14px;
 }
-.day{
+
+.day {
     font-size: 18px;
     font-weight: bold;
 }
@@ -26,7 +29,8 @@
     border-left: 1px solid #e9e9e9;
     min-height: 135px;
 }
-.recruitment-owner{
+
+.recruitment-owner {
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
@@ -36,28 +40,57 @@
     padding-bottom: 4px;
     border-bottom: 1px solid #eee;
 }
-.recruitment-info{
+
+.owner-icon {
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    margin-right: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+}
+
+.owner-nickname{
+    font-size: 13px;
+}
+
+.recruitment-info {
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
 }
-.recruitment-image{
+
+.recruitment-image-box {
     width: 120px;
     height: 120px;
     margin-right: 20px;
 }
-.recruitment-outline{
+
+.recruitment-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+.recruitment-outline {
     width: 400px;
     min-height: 120px;
 }
-.mount{
+
+.mount {
     color: #999;
     font-size: 12px;
 }
-.recruitment-title{
+
+.recruitment-title {
     font-size: 20px;
+    font-weight: bold;
     line-height: 1.5;
     margin-bottom: 15px;
 }

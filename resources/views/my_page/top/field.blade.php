@@ -6,16 +6,21 @@
   </div>
   <div class="recruitment">
     <div class="recruitment-owner">
-      <div class="owner-icon">icon</div>
-      <div class="owner-nickname">田中 一郎さん</div>
+      <div>
+        <a href="" class="link"> <img class="owner-icon" src="/IMG_0838.PNG" alt=""> <span class="owner-nickname">田中 太郎 さん</span></a>
+      </div>
     </div>
     <div class="recruitment-info">
-      <div class="recruitment-image">image</div>
+      <div class="recruitment-image-box">
+        <a href="" class="link"><img class="recruitment-image" src="/test_img.png"></a>
+      </div>
       <div class="recruitment-outline">
         <div class="area">
           <span class="label-area">関東</span>
         </div>
-        <div class="recruitment-title">武蔵小杉もくもく会</div>
+        <div class="recruitment-title">
+          <a href="" class="link">武蔵小杉もくもく会</a>
+        </div>
         <div class="mount">高尾山</div>
       </div>
       <div class="recruitment-capacity">

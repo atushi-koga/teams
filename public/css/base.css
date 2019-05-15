@@ -12,7 +12,7 @@ body {
 /**
 メインカラー： #0a8443
  */
-.header-border{
+.header-border {
     border-top: 4px solid #0a8443;
 }
 
@@ -85,7 +85,8 @@ td {
     vertical-align: middle;
     background-color: #fff;
 }
-.input-table th{
+
+.input-table th {
     min-width: 300px;
     width: 300px;
 }
@@ -135,15 +136,34 @@ td {
 .txt-black:visited,
 .txt-black:focus,
 .txt-black:hover,
-.txt-black:active{
-    color:#000;
+.txt-black:active {
+    color: #000;
 }
-.area{
+
+.area {
     margin-bottom: 8px;
 }
-.label-area{
+
+.label-area {
     background-color: #31b69f;
     color: #fff;
     padding: 4px 12px;
     font-size: 12px;
+}
+
+.link {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.link,
+.link:link,
+.link:visited,
+.link:hover,
+.link:active,
+.link:focus{
+    text-decoration: none;
+}
+
+img:hover{
+    opacity: 0.6;
 }
