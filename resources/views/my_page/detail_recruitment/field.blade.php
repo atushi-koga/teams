@@ -43,7 +43,13 @@
       ※ 無断キャンセル・欠席が続く場合、次回以降の参加をお断りさせていただく場合がございます。何卒ご理解とご協力をお願い致します。
     </div>
     <div class="mt20 ac">
-      <button type="submit" class="btn">参加する</button>
+      {{--未申込の場合--}}
+      <a href="" class="btn green">参加する</a>
+      {{--申込済みの場合--}}
+      {{--はいを選択すると、キャンセルしましたの文言を確認ダイアログ上に表示しページを再読み込みする。--}}
+      {{--<a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>--}}
+      {{--開催日を過ぎた場合--}}
+      {{--<div class="btn black">本イベントは終了しました</div>--}}
     </div>
   </div>
   <div class="col-sm-4">
@@ -58,7 +64,7 @@
         <p class="mb-0 font16">13:00～18:00</p>
       </div>
       <div class="ac">
-        <a href="" class="btn">参加する</a>
+        <a href="" class="btn green">参加する</a>
       </div>
     </div>
     <div class="event-aside">

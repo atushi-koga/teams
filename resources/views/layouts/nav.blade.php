@@ -23,7 +23,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="" role="button">
+            <a class="nav-link" href="{{ route('attend.list') }}" role="button">
               参加申込一覧
             </a>
           </li>

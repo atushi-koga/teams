@@ -39,7 +39,6 @@ body {
     border: none;
     border-radius: 4px;
     background-image: none;
-    background-color: #0a8443;
     color: #fff;
     font-family: inherit;
     font-size: 16px;
@@ -47,6 +46,15 @@ body {
     cursor: pointer;
     -webkit-appearance: none;
     margin: 5px;
+}
+.btn.green{
+    background-color: #0a8443;
+}
+.btn.dark{
+    background-color: #676d79;
+}
+.btn.black{
+    background-color: #333;
 }
 
 .btn:focus,

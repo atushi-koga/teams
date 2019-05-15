@@ -53,7 +53,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
 }
 
-.owner-nickname{
+.owner-nickname {
     font-size: 13px;
 }
 
@@ -93,4 +93,17 @@
     font-weight: bold;
     line-height: 1.5;
     margin-bottom: 15px;
+}
+
+.list-title {
+    padding-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.list-box {
+    padding: 40px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(102, 102, 102, .16);
 }

@@ -32,24 +32,27 @@ Route::group(
 /**
  * マイページ
  */
-Route::group(
-    ['prefix' => 'my-page', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
     Route::get('/', 'MyPage\TopController@showTop')
          ->name('my-page.top');
     Route::get('logout', 'MyPage\TopController@logout')
          ->name('my-page.logout');
 
     /**
+     * 参加申込情報
+     */
+    Route::get('attend/list', 'MyPage\AttendController@list')
+         ->name('attend.list');
+
+    /**
      * 募集内容登録
      */
-    Route::group(
-        ['prefix' => '/new-recruitment'], function () {
+    Route::group(['prefix' => '/new-recruitment'], function () {
         Route::get('/', 'MyPage\NewRecruitmentController@showForm')
              ->name('new-recruitment.showForm');
         Route::post('/', 'MyPage\NewRecruitmentController@create')
              ->name('new-recruitment.create');
-    }
-    );
+    });
 
     Route::group(['prefix' => 'recruitment/{id}'], function () {
         Route::get('/', 'MyPage\DetailRecruitmentController@detail')
