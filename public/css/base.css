@@ -85,11 +85,14 @@ table {
 }
 
 table, th, td {
-    border: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+tr{
+    min-height: 60px;
 }
 
 th {
-    background-color: #f1f1f1;
+    /*background-color: #f1f1f1;*/
     padding: 6px;
     text-align: left;
     vertical-align: middle;

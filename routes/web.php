@@ -37,12 +37,14 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
     /**
      * 会員情報詳細・編集
      */
-//    Route::group(['prefix' => ''], function(){
-//        Route::get('/', 'MyPage\Controller@detail')
-//             ->name('.detail');
-//        Route::post('edit', 'MyPage\Controller@edit')
-//             ->name('.edit');
-//    });
+    Route::group(['prefix' => 'account'], function(){
+        Route::get('/', 'MyPage\AccountController@detail')
+             ->name('account.detail');
+        Route::get('edit', 'MyPage\AccountController@shoEditForm')
+             ->name('account.shoEditForm');
+        Route::post('edit', 'MyPage\AccountController@edit')
+             ->name('account.edit');
+    });
 
     /**
      * 参加申込情報

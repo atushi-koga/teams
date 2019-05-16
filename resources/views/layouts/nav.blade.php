@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" role="button"> 会員情報 </a>
+            <a class="nav-link" href="{{ route('account.detail') }}" role="button">会員情報 </a>
           </li>
         @endguest
       </ul>
