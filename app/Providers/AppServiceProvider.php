@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App;
+use Blade;
 use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
@@ -47,7 +48,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::directive('error', function ($expression) {
+            return "<?php echo \$errors->first($expression, '<span class=\"error\">:message</span><br>'); ?>";
+        });
     }
 
     /**
