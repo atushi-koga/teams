@@ -1,4 +1,4 @@
-<nav class="header-border navbar navbar-expand-md navbar-light">
+<nav class="header header-border navbar navbar-expand-md navbar-light">
   <div class="container">
     <a class="navbar-brand" href="{{ route('top') }}">
       {{ config('app.name', 'Laravel') }}

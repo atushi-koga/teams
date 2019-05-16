@@ -4,7 +4,7 @@ return [
     'login'    => 'ログイン',
     'email'    => 'メールアドレス',
     'password' => 'パスワード',
-    'failed'   => 'These credentials do not match our records.',
+    'failed'   => 'メールアドレス・パスワードをご確認ください',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];
