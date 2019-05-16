@@ -47,13 +47,16 @@ body {
     -webkit-appearance: none;
     margin: 5px;
 }
-.btn.green{
+
+.btn.green {
     background-color: #0a8443;
 }
-.btn.dark{
+
+.btn.dark {
     background-color: #676d79;
 }
-.btn.black{
+
+.btn.black {
     background-color: #333;
 }
 
@@ -168,10 +171,40 @@ td {
 .link:visited,
 .link:hover,
 .link:active,
-.link:focus{
+.link:focus {
     text-decoration: none;
 }
 
-img:hover{
+img:hover {
     opacity: 0.6;
+}
+
+.invalid {
+    border-color: #e3342f;
+}
+
+.select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent url(https://haniwaman.com/wp-content/uploads/2018/12/form-css-arrow.png) no-repeat center right 8px/16px 16px;
+    border: solid 1px #aaa;
+    border-radius: 4px;
+    color: inherit;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em;
+    padding: 0.4em 0.8em;
+    width: 100%;
+}
+
+.select::-ms-expand {
+    display: none;
+}
+
+.select:focus {
+    border: 1px solid rgba(0, 0, 0, 0.32);
+    box-shadow: none;
+    outline: none;
+    -webkit-box-shadow: none;
 }
