@@ -5,7 +5,7 @@
 @section('content')
   <div class="container">
     <div>
-      <h2 class="title">{{ __('recruitment.register_recruitment') }}</h2>
+      <h4 class="title">{{ __('recruitment.register_recruitment') }}</h4>
     </div>
     <div>
       @include('my_page.new_recruitment.field')

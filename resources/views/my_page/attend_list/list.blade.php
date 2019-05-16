@@ -4,6 +4,6 @@
 @endpush
 @section('content')
   <div class="container">
-    @include('my_page.top.field')
+    @include('my_page.attend_list.list_field')
   </div>
 @endsection

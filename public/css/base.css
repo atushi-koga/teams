@@ -9,6 +9,13 @@ body {
     font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif;
 }
 
+/**
+メインカラー： #0a8443
+ */
+.header-border {
+    border-top: 4px solid #0a8443;
+}
+
 .title {
     position: relative;
     padding-bottom: 10px;
@@ -23,7 +30,7 @@ body {
     content: '';
     width: 20%;
     height: 4px;
-    background-color: #57b53c;
+    background-color: #0a8443;
 }
 
 .btn {
@@ -32,7 +39,6 @@ body {
     border: none;
     border-radius: 4px;
     background-image: none;
-    background-color: #57b53c;
     color: #fff;
     font-family: inherit;
     font-size: 16px;
@@ -40,6 +46,15 @@ body {
     cursor: pointer;
     -webkit-appearance: none;
     margin: 5px;
+}
+.btn.green{
+    background-color: #0a8443;
+}
+.btn.dark{
+    background-color: #676d79;
+}
+.btn.black{
+    background-color: #333;
 }
 
 .btn:focus,
@@ -66,8 +81,6 @@ table, th, td {
 }
 
 th {
-    min-width: 300px;
-    width: 300px;
     background-color: #f1f1f1;
     padding: 6px;
     text-align: left;
@@ -79,6 +92,20 @@ td {
     text-align: left;
     vertical-align: middle;
     background-color: #fff;
+}
+
+.input-table th {
+    min-width: 300px;
+    width: 300px;
+}
+
+@media screen and (max-width: 640px) {
+    .input-table th,
+    .input-table td {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 .required {
@@ -108,8 +135,43 @@ td {
 }
 
 .form-control:focus {
-    border: solid 1px #57b53c;
+    border: solid 1px #0a8443;
     outline: none;
-    -webkit-box-shadow: 0 0 5px 0 #57b53c;
-    box-shadow: 0 0 5px 0 #57b53c;
+    -webkit-box-shadow: 0 0 5px 0 #0a8443;
+    box-shadow: 0 0 5px 0 #0a8443;
+}
+
+.txt-black:visited,
+.txt-black:focus,
+.txt-black:hover,
+.txt-black:active {
+    color: #000;
+}
+
+.area {
+    margin-bottom: 8px;
+}
+
+.label-area {
+    background-color: #31b69f;
+    color: #fff;
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+.link {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.link,
+.link:link,
+.link:visited,
+.link:hover,
+.link:active,
+.link:focus{
+    text-decoration: none;
+}
+
+img:hover{
+    opacity: 0.6;
 }

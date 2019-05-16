@@ -46,4 +46,12 @@ class DetailRecruitment
     {
         return $this->browsing_user_id === $this->recruitment->getCreateUserId();
     }
+
+    /**
+     * @return int
+     */
+    public function getBrowsingUserId(): int
+    {
+        return $this->browsing_user_id;
+    }
 }
