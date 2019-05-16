@@ -43,14 +43,18 @@ class NewRecruitmentController extends Controller
             Date::ofFormatDate($request->date),
             Capacity::of(intval($request->capacity)),
             Date::ofFormatDate($request->deadline),
+            $request->requirement,
+            $request->belongings,
+            $request->notes,
             $userId
         );
 
-        $interactor->handle($recruitment);
+        /** @var Recruitment $newRecruitment */
+        $newRecruitment = $interactor->handle($recruitment);
 
-
-        // フラッシュメッセージを入れる
+        session()->flash('status', '新規募集を登録しました');
 
         // 詳細画面に戻る
+        return redirect(route('detail-recruitment.detail', ['id' => $newRecruitment->getId()]));
     }
 }

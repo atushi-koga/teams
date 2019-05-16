@@ -18,10 +18,12 @@
             </td>
           </tr>
           <tr>
-            <th><span class="required">必須</span>山の名称など</th>
+            <th><span class="required">必須</span>山の名称</th>
             <td>
               <input id="mount" type="text" name="mount" class="form-control @if($errors->has('mount')) invalid @endif"
-                     value="{{ old('mount') }}" required> @error('mount')
+                     value="{{ old('mount') }}" required>
+
+              @error('mount')
             </td>
           </tr>
           <tr>
@@ -38,7 +40,9 @@
                 @foreach($response->prefectures as $key => $val)
                   <option value="{{ $key }}" @if(old('prefecture') == $key) selected @endif>{{ $val }}</option>
                 @endforeach
-              </select> @error('prefecture')
+              </select>
+
+              @error('prefecture')
             </td>
           </tr>
           <tr>
@@ -55,20 +59,26 @@
             <th><span class="required">必須</span>活動日程</th>
             <td>
               <input id="date" type="text" name="date" class="form-control @if($errors->has('date')) invalid @endif"
-                     value="{{ old('date') }}" required> @error('date')
+                     value="{{ old('date') }}" required>
+
+              @error('date')
             </td>
           </tr>
           <tr>
             <th><span class="required">必須</span>定員</th>
             <td>
-              <input id="capacity" type="text" name="capacity" class="form-control @if($errors->has('capacity')) invalid @endif" value="{{ old('capacity') }}" required> @error('capacity')
+              <input id="capacity" type="text" name="capacity" class="form-control @if($errors->has('capacity')) invalid @endif" value="{{ old('capacity') }}" required>
+
+              @error('capacity')
             </td>
           </tr>
           <tr>
             <th><span class="required">必須</span>募集締切</th>
             <td>
               <input id="deadline" type="text" name="deadline" class="form-control @if($errors->has('deadline')) invalid @endif"
-                     value="{{ old('deadline') }}" required> @error('deadline')
+                     value="{{ old('deadline') }}" required>
+
+              @error('deadline')
             </td>
           </tr>
           <tr>
@@ -84,17 +94,21 @@
           <tr>
             <th>持ち物</th>
             <td>
-        <textarea name="" class="form-control @if($errors->has('')) invalid @endif">
-        {{ old('') }}
-      </textarea> @error('')
+              <textarea name="belongings" class="form-control @if($errors->has('')) invalid @endif">
+                {{ old('belongings') }}
+              </textarea>
+
+              @error('belongings')
             </td>
           </tr>
           <tr>
             <th>ご参加にあたってのお願い</th>
             <td>
-        <textarea name="" class="form-control @if($errors->has('')) invalid @endif">
-        {{ old('') }}
-      </textarea> @error('')
+              <textarea name="notes" class="form-control @if($errors->has('')) invalid @endif">
+                {{ old('notes') }}
+              </textarea>
+
+              @error('notes')
             </td>
           </tr>
           <tr>
@@ -112,18 +126,18 @@
           </tr>
           <tr>
             <td>
-              @error('minimum_age')
-
               <input type="text" name="minimum_age" class="w-25 d-inline form-control @if($errors->has('minimum_age')) invalid @endif"
                      value="{{ old('minimum_age') }}"> 歳以上
+
+                                                       @error('minimum_age')
             </td>
           </tr>
           <tr>
             <td>
-              @error('upper_age')
-
               <input type="text" name="upper_age" class="w-25 d-inline form-control @if($errors->has('upper_age')) invalid @endif"
                      value="{{ old('upper_age') }}"> 歳以下
+
+                                                     @error('upper_age')
             </td>
           </tr>
           </tbody>

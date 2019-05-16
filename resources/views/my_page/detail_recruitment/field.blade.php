@@ -35,13 +35,8 @@
     <div class="content-detail">時間とルールを守れる方</div>
     <div class="content-item">持ち物</div>
     <div class="content-detail">昼食、保険証、登山靴</div>
-    <div class="content">
-      <span>注意事項</span>
-    </div>
-    <div>
-      ※ 参加を辞退する場合は、詳細ページより申込のキャンセルをお願い致します。<br>
-      ※ 無断キャンセル・欠席が続く場合、次回以降の参加をお断りさせていただく場合がございます。何卒ご理解とご協力をお願い致します。
-    </div>
+    <div class="content-item">ご参加にあたってのお願い</div>
+    <div class="content-detail">時間厳守でお願いします。</div>
     <div class="mt20 ac">
       {{--未申込の場合--}}
       <a href="" class="btn green">参加する</a>

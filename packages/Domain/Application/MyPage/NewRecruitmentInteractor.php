@@ -24,10 +24,10 @@ class NewRecruitmentInteractor implements NewRecruitmentUseCaseInterface
 
     /**
      * @param Recruitment $recruitment
-     * @return void
+     * @return Recruitment
      */
-    public function handle(Recruitment $recruitment): void
+    public function handle(Recruitment $recruitment): Recruitment
     {
-        $this->recruitmentRepository->create($recruitment);
+        return $this->recruitmentRepository->create($recruitment);
     }
 }

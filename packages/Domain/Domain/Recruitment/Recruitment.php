@@ -32,6 +32,15 @@ class Recruitment
     /** @var Capacity */
     private $deadline;
 
+    /** @var string $requirement */
+    private $requirement;
+
+    /** @var string $belongings */
+    private $belongings;
+
+    /** @var string $notes */
+    private $notes;
+
     // @todo: UserId Value Objectに置き換える
     /** @var int */
     private $createUserId;
@@ -46,6 +55,9 @@ class Recruitment
      * @param Date       $date
      * @param Capacity   $capacity
      * @param Date       $deadline
+     * @param string     $requirement
+     * @param string     $belongings
+     * @param string     $notes
      * @param int        $createUserId
      */
     public function __construct(
@@ -56,6 +68,9 @@ class Recruitment
         Date $date,
         Capacity $capacity,
         Date $deadline,
+        string $requirement,
+        string $belongings,
+        string $notes,
         int $createUserId
     ) {
         $this->title        = $title;
@@ -64,6 +79,9 @@ class Recruitment
         $this->schedule     = $schedule;
         $this->date         = $date;
         $this->capacity     = $capacity;
+        $this->requirement  = $requirement;
+        $this->belongings   = $belongings;
+        $this->notes        = $notes;
         $this->deadline     = $deadline;
         $this->createUserId = $createUserId;
     }
@@ -157,6 +175,31 @@ class Recruitment
     }
 
     /**
+     * @return string
+     */
+    public function getRequirement(): string
+    {
+        return $this->requirement;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBelongings(): string
+    {
+        return $this->belongings;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotes(): string
+    {
+        return $this->notes;
+    }
+
+
+    /**
      * @return int
      */
     public function getCreateUserId(): int
@@ -170,5 +213,22 @@ class Recruitment
     public function setId(int $id)
     {
         $this->id = $id;
+    }
+
+    public static function ofByArray(array $attributes): self
+    {
+        return new self(
+            $attributes['title'],
+            $attributes['mount'],
+            Prefecture::of($attributes['prefecture']),
+            $attributes['schedule'],
+            Date::ofFormatDate($attributes['date']),
+            Capacity::of($attributes['capacity']),
+            Date::ofFormatDate($attributes['deadline']),
+            $attributes['requirement'],
+            $attributes['belongings'],
+            $attributes['notes'],
+            $attributes['create_id']
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use packages\Domain\Domain\Recruitment\Recruitment;
 
 class EloquentRecruitment extends Model
 {
@@ -16,6 +17,11 @@ class EloquentRecruitment extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function toModel(): Recruitment
+    {
+        return Recruitment::ofByArray($this->attributesToArray());
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

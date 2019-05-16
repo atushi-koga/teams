@@ -7,6 +7,7 @@ use App\Eloquent\EloquentRecruitment;
 use App\Eloquent\EloquentUser;
 use App\Eloquent\EloquentUsersRecruitment;
 use Carbon\Carbon;
+use DB;
 use packages\Domain\Domain\Common\Date;
 use packages\Domain\Domain\Common\Prefecture;
 use packages\Domain\Domain\Recruitment\Capacity;
@@ -24,34 +25,46 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
 {
     /**
      * @param Recruitment $recruitment
-     * @return void
+     * @return Recruitment
+     * @throws \Exception
+     * @throws \Throwable
      */
-    public function create(Recruitment $recruitment): void
+    public function create(Recruitment $recruitment): Recruitment
     {
-        $recruitmentRecord = EloquentRecruitment::query()
-                                                ->create(
-                                                    [
-                                                        'title'      => $recruitment->getTitle(),
-                                                        'mount'      => $recruitment->getMount(),
-                                                        'prefecture' => $recruitment->getPrefectureKey(),
-                                                        'schedule'   => $recruitment->getSchedule(),
-                                                        'date'       => $recruitment->getFormatDate(),
-                                                        'capacity'   => $recruitment->getCapacityValue(),
-                                                        'deadline'   => $recruitment->getFormatDeadline(),
-                                                        'create_id'  => $recruitment->getCreateUserId(),
-                                                    ]
-                                                );
+        return DB::transaction(
+            function () use ($recruitment) {
+                /** @var EloquentRecruitment $recruitmentRecord */
+                $recruitmentRecord = EloquentRecruitment::query()
+                                                        ->create(
+                                                            [
+                                                                'title'       => $recruitment->getTitle(),
+                                                                'mount'       => $recruitment->getMount(),
+                                                                'prefecture'  => $recruitment->getPrefectureKey(),
+                                                                'schedule'    => $recruitment->getSchedule(),
+                                                                'date'        => $recruitment->getFormatDate(),
+                                                                'capacity'    => $recruitment->getCapacityValue(),
+                                                                'deadline'    => $recruitment->getFormatDeadline(),
+                                                                'requirement' => $recruitment->getRequirement(),
+                                                                'belongings'  => $recruitment->getBelongings(),
+                                                                'notes'       => $recruitment->getNotes(),
+                                                                'create_id'   => $recruitment->getCreateUserId(),
+                                                            ]);
 
-        EloquentUsersRecruitment::query()
-                                ->create(
-                                    [
-                                        'user_id'        => $recruitmentRecord->create_id,
-                                        'recruitment_id' => $recruitmentRecord->id,
-                                        'is_accepted'    => true,
-                                        'user_status'    => UserStatus::ADMIN_STATUS,
-                                        'created_at'     => Carbon::now(),
-                                    ]
-                                );
+                EloquentUsersRecruitment::query()
+                                        ->create(
+                                            [
+                                                'user_id'        => $recruitmentRecord->create_id,
+                                                'recruitment_id' => $recruitmentRecord->id,
+                                                'is_accepted'    => true,
+                                                'user_status'    => UserStatus::ADMIN_STATUS,
+                                                'created_at'     => Carbon::now(),
+                                            ]);
+
+                $newRecruitment = $recruitmentRecord->toModel();
+                $newRecruitment->setId($recruitmentRecord->id);
+
+                return $newRecruitment;
+            });
     }
 
     /**
@@ -112,23 +125,16 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
      */
     public function detail(DetailRecruitmentRequest $request): DetailRecruitment
     {
-        $record = EloquentRecruitment::query()
+        /** @var EloquentRecruitment $recruitmentRecord */
+        $recruitmentRecord = EloquentRecruitment::query()
                                      ->findOrFail($request->recruitment_id);
 
-        $recruitment = new Recruitment(
-            $record->title,
-            $record->mount,
-            Prefecture::of($record->prefecture),
-            $record->schedule,
-            Date::of($record->date),
-            Capacity::of($record->capacity),
-            Date::of($record->deadline),
-            $record->create_id
-        );
-        $recruitment->setId($record->id);
+        $recruitment = $recruitmentRecord->toModel();
+        $recruitment->setId($recruitmentRecord->id);
 
         $createUserRecord = EloquentUser::query()
-                                        ->findOrFail($record->create_id);
+                                        ->findOrFail($recruitmentRecord->create_id);
+
         $createUser       = new ParticipantInfo(
             $createUserRecord->id,
             $createUserRecord->nickname,
@@ -138,7 +144,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         );
 
         $participantInfoList = [];
-        foreach ($record->usersRecruitment as $userRecruitment) {
+        foreach ($recruitmentRecord->usersRecruitment as $userRecruitment) {
             $user            = $userRecruitment->user;
             $participantInfo = new ParticipantInfo(
                 $user->id,
