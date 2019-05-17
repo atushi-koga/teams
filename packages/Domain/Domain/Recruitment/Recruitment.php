@@ -223,7 +223,7 @@ class Recruitment
             Prefecture::of($attributes['prefecture']),
             $attributes['schedule'],
             Date::ofFormatDate($attributes['date']),
-            Capacity::of($attributes['capacity']),
+            Capacity::of(intval($attributes['capacity'])),
             Date::ofFormatDate($attributes['deadline']),
             $attributes['requirement'],
             $attributes['belongings'],

@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @return EloquentUser
      */
-    public function login()
+    public function login(): EloquentUser
     {
         $user = factory(EloquentUser::class)->create();
 

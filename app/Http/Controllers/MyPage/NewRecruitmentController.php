@@ -33,21 +33,7 @@ class NewRecruitmentController extends Controller
 
     public function create(NewRecruitmentFormRequest $request, NewRecruitmentUseCaseInterface $interactor)
     {
-        $userId = Auth::id();
-
-        $recruitment = new Recruitment(
-            $request->title,
-            $request->mount,
-            Prefecture::of($request->prefecture),
-            $request->schedule,
-            Date::ofFormatDate($request->date),
-            Capacity::of(intval($request->capacity)),
-            Date::ofFormatDate($request->deadline),
-            $request->requirement,
-            $request->belongings,
-            $request->notes,
-            $userId
-        );
+        $recruitment = Recruitment::ofByArray($request->all() + ['create_id' => Auth::id()]);
 
         /** @var Recruitment $newRecruitment */
         $newRecruitment = $interactor->handle($recruitment);
