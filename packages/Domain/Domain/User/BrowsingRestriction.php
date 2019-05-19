@@ -32,4 +32,12 @@ class BrowsingRestriction
     {
         return new self($age, $gender);
     }
+
+    public static function ofByArray(array $attributes): self
+    {
+        return new self(
+            Age::of(intval($attributes['age'])),
+            Gender::of(intval($attributes['gender']))
+        );
+    }
 }

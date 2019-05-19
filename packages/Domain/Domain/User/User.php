@@ -37,22 +37,19 @@ class User
      * @param Gender     $gender
      * @param BirthDay   $birthday
      * @param Email      $email
-     * @param Password   $password
      */
     public function __construct(
         string $nickname,
         Prefecture $prefecture,
         Gender $gender,
         BirthDay $birthday,
-        Email $email,
-        Password $password
+        Email $email
     ) {
         $this->nickname   = $nickname;
         $this->prefecture = $prefecture;
         $this->gender     = $gender;
         $this->birthday   = $birthday;
         $this->email      = $email;
-        $this->password   = $password;
     }
 
     /**
@@ -135,11 +132,24 @@ class User
         return $this->password->getHash();
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id)
     {
         $this->id = $id;
+    }
+
+    public function setPassword(Password $password)
+    {
+        $this->password   = $password;
+    }
+
+    public static function ofByArray(array $attributes): self
+    {
+        return new self(
+            $attributes['nickname'],
+            Prefecture::of(intval($attributes['prefecture'])),
+            Gender::of(intval($attributes['gender'])),
+            BirthDay::ofFormat($attributes['birthday']),
+            Email::of($attributes['email'])
+        );
     }
 }

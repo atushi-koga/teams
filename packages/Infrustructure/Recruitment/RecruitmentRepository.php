@@ -8,16 +8,19 @@ use App\Eloquent\EloquentUser;
 use App\Eloquent\EloquentUsersRecruitment;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Collection;
 use packages\Domain\Domain\Common\Date;
 use packages\Domain\Domain\Common\Prefecture;
 use packages\Domain\Domain\Recruitment\Capacity;
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
+use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\User\BirthDay;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\Gender;
 use packages\Domain\Domain\User\ParticipantInfo;
+use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserStatus;
 use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
 
@@ -35,30 +38,30 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
             function () use ($recruitment) {
                 /** @var EloquentRecruitment $recruitmentRecord */
                 $recruitmentRecord = EloquentRecruitment::query()
-                                                        ->create(
-                                                            [
-                                                                'title'       => $recruitment->getTitle(),
-                                                                'mount'       => $recruitment->getMount(),
-                                                                'prefecture'  => $recruitment->getPrefectureKey(),
-                                                                'schedule'    => $recruitment->getSchedule(),
-                                                                'date'        => $recruitment->getFormatDate(),
-                                                                'capacity'    => $recruitment->getCapacityValue(),
-                                                                'deadline'    => $recruitment->getFormatDeadline(),
-                                                                'requirement' => $recruitment->getRequirement(),
-                                                                'belongings'  => $recruitment->getBelongings(),
-                                                                'notes'       => $recruitment->getNotes(),
-                                                                'create_id'   => $recruitment->getCreateUserId(),
-                                                            ]);
+                    ->create(
+                        [
+                            'title'       => $recruitment->getTitle(),
+                            'mount'       => $recruitment->getMount(),
+                            'prefecture'  => $recruitment->getPrefectureKey(),
+                            'schedule'    => $recruitment->getSchedule(),
+                            'date'        => $recruitment->getFormatDate(),
+                            'capacity'    => $recruitment->getCapacityValue(),
+                            'deadline'    => $recruitment->getFormatDeadline(),
+                            'requirement' => $recruitment->getRequirement(),
+                            'belongings'  => $recruitment->getBelongings(),
+                            'notes'       => $recruitment->getNotes(),
+                            'create_id'   => $recruitment->getCreateUserId(),
+                        ]);
 
                 EloquentUsersRecruitment::query()
-                                        ->create(
-                                            [
-                                                'user_id'        => $recruitmentRecord->create_id,
-                                                'recruitment_id' => $recruitmentRecord->id,
-                                                'is_accepted'    => true,
-                                                'user_status'    => UserStatus::ADMIN_STATUS,
-                                                'created_at'     => Carbon::now(),
-                                            ]);
+                    ->create(
+                        [
+                            'user_id'        => $recruitmentRecord->create_id,
+                            'recruitment_id' => $recruitmentRecord->id,
+                            'is_accepted'    => true,
+                            'user_status'    => UserStatus::ADMIN_STATUS,
+                            'created_at'     => Carbon::now(),
+                        ]);
 
                 $newRecruitment = $recruitmentRecord->toModel();
                 $newRecruitment->setId($recruitmentRecord->id);
@@ -68,55 +71,56 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     }
 
     /**
+     * 公開範囲の募集情報を表示する
+     *
      * @param BrowsingRestriction $criteria
-     * @return Recruitment[]
+     * @return TopRecruitment[]
      */
     public function searchForTop(BrowsingRestriction $criteria): array
     {
         $results = EloquentRecruitment::query()
-                                      ->where(
-                                          function ($q/** @var \Illuminate\Database\Eloquent\Builder $q */) use ($criteria) {
-                                              $q->whereNull('gender_limit')
-                                                ->orWhere('gender_limit', $criteria->gender->getKey());
-                                          }
-                                      )
-                                      ->where(
-                                          function ($q2/** @var \Illuminate\Database\Eloquent\Builder $q2 */) use ($criteria) {
-                                              $q2->where(
-                                                  function ($qq1/** @var \Illuminate\Database\Eloquent\Builder $qq1 */) use ($criteria) {
-                                                      $qq1->whereNull('minimum_age')
-                                                          ->orWhereRaw('? >= minimum_age', [$criteria->age->getValue()]);
-                                                  }
-                                              );
-                                              $q2->where(
-                                                  function ($qq2/** @var \Illuminate\Database\Eloquent\Builder $qq2 */) use ($criteria) {
-                                                      $qq2->whereNull('upper_age')
-                                                          ->orWhereRaw('? <= upper_age', [$criteria->age->getValue()]);
-                                                  }
-                                              );
-                                          }
-                                      )
-                                      ->orderBy('date')
-                                      ->get();
+            ->where(function ($q/** @var \Illuminate\Database\Eloquent\Builder $q */) use ($criteria) {
+                $q->whereNull('gender_limit')
+                    ->orWhere('gender_limit', $criteria->gender->getKey());
+            })
+            ->where(function ($q2/** @var \Illuminate\Database\Eloquent\Builder $q2 */) use ($criteria) {
+                $q2->where(function ($qq1/** @var \Illuminate\Database\Eloquent\Builder $qq1 */) use ($criteria) {
+                    $qq1->whereNull('minimum_age')
+                        ->orWhereRaw('? >= minimum_age', [$criteria->age->getValue()]);
+                });
+                $q2->where(function ($qq2/** @var \Illuminate\Database\Eloquent\Builder $qq2 */) use ($criteria) {
+                    $qq2->whereNull('upper_age')
+                        ->orWhereRaw('? <= upper_age', [$criteria->age->getValue()]);
+                });
+            })
+            ->orderBy('date')
+            ->get();
 
-        $recruitmentList = [];
-        foreach ($results as $r) {
-            $recruitment = new Recruitment(
-                $r->title,
-                $r->mount,
-                Prefecture::of($r->prefecture),
-                $r->schedule,
-                Date::of($r->date),
-                Capacity::of($r->capacity),
-                Date::of($r->deadline),
-                $r->create_id
-            );
+        $topRecruitments = [];
+        foreach ($results as $r/** @var EloquentRecruitment $r */) {
+            $recruitment = $r->toModel();
             $recruitment->setId($r->id);
+            $count = $this->entryRecruitments($recruitment)
+                ->count();
+            $recruitment->setEntryCount($count);
 
-            $recruitmentList[] = $recruitment;
+            $createUser = $r->createUser->toModel();
+
+            $topRecruitments[] = TopRecruitment::ofByArray([
+                'recruitment' => $recruitment,
+                'createUser'  => $createUser,
+            ]);
         }
 
-        return $recruitmentList;
+        return $topRecruitments;
+    }
+
+    public function entryRecruitments(Recruitment $recruitment): Collection
+    {
+        return EloquentUsersRecruitment::query()
+            ->where('recruitment_id', $recruitment->getId())
+            ->where('user_status', '<>', UserStatus::ADMIN_STATUS)
+            ->get();
     }
 
     /**
@@ -127,15 +131,15 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     {
         /** @var EloquentRecruitment $recruitmentRecord */
         $recruitmentRecord = EloquentRecruitment::query()
-                                     ->findOrFail($request->recruitment_id);
+            ->findOrFail($request->recruitment_id);
 
         $recruitment = $recruitmentRecord->toModel();
         $recruitment->setId($recruitmentRecord->id);
 
         $createUserRecord = EloquentUser::query()
-                                        ->findOrFail($recruitmentRecord->create_id);
+            ->findOrFail($recruitmentRecord->create_id);
 
-        $createUser       = new ParticipantInfo(
+        $createUser = new ParticipantInfo(
             $createUserRecord->id,
             $createUserRecord->nickname,
             Gender::of($createUserRecord->gender),

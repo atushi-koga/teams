@@ -42,8 +42,7 @@ class UserRepository implements UserRepositoryInterface
             Prefecture::of($record->prefecture),
             Gender::of($record->gender),
             BirthDay::of($record->birthday),
-            Email::of($record->email),
-            Password::of($record->password)
+            Email::of($record->email)
         );
         $created_user->setId($record->id);
 

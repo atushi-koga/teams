@@ -27,7 +27,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest')
-             ->except('showComplete');
+            ->except('showComplete');
     }
 
     /**
@@ -52,14 +52,15 @@ class RegisterController extends Controller
      */
     public function register(RegisterUserFormRequest $request, RegisterUserUseCaseInterface $interactor)
     {
-        $user = new User(
-            $request->nickname,
-            Prefecture::of($request->prefecture),
-            Gender::of($request->gender),
-            BirthDay::assemble($request->birth_year, $request->birth_month, $request->birth_day),
-            Email::of($request->email),
-            Password::ofRowPassword($request->password)
-        );
+        $birthday = "{$request->birth_year}-{$request->birth_month}-{$request->birth_day}";
+        $user     = User::ofByArray([
+            'nickname'   => $request->nickname,
+            'prefecture' => $request->prefecture,
+            'gender'     => $request->gender,
+            'birthday'   => $birthday,
+            'email'      => $request->email,
+        ]);
+        $user->setPassword(Password::ofRowPassword($request->password));
 
         /** @var User $created_user */
         $created_user = $interactor->handle($user);
@@ -77,7 +78,7 @@ class RegisterController extends Controller
         );
 
         $this->guard()
-             ->login($loginUser);
+            ->login($loginUser);
 
         return redirect(route('register.showComplete'));
     }

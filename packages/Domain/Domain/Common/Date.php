@@ -9,7 +9,7 @@ class Date
 {
     use ValueObjectOf;
 
-    /** @var Carbon  */
+    /** @var Carbon */
     private $value;
 
     /**
@@ -33,11 +33,22 @@ class Date
         return new self(Carbon::parse($value));
     }
 
-    /**
-     * @return string
-     */
-    public function getFormatDate():string
+    public function getFormatDate(): string
     {
         return $this->value->format('Y-n-j');
     }
+
+    public function getYear(): int
+    {
+        return $this->value->year;
+    }
+
+    public function getDateWithDayOfWeek(): string
+    {
+        $date       = $this->value->format('n/j');
+        $dayOfWeek = $this->value->formatLocalized('%a');
+
+        return "{$date}({$dayOfWeek})";
+    }
+
 }

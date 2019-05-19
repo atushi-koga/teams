@@ -30,4 +30,9 @@ class EloquentRecruitment extends Model
     {
         return $this->hasMany(EloquentUsersRecruitment::class, 'recruitment_id', 'id');
     }
+
+    public function createUser()
+    {
+        return $this->belongsTo(EloquentUser::class, 'create_id', 'id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use packages\Domain\Domain\User\User;
 
 class EloquentUser extends Authenticatable
 {
@@ -29,4 +30,9 @@ class EloquentUser extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function toModel(): User
+    {
+        return User::ofByArray($this->attributesToArray());
+    }
 }

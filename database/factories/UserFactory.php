@@ -9,8 +9,7 @@ use packages\Domain\Domain\User\Email;
 use packages\Domain\Domain\User\Gender;
 use packages\Domain\Domain\User\Password;
 
-$factory->define(
-    EloquentUser::class, function (Faker $faker) {
+$factory->define(EloquentUser::class, function (Faker $faker) {
     return [
         'nickname'          => mb_substr($faker->name, 0, 20),
         'gender'            => Gender::of(1)
