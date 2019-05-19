@@ -35,7 +35,7 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
          ->name('my-page.logout');
 
     /**
-     * 会員情報詳細・編集
+     * アカウント情報詳細・編集
      */
     Route::group(['prefix' => 'account'], function(){
         Route::get('/', 'MyPage\AccountController@detail')
@@ -46,6 +46,13 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
              ->name('account.edit');
     });
 
+    /**
+     * ユーザ情報
+     */
+    Route::group(['prefix' => 'user/{id}'], function(){
+        Route::get('/', 'MyPage\UserController@profile')
+            ->name('user.profile');
+    });
     /**
      * 参加申込情報
      */

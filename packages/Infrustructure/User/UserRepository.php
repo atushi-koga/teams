@@ -5,13 +5,10 @@ namespace packages\Infrustructure\User;
 
 use App\Eloquent\EloquentUser;
 use Carbon\Carbon;
-use packages\Domain\Domain\Common\Prefecture;
-use packages\Domain\Domain\User\BirthDay;
-use packages\Domain\Domain\User\Email;
-use packages\Domain\Domain\User\Gender;
 use packages\Domain\Domain\User\Password;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserRepositoryInterface;
+use packages\UseCase\MyPage\User\UserProfileRequest;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -24,28 +21,31 @@ class UserRepository implements UserRepositoryInterface
      */
     public function create(User $user): User
     {
+        /** @var EloquentUser $record */
         $record = EloquentUser::query()
-                              ->create(
-                                  [
-                                      'nickname'   => $user->getNickName(),
-                                      'gender'     => $user->getGenderKey(),
-                                      'prefecture' => $user->getPrefectureKey(),
-                                      'birthday'   => $user->getBirthDate(),
-                                      'email'      => $user->getEmail(),
-                                      'password'   => $user->getPassword(),
-                                      'created_at' => Carbon::now(),
-                                  ]
-                              );
+            ->create([
+                'nickname'   => $user->getNickName(),
+                'gender'     => $user->getGenderKey(),
+                'prefecture' => $user->getPrefectureKey(),
+                'birthday'   => $user->getBirthDate(),
+                'email'      => $user->getEmail(),
+                'password'   => $user->getPassword(),
+                'created_at' => Carbon::now(),
+            ]);
 
-        $created_user = new User(
-            $record->nickname,
-            Prefecture::of($record->prefecture),
-            Gender::of($record->gender),
-            BirthDay::of($record->birthday),
-            Email::of($record->email)
-        );
-        $created_user->setId($record->id);
+        return $record->toModel();
+    }
 
-        return $created_user;
+    /**
+     * @param UserProfileRequest $request
+     * @return User
+     */
+    public function profile(UserProfileRequest $request): User
+    {
+        /** @var EloquentUser $record */
+        $record = EloquentUser::query()
+            ->findOrFail($request->getUserId());
+
+        return $record->toModel();
     }
 }

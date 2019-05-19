@@ -54,6 +54,11 @@ class OpenUserInfo
         return $this->gender;
     }
 
+    public function getGenderValue(): string
+    {
+        return $this->gender->getValue();
+    }
+
     public function getPrefecture(): Prefecture
     {
         return $this->prefecture;
@@ -62,5 +67,11 @@ class OpenUserInfo
     public function getBirthDay(): BirthDay
     {
         return $this->birthday;
+    }
+
+    public function getUserAge(): int
+    {
+        return $this->birthday->calculateAge()
+            ->getValue();
     }
 }

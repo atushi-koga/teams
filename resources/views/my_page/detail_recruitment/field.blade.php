@@ -74,7 +74,7 @@
     <div class="event-aside">
       <h2 class="event-aside-header mb-0">参加者（{{ $res->getEntryCount() }}人）</h2>
       @foreach($res->getParticipantInfoList() as $userInfo)
-        <div class="event-aside-body"><a href="" class="txt-black txt-underline">{{ $userInfo->getNickname() }} さん</a></div>
+        <div class="event-aside-body"><a href="{{ route('user.profile', ['id' => $userInfo->getUserId()]) }}" class="txt-black txt-underline">{{ $userInfo->getNickname() }} さん</a></div>
       @endforeach
     </div>
   </div>

@@ -53,29 +53,21 @@ class RegisterController extends Controller
     public function register(RegisterUserFormRequest $request, RegisterUserUseCaseInterface $interactor)
     {
         $birthday = "{$request->birth_year}-{$request->birth_month}-{$request->birth_day}";
-        $user     = User::ofByArray([
-            'nickname'   => $request->nickname,
-            'prefecture' => $request->prefecture,
-            'gender'     => $request->gender,
-            'birthday'   => $birthday,
-            'email'      => $request->email,
-        ]);
+        $user     = User::ofByArray($request->all() + ['birthday' => $birthday]);
         $user->setPassword(Password::ofRowPassword($request->password));
 
         /** @var User $created_user */
         $created_user = $interactor->handle($user);
 
-        $loginUser = new EloquentUser(
-            [
-                'id'         => $created_user->getId(),
-                'nickname'   => $created_user->getNickName(),
-                'gender'     => $created_user->getGenderKey(),
-                'prefecture' => $created_user->getPrefectureKey(),
-                'birthday'   => $created_user->getBirthDate(),
-                'email'      => $created_user->getEmail(),
-                'password'   => $created_user->getPassword(),
-            ]
-        );
+        $loginUser = new EloquentUser([
+            'id'         => $created_user->getId(),
+            'nickname'   => $created_user->getNickName(),
+            'gender'     => $created_user->getGenderKey(),
+            'prefecture' => $created_user->getPrefectureKey(),
+            'birthday'   => $created_user->getBirthDate(),
+            'email'      => $created_user->getEmail(),
+            'password'   => $created_user->getPassword(),
+        ]);
 
         $this->guard()
             ->login($loginUser);

@@ -159,12 +159,22 @@ class User
 
     public static function ofByArray(array $attributes): self
     {
-        return new self(
+        $user = new self(
             $attributes['nickname'],
             Prefecture::of(intval($attributes['prefecture'])),
             Gender::of(intval($attributes['gender'])),
             BirthDay::ofFormat($attributes['birthday']),
             Email::of($attributes['email'])
         );
+
+        if (isset($attributes['id'])) {
+            $user->setId($attributes['id']);
+        }
+
+        if (isset($attributes['password'])) {
+            $user->setPassword(Password::of($attributes['password']));
+        }
+
+        return $user;
     }
 }
