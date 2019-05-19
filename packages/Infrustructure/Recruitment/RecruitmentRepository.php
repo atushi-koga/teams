@@ -19,6 +19,7 @@ use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\User\BirthDay;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\Gender;
+use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\ParticipantInfo;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserStatus;
@@ -79,20 +80,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     public function searchForTop(BrowsingRestriction $criteria): array
     {
         $results = EloquentRecruitment::query()
-            ->where(function ($q/** @var \Illuminate\Database\Eloquent\Builder $q */) use ($criteria) {
-                $q->whereNull('gender_limit')
-                    ->orWhere('gender_limit', $criteria->gender->getKey());
-            })
-            ->where(function ($q2/** @var \Illuminate\Database\Eloquent\Builder $q2 */) use ($criteria) {
-                $q2->where(function ($qq1/** @var \Illuminate\Database\Eloquent\Builder $qq1 */) use ($criteria) {
-                    $qq1->whereNull('minimum_age')
-                        ->orWhereRaw('? >= minimum_age', [$criteria->age->getValue()]);
-                });
-                $q2->where(function ($qq2/** @var \Illuminate\Database\Eloquent\Builder $qq2 */) use ($criteria) {
-                    $qq2->whereNull('upper_age')
-                        ->orWhereRaw('? <= upper_age', [$criteria->age->getValue()]);
-                });
-            })
+            ->whereGenderAndAgeLimit($criteria)
             ->orderBy('date')
             ->get();
 
@@ -100,7 +88,9 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         foreach ($results as $r/** @var EloquentRecruitment $r */) {
             $recruitment = $r->toModel();
             $recruitment->setId($r->id);
-            $count = $this->entryRecruitments($recruitment)
+
+            $count = $r->usersRecruitment()
+                ->entryUser()
                 ->count();
             $recruitment->setEntryCount($count);
 
@@ -115,14 +105,6 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         return $topRecruitments;
     }
 
-    public function entryRecruitments(Recruitment $recruitment): Collection
-    {
-        return EloquentUsersRecruitment::query()
-            ->where('recruitment_id', $recruitment->getId())
-            ->where('user_status', '<>', UserStatus::ADMIN_STATUS)
-            ->get();
-    }
-
     /**
      * @param DetailRecruitmentRequest $request
      * @return DetailRecruitment
@@ -131,39 +113,32 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     {
         /** @var EloquentRecruitment $recruitmentRecord */
         $recruitmentRecord = EloquentRecruitment::query()
+            ->whereGenderAndAgeLimit($request->browsingRestriction)
             ->findOrFail($request->recruitment_id);
 
         $recruitment = $recruitmentRecord->toModel();
         $recruitment->setId($recruitmentRecord->id);
 
-        $createUserRecord = EloquentUser::query()
-            ->findOrFail($recruitmentRecord->create_id);
-
-        $createUser = new ParticipantInfo(
-            $createUserRecord->id,
-            $createUserRecord->nickname,
-            Gender::of($createUserRecord->gender),
-            Prefecture::of($createUserRecord->prefecture),
-            Birthday::of($createUserRecord->birthday)
-        );
+        $entryUsers = $recruitmentRecord->usersRecruitment()
+            ->entryUser()
+            ->get();
+        $recruitment->setEntryCount($entryUsers->count());
 
         $participantInfoList = [];
-        foreach ($recruitmentRecord->usersRecruitment as $userRecruitment) {
+        foreach ($entryUsers as $userRecruitment) {
             $user            = $userRecruitment->user;
-            $participantInfo = new ParticipantInfo(
-                $user->id,
-                $user->nickname,
-                Gender::of($user->gender),
-                Prefecture::of($user->prefecture),
-                Birthday::of($user->birthday)
-            );
+            $participantInfo = OpenUserInfo::of($user->toModel());
 
             $participantInfoList[] = $participantInfo;
         }
 
+        /** @var EloquentUser $createUserRecord */
+        $createUserRecord = $recruitmentRecord->createUser;
+        $createUserInfo   = OpenUserInfo::of($createUserRecord->toModel());
+
         $detailRecruitment = new DetailRecruitment(
             $recruitment,
-            $createUser,
+            $createUserInfo,
             $request->browsing_user_id,
             $participantInfoList
         );

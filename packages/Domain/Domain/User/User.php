@@ -68,6 +68,11 @@ class User
         return $this->nickname;
     }
 
+    public function getPrefecture(): Prefecture
+    {
+        return $this->prefecture;
+    }
+
     /**
      * @return mixed
      */
@@ -82,6 +87,11 @@ class User
     public function getPrefectureValue(): string
     {
         return $this->prefecture->getValue();
+    }
+
+    public function getGender(): Gender
+    {
+        return $this->gender;
     }
 
     /**
@@ -106,6 +116,11 @@ class User
     public function getBirthDate(): Carbon
     {
         return $this->birthday->getBirthDate();
+    }
+
+    public function getBirthDay(): BirthDay
+    {
+        return $this->birthday;
     }
 
     /**
@@ -139,7 +154,7 @@ class User
 
     public function setPassword(Password $password)
     {
-        $this->password   = $password;
+        $this->password = $password;
     }
 
     public static function ofByArray(array $attributes): self

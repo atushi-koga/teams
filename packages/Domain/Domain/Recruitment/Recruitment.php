@@ -148,12 +148,12 @@ class Recruitment
         return $this->requirement;
     }
 
-    public function getBelongings(): string
+    public function getBelongings(): ?string
     {
         return $this->belongings;
     }
 
-    public function getNotes(): string
+    public function getNotes(): ?string
     {
         return $this->notes;
     }

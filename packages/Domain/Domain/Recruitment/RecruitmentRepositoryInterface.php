@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace packages\Domain\Domain\Recruitment;
 
+use Illuminate\Support\Collection;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
 
@@ -25,4 +26,5 @@ interface RecruitmentRepositoryInterface
      * @return DetailRecruitment
      */
     public function detail(DetailRecruitmentRequest $request);
+
 }

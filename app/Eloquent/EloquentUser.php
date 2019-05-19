@@ -33,6 +33,12 @@ class EloquentUser extends Authenticatable
 
     public function toModel(): User
     {
-        return User::ofByArray($this->attributesToArray());
+        $attributes = $this->attributesToArray();
+        $user       = User::ofByArray($attributes);
+        if (isset($attributes['id'])) {
+            $user->setId($attributes['id']);
+        }
+
+        return $user;
     }
 }
