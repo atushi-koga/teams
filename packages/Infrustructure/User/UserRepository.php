@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use packages\Domain\Domain\User\Password;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserRepositoryInterface;
+use packages\UseCase\MyPage\Account\AccountDetailRequest;
 use packages\UseCase\MyPage\User\UserProfileRequest;
 
 class UserRepository implements UserRepositoryInterface
@@ -37,15 +38,24 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * @param UserProfileRequest $request
+     * @param int $userId
      * @return User
      */
-    public function profile(UserProfileRequest $request): User
+    public function find(int $userId): User
     {
         /** @var EloquentUser $record */
-        $record = EloquentUser::query()
-            ->findOrFail($request->getUserId());
+        $record = $this->findOrFail($userId);
 
         return $record->toModel();
+    }
+
+    /**
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|static|static[]
+     */
+    public function findOrFail(int $userId)
+    {
+        return EloquentUser::query()
+            ->findOrFail($userId);
     }
 }

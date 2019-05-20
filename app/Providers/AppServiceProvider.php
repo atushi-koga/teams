@@ -7,6 +7,7 @@ use Blade;
 use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
+use packages\Domain\Application\MyPage\AccountDetailInteractor;
 use packages\Domain\Application\MyPage\DetailRecruitmentInteractor;
 use packages\Domain\Application\MyPage\JoinRecruitmentInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentFormInteractor;
@@ -19,6 +20,7 @@ use packages\Infrustructure\Recruitment\RecruitmentRepository;
 use packages\Infrustructure\User\UserRepository;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
 use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
+use packages\UseCase\MyPage\Account\AccountDetailUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\DetailRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormUseCaseInterface;
@@ -70,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DetailRecruitmentUseCaseInterface::class, DetailRecruitmentInteractor::class);
         $this->app->bind(JoinRecruitmentUseCaseInterface::class, JoinRecruitmentInteractor::class);
         $this->app->bind(UserProfileUseCaseInterface::class, UserProfileInteractor::class);
+        $this->app->bind(AccountDetailUseCaseInterface::class, AccountDetailInteractor::class);
 
         // Repository
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);

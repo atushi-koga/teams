@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers\MyPage;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use packages\Domain\Domain\User\AccountDetail;
+use packages\UseCase\MyPage\Account\AccountDetailRequest;
+use packages\UseCase\MyPage\Account\AccountDetailUseCaseInterface;
 
 class AccountController extends Controller
 {
     /**
      * ログインユーザの情報を表示
      *
+     * @param AccountDetailUseCaseInterface $interactor
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function detail()
+    public function detail(AccountDetailUseCaseInterface $interactor)
     {
+        $request = new AccountDetailRequest(Auth::id());
+        /** @var AccountDetail $res */
+        $res = $interactor->handle($request);
 
-
-        return view('my_page.account.detail');
+        return view('my_page.account.detail', compact('res'));
     }
 
     /**

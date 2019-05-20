@@ -2,6 +2,7 @@
 
 namespace packages\Domain\Domain\User;
 
+use packages\UseCase\MyPage\Account\AccountDetailRequest;
 use packages\UseCase\MyPage\User\UserProfileRequest;
 
 interface UserRepositoryInterface
@@ -13,9 +14,8 @@ interface UserRepositoryInterface
     public function create(User $user);
 
     /**
-     * @param UserProfileRequest $request
+     * @param int $request
      * @return User
      */
-    public function profile(UserProfileRequest $request);
-
+    public function find(int $request);
 }

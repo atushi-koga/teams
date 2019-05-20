@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace packages\Domain\Application\MyPage;
 
-use packages\Domain\Domain\User\OpenUserInfo;
+use packages\Domain\Domain\User\AccountDetail;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserRepositoryInterface;
-use packages\UseCase\MyPage\User\UserProfileRequest;
-use packages\UseCase\MyPage\User\UserProfileUseCaseInterface;
+use packages\UseCase\MyPage\Account\AccountDetailRequest;
+use packages\UseCase\MyPage\Account\AccountDetailUseCaseInterface;
 
-class UserProfileInteractor implements UserProfileUseCaseInterface
+class AccountDetailInteractor implements AccountDetailUseCaseInterface
 {
     /** @var UserRepositoryInterface */
     private $userRepository;
@@ -24,11 +24,15 @@ class UserProfileInteractor implements UserProfileUseCaseInterface
         $this->userRepository = $userRepository;
     }
 
-    public function handle(UserProfileRequest $request): OpenUserInfo
+    /**
+     * @param AccountDetailRequest $request
+     * @return AccountDetail
+     */
+    public function handle(AccountDetailRequest $request)
     {
         /** @var User $user */
         $user = $this->userRepository->find($request->getUserId());
 
-        return OpenUserInfo::of($user);
+        return new AccountDetail($user);
     }
 }
