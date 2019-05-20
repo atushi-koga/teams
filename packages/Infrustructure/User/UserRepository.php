@@ -5,11 +5,9 @@ namespace packages\Infrustructure\User;
 
 use App\Eloquent\EloquentUser;
 use Carbon\Carbon;
-use packages\Domain\Domain\User\Password;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserRepositoryInterface;
-use packages\UseCase\MyPage\Account\AccountDetailRequest;
-use packages\UseCase\MyPage\User\UserProfileRequest;
+use packages\UseCase\MyPage\Account\AccountEditRequest;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -57,5 +55,17 @@ class UserRepository implements UserRepositoryInterface
     {
         return EloquentUser::query()
             ->findOrFail($userId);
+    }
+
+    public function edit(AccountEditRequest $request): void
+    {
+        EloquentUser::query()
+            ->findOrFail($request->getUserId())
+            ->update([
+                'nickname'   => $request->getNickname(),
+                'prefecture' => $request->getPrefectureKey(),
+                'email'      => $request->getEmail(),
+                'password'   => $request->getHashPass()
+            ]);
     }
 }

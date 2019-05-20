@@ -40,10 +40,14 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'account'], function(){
         Route::get('/', 'MyPage\AccountController@detail')
              ->name('account.detail');
-        Route::get('edit', 'MyPage\AccountController@shoEditForm')
-             ->name('account.shoEditForm');
-        Route::post('edit', 'MyPage\AccountController@edit')
-             ->name('account.edit');
+        Route::group(['prefix' => 'edit'], function(){
+            Route::get('/', 'MyPage\AccountController@shoEditForm')
+                ->name('account.shoEditForm');
+            Route::post('/', 'MyPage\AccountController@edit')
+                ->name('account.edit');
+            Route::get('/finish', 'MyPage\AccountController@showEditFinish')
+                ->name('account.showEditFinish');
+        });
     });
 
     /**

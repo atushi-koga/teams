@@ -16,7 +16,7 @@
           <img src="/Penguins.jpg" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
         </div>
         <div>
-          <div class="font24">{{ $res->getNickname() }}</div>
+          <div class="font18">{{ $res->getNickname() }}</div>
           <div class="font16">{{ $res->getGenderValue() }}</div>
           <div class="font16">{{ $res->getUserAge() }}歳</div>
         </div>
@@ -24,6 +24,13 @@
       <div class="mt20">
         はじめまして。田中と申します。
         宜しくお願いします。
+      </div>
+    </div>
+    <div class="form-group row mb-0">
+      <div class="col-md-6 offset-md-4">
+        <a href="{{ route('account.shoEditForm') }}" class="btn green">
+          編集する
+        </a>
       </div>
     </div>
   </div>

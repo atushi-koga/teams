@@ -3,6 +3,7 @@
 namespace packages\Domain\Domain\User;
 
 use packages\UseCase\MyPage\Account\AccountDetailRequest;
+use packages\UseCase\MyPage\Account\AccountEditRequest;
 use packages\UseCase\MyPage\User\UserProfileRequest;
 
 interface UserRepositoryInterface
@@ -18,4 +19,10 @@ interface UserRepositoryInterface
      * @return User
      */
     public function find(int $request);
+
+    /**
+     * @param AccountEditRequest $request
+     * @return void
+     */
+    public function edit(AccountEditRequest $request);
 }
