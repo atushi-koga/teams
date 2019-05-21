@@ -78,6 +78,6 @@ class AccountController extends Controller
 
     public function showEditFinish()
     {
-        return view('');
+        return view('my_page.account.edit_finish');
     }
 }
