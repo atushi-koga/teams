@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace packages\Domain\Domain\Recruitment;
 
+use Carbon\Carbon;
 use packages\Domain\Domain\User\OpenUserInfo;
 
 class DetailRecruitment
@@ -22,10 +23,10 @@ class DetailRecruitment
     /**
      * DetailRecruitment constructor.
      *
-     * @param Recruitment  $recruitment
-     * @param OpenUserInfo $createUserInfo
-     * @param int          $browsingUserId
-     * @param array        $participantInfoList
+     * @param Recruitment    $recruitment
+     * @param OpenUserInfo   $createUserInfo
+     * @param int            $browsingUserId
+     * @param OpenUserInfo[] $participantInfoList
      */
     public function __construct(
         Recruitment $recruitment,
@@ -49,9 +50,19 @@ class DetailRecruitment
         );
     }
 
+    public function getRecruitmentId(): int
+    {
+        return $this->recruitment->getId();
+    }
+
     public function getTitle(): string
     {
         return $this->recruitment->getTitle();
+    }
+
+    public function getMount(): string
+    {
+        return $this->recruitment->getMount();
     }
 
     public function getCapacity(): int
@@ -109,6 +120,16 @@ class DetailRecruitment
         return "{$year}/{$date}";
     }
 
+    public function getDeadlineDay(): string
+    {
+        $year = $this->recruitment->getDeadline()
+                                  ->getYear();
+        $date = $this->recruitment->getDeadline()
+                                  ->getDateWithDayOfWeek();
+
+        return "{$year}/{$date}";
+    }
+
     public function getHeldPrefecture(): string
     {
         return $this->recruitment->getPrefectureValue();
@@ -124,9 +145,55 @@ class DetailRecruitment
         return $this->browsingUserId;
     }
 
+    /**
+     * 募集締め切りの翌日以降かどうかを判定
+     *
+     * @return bool
+     */
+    public function afterDeadline(): bool
+    {
+        $deadline = $this->recruitment->getDeadline()
+                                      ->getValue();
+
+        return Carbon::today()
+                     ->gt($deadline);
+    }
+
     public function browsingUserIsCreateUser(): bool
     {
         return $this->browsingUserId === $this->getCreateUserId();
     }
 
+    /**
+     * 閲覧ユーザが既に参加申込済みかどうかを判定
+     *
+     * @return bool
+     */
+    public function haveEntry(): bool
+    {
+        foreach ($this->participantInfoList as $openUserInfo) {
+            if ($openUserInfo->getUserId() === $this->getBrowsingUserId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 参加申込可能かどうかを判定
+     *
+     * @return bool
+     */
+    public function canJoin(): bool
+    {
+        if (!$this->afterDeadline()
+            && !$this->browsingUserIsCreateUser()
+            && !$this->haveEntry()
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

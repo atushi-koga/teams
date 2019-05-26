@@ -22,10 +22,11 @@ class Date
         $this->value = $value;
     }
 
-    /**
-     * @param string $value
-     * @return Date
-     */
+    public function getValue(): Carbon
+    {
+        return $this->value;
+    }
+
     public static function ofFormatDate(string $value): self
     {
         //@todo: 日付形式が無効であればthrow exceptionとする

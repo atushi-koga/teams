@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\EloquentUser;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\UseCase\Top\DetailRecruitmentRequest;
@@ -39,7 +40,7 @@ class TopController extends Controller
         $browsingUserId = Auth::id() ?? null;
         $request        = new DetailRecruitmentRequest($id, $browsingUserId);
 
-        /** @var DetailRecruitment $response */
+        /** @var DetailRecruitment $res */
         $res = $interactor->handle($request);
 
         return view('detail_recruitment.index', compact('res'));

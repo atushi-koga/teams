@@ -27,6 +27,8 @@
     <div class="content-detail">{{ $res->getSchedule() }}</div>
     <div class="content-item">活動日程</div>
     <div class="content-detail">{{ $res->getHeldDay() }}</div>
+    <div class="content-item">募集締め切り</div>
+    <div class="content-detail">{{ $res->getDeadlineDay() }}</div>
     <div class="content-item">対象者</div>
     <div class="content-detail">{{ $res->getRequirement() }}</div>
     @if(!empty($res->getBelongings))
@@ -37,19 +39,24 @@
       <div class="content-item">ご参加にあたってのお願い</div>
       <div class="content-detail">{{ $res->getNotes() }}</div>
     @endif
-    <div class="mt20 ac">
-      @if($res->browsingUserIsCreateUser())
+
+    @if($res->afterDeadline())
+      <div class="mt20 ac">
+        <div class="btn black">募集を終了しました</div>
+      </div>
+    @elseif($res->browsingUserIsCreateUser())
+      <div class="mt20 ac">
         <a href="" class="btn btn-primary">編集する</a>
-      @else
-        {{--未申込の場合--}}
-        <a href="" class="btn green">参加する</a>
-      @endif
-      {{--申込済みの場合--}}
-      {{--はいを選択すると、キャンセルしましたの文言を確認ダイアログ上に表示しページを再読み込みする。--}}
-      {{--<a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>--}}
-      {{--開催日を過ぎた場合--}}
-      {{--<div class="btn black">本イベントは終了しました</div>--}}
-    </div>
+      </div>
+    @elseif($res->haveEntry())
+      <div class="mt20 ac">
+        <a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>
+      </div>
+    @else
+      <div class="mt20 ac">
+        <a href="{{ route('attend-recruitment.showConf', ['id' => $res->getRecruitmentId() ]) }}" class="btn green">参加する</a>
+      </div>
+    @endif
   </div>
   <div class="col-sm-4">
     <div class="event-aside">
@@ -62,19 +69,30 @@
         <p class="mb-0 font18">{{ $res->getHeldDay() }}</p>
         <p class="mb-0 font16">13:00～18:00</p>
       </div>
-      <div class="ac">
-        @if($res->browsingUserIsCreateUser())
+      @if($res->afterDeadline())
+        <div class="ac">
+          <div class="btn black">募集を終了しました</div>
+        </div>
+      @elseif($res->browsingUserIsCreateUser())
+        <div class="ac">
           <a href="" class="btn btn-primary">編集する</a>
-        @else
-          {{--未申込の場合--}}
-          <a href="" class="btn green">参加する</a>
-        @endif
-      </div>
+        </div>
+      @elseif($res->haveEntry())
+        <div class="ac">
+          <a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>
+        </div>
+      @else
+        <div class="ac">
+          <a href="{{ route('attend-recruitment.showConf', ['id' => $res->getRecruitmentId() ]) }}" class="btn green">参加する</a>
+        </div>
+      @endif
     </div>
     <div class="event-aside">
       <h2 class="event-aside-header mb-0">参加者（{{ $res->getEntryCount() }}人）</h2>
       @foreach($res->getParticipantInfoList() as $userInfo)
-        <div class="event-aside-body"><a href="{{ route('user.profile', ['id' => $userInfo->getUserId()]) }}" class="txt-black txt-underline">{{ $userInfo->getNickname() }} さん</a></div>
+        <div class="event-aside-body">
+          <a href="{{ route('user.profile', ['id' => $userInfo->getUserId()]) }}" class="txt-black txt-underline">{{ $userInfo->getNickname() }} さん</a>
+        </div>
       @endforeach
     </div>
   </div>
