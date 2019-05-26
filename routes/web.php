@@ -2,6 +2,8 @@
 
 Route::get('/', 'TopController@showTop')
      ->name('top');
+Route::get('/recruitment/{id}', 'TopController@detailRecruitment')
+     ->name('detail-recruitment');
 
 /**
  * 新規会員登録
@@ -75,8 +77,6 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
      * 募集内容詳細、参加確認、参加完了
      */
     Route::group(['prefix' => 'recruitment/{id}'], function () {
-        Route::get('/', 'MyPage\DetailRecruitmentController@detail')
-             ->name('detail-recruitment.detail');
         Route::get('join', 'MyPage\JoinController@showConf')
              ->name('attend-recruitment.showConf');
         Route::post('join', 'MyPage\JoinController@join')

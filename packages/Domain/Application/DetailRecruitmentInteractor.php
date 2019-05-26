@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace packages\Domain\Application\MyPage;
+namespace packages\Domain\Application;
 
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentUseCaseInterface;
+use packages\UseCase\Top\DetailRecruitmentRequest;
+use packages\UseCase\Top\DetailRecruitmentUseCaseInterface;
 
 class DetailRecruitmentInteractor implements DetailRecruitmentUseCaseInterface
 {

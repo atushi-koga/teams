@@ -13,8 +13,8 @@ class DetailRecruitment
     /** @var OpenUserInfo */
     private $createUserInfo;
 
-    /** @var int */
-    private $browsing_user_id;
+    /** @var int|null */
+    private $browsingUserId;
 
     /** @var OpenUserInfo[] */
     private $participantInfoList;
@@ -24,18 +24,18 @@ class DetailRecruitment
      *
      * @param Recruitment  $recruitment
      * @param OpenUserInfo $createUserInfo
-     * @param int          $browsing_user_id
+     * @param int          $browsingUserId
      * @param array        $participantInfoList
      */
     public function __construct(
         Recruitment $recruitment,
         OpenUserInfo $createUserInfo,
-        int $browsing_user_id,
+        ?int $browsingUserId,
         array $participantInfoList)
     {
         $this->recruitment         = $recruitment;
         $this->createUserInfo      = $createUserInfo;
-        $this->browsing_user_id    = $browsing_user_id;
+        $this->browsingUserId      = $browsingUserId;
         $this->participantInfoList = $participantInfoList;
     }
 
@@ -44,7 +44,7 @@ class DetailRecruitment
         return new self(
             $attributes['recruitment'],
             $attributes['createUserInfo'],
-            $attributes['browsing_user_id'],
+            $attributes['browsingUserId'],
             $attributes['participantInfoList']
         );
     }
@@ -72,7 +72,7 @@ class DetailRecruitment
     public function getHeldDate(): string
     {
         return $this->recruitment->getDate()
-            ->getDateWithDayOfWeek();
+                                 ->getDateWithDayOfWeek();
     }
 
     public function getRequirement(): string
@@ -103,7 +103,7 @@ class DetailRecruitment
     public function getHeldDay(): string
     {
         $year = $this->recruitment->getDate()
-            ->getYear();
+                                  ->getYear();
         $date = $this->getHeldDate();
 
         return "{$year}/{$date}";
@@ -119,14 +119,14 @@ class DetailRecruitment
         return $this->participantInfoList;
     }
 
-    public function getBrowsingUserId(): int
+    public function getBrowsingUserId(): ?int
     {
-        return $this->browsing_user_id;
+        return $this->browsingUserId;
     }
 
     public function browsingUserIsCreateUser(): bool
     {
-        return $this->browsing_user_id === $this->getCreateUserId();
+        return $this->browsingUserId === $this->getCreateUserId();
     }
 
 }

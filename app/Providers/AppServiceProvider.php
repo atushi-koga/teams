@@ -7,10 +7,10 @@ use Blade;
 use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
+use packages\Domain\Application\DetailRecruitmentInteractor;
 use packages\Domain\Application\MyPage\AccountDetailInteractor;
 use packages\Domain\Application\MyPage\AccountEditInteractor;
 use packages\Domain\Application\MyPage\ShowAccountEditInteractor;
-use packages\Domain\Application\MyPage\DetailRecruitmentInteractor;
 use packages\Domain\Application\MyPage\JoinRecruitmentInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentFormInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentInteractor;
@@ -25,11 +25,11 @@ use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
 use packages\UseCase\MyPage\Account\AccountDetailUseCaseInterface;
 use packages\UseCase\MyPage\Account\AccountEditUseCaseInterface;
 use packages\UseCase\MyPage\Account\ShowAccountEditUseCaseInterface;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\User\UserProfileUseCaseInterface;
+use packages\UseCase\Top\DetailRecruitmentUseCaseInterface;
 use packages\UseCase\Top\ShowTopUseCaseInterface;
 
 class AppServiceProvider extends ServiceProvider

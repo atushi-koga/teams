@@ -15,7 +15,7 @@ use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\UserStatus;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
+use packages\UseCase\Top\DetailRecruitmentRequest;
 
 class RecruitmentRepository implements RecruitmentRepositoryInterface
 {
@@ -103,8 +103,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     {
         /** @var EloquentRecruitment $recruitmentRecord */
         $recruitmentRecord = EloquentRecruitment::query()
-                                                ->whereGenderAndAgeLimit($request->browsingRestriction)
-                                                ->findOrFail($request->recruitment_id);
+                                                ->findOrFail($request->getRecruitmentId());
 
         $recruitment = $recruitmentRecord->toModel();
         $recruitment->setId($recruitmentRecord->id);
@@ -129,7 +128,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         $detailRecruitment = new DetailRecruitment(
             $recruitment,
             $createUserInfo,
-            $request->browsing_user_id,
+            $request->getBrowsingUserId(),
             $participantInfoList
         );
 

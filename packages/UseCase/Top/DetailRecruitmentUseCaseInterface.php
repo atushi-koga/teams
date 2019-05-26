@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace packages\UseCase\MyPage\Recruitment;
+namespace packages\UseCase\Top;
 
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
-use packages\Domain\Domain\Recruitment\Recruitment;
 
 interface DetailRecruitmentUseCaseInterface
 {

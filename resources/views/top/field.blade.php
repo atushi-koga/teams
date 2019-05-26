@@ -14,14 +14,14 @@
       </div>
       <div class="recruitment-info">
         <div class="recruitment-image-box">
-          <a href="{{ route('detail-recruitment.detail', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/test_img.png"></a>
+          <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/test_img.png"></a>
         </div>
         <div class="recruitment-outline">
           <div class="area">
             <span class="label-area">{{ $topRec->getHeldPrefecture() }}</span>
           </div>
           <div class="recruitment-title">
-            <a href="{{ route('detail-recruitment.detail', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link">{{ $topRec->getTitle() }}</a>
+            <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link">{{ $topRec->getTitle() }}</a>
           </div>
           <div class="mount">{{ $topRec->getMount() }}</div>
         </div>

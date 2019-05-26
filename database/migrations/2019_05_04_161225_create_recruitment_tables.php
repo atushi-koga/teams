@@ -42,8 +42,7 @@ class CreateRecruitmentTables extends Migration
             $table->integer('create_id');
             $table->integer('update_id')
                   ->nullable();
-        }
-        );
+        });
     }
 
     /**
