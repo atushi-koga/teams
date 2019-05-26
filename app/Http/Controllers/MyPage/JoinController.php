@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\UseCase\MyPage\Recruitment\JoinConfUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
 class JoinController extends Controller
@@ -14,14 +17,14 @@ class JoinController extends Controller
     /**
      * 参加申込の確認画面を表示
      *
-     * @param int                      $id
+     * @param                          $id
      * @param JoinConfUseCaseInterface $interactor
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showConf($id, JoinConfUseCaseInterface $interactor)
     {
         $browsingUserId = Auth::id();
-        $request        = new DetailRecruitmentRequest($id, $browsingUserId);
+        $request        = new DetailRecruitmentRequest(intval($id), $browsingUserId);
 
         /** @var DetailRecruitment $res */
         $res = $interactor->handle($request);
@@ -32,20 +35,27 @@ class JoinController extends Controller
     /**
      * 参加申込処理
      *
-     * @param int $id
+     * @param                                 $id
+     * @param JoinRecruitmentUseCaseInterface $interactor
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function join($id)
+    public function join($id, JoinRecruitmentUseCaseInterface $interactor)
     {
-        dd('join request');
-        // 登録処理
+        $browsingUserId = Auth::id();
+        $request        = new DetailRecruitmentRequest(intval($id), $browsingUserId);
+        $interactor->handle($request);
 
-        // 完了後リダイレクト
-        return redirect(route('attend-recruitment.finish'));
+        return redirect(route('attend-recruitment.finish', ['id' => $request->getRecruitmentId()]));
     }
 
-    public function showFinish()
+    public function showFinish($id, JoinFinishUseCaseInterface $interactor)
     {
-        return view('my_page.attend_recruitment.finish');
+        $browsingUserId = Auth::id();
+        $request        = new DetailRecruitmentRequest(intval($id), $browsingUserId);
+
+        /** @var DetailRecruitment $res */
+        $res = $interactor->handle($request);
+
+        return view('my_page.attend_recruitment.finish', compact('res'));
     }
 }

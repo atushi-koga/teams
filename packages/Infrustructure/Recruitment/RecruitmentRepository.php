@@ -15,6 +15,7 @@ use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\UserStatus;
+use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
 class RecruitmentRepository implements RecruitmentRepositoryInterface
@@ -95,10 +96,6 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         return $topRecruitments;
     }
 
-    /**
-     * @param DetailRecruitmentRequest $request
-     * @return DetailRecruitment
-     */
     public function detail(DetailRecruitmentRequest $request): DetailRecruitment
     {
         /** @var EloquentRecruitment $recruitmentRecord */
@@ -133,5 +130,17 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         );
 
         return $detailRecruitment;
+    }
+
+    public function join(JoinRecruitmentRequest $request): void
+    {
+        EloquentUsersRecruitment::query()
+                                ->create([
+                                    'user_id'        => $request->getUserId(),
+                                    'recruitment_id' => $request->getRecruitmentId(),
+                                    'is_accepted'    => false,
+                                    'user_status'    => UserStatus::PARTICIPANT_STATUS,
+                                    'created_at'     => Carbon::now(),
+                                ]);
     }
 }

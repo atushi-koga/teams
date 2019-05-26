@@ -13,8 +13,7 @@ class CreateUsersRecruitmentTables extends Migration
      */
     public function up()
     {
-        Schema::create(
-            'users_recruitment', function (Blueprint $table) {
+        Schema::create('users_recruitment', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('recruitment_id');
@@ -31,8 +30,9 @@ class CreateUsersRecruitmentTables extends Migration
             $table->foreign('recruitment_id')
                   ->references('id')
                   ->on('recruitment');
-        }
-        );
+//
+//            $table->unique(['user_id', 'recruitment_id']);
+        });
     }
 
     /**

@@ -5,14 +5,25 @@ namespace packages\UseCase\MyPage\Recruitment;
 
 class JoinRecruitmentRequest
 {
-    public $user_id;
+    /** @var int $userId */
+    private $userId;
 
-    public $recruitment_id;
+    /** @var int $recruitmentId */
+    private $recruitmentId;
 
-
-    public function __construct(int $user_id, int $recruitment_id)
+    public function __construct(int $userId, int $recruitmentId)
     {
-        $this->user_id        = $user_id;
-        $this->recruitment_id = $recruitment_id;
+        $this->userId        = $userId;
+        $this->recruitmentId = $recruitmentId;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    public function getRecruitmentId(): int
+    {
+        return $this->recruitmentId;
     }
 }

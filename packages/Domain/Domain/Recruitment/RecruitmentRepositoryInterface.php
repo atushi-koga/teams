@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace packages\Domain\Domain\Recruitment;
 
 
+use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
 interface RecruitmentRepositoryInterface
@@ -25,4 +26,9 @@ interface RecruitmentRepositoryInterface
      */
     public function detail(DetailRecruitmentRequest $request);
 
+    /**
+     * @param JoinRecruitmentRequest $request
+     * @return void
+     */
+    public function join(JoinRecruitmentRequest $request);
 }

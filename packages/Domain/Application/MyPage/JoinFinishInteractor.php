@@ -5,10 +5,10 @@ namespace packages\Domain\Application;
 
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
-use packages\UseCase\MyPage\Recruitment\JoinConfUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
-class JoinConfInteractor implements JoinConfUseCaseInterface
+class JoinFinishInteractor implements JoinFinishUseCaseInterface
 {
     /** @var RecruitmentRepositoryInterface */
     private $recruitmentRepository;
