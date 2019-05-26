@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace packages\UseCase\MyPage\Top;
+namespace packages\UseCase\Top;
 
 use packages\Domain\Domain\Recruitment\TopRecruitment;
 
