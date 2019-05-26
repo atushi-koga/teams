@@ -50,7 +50,10 @@
       </div>
     @elseif($res->haveEntry())
       <div class="mt20 ac">
-        <a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>
+        <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $res->getRecruitmentId()]) }}"
+                data-recruitment-id="{{ $res->getRecruitmentId() }}">
+          キャンセルする
+        </button>
       </div>
     @else
       <div class="mt20 ac">
@@ -79,7 +82,10 @@
         </div>
       @elseif($res->haveEntry())
         <div class="ac">
-          <a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>
+          <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $res->getRecruitmentId()]) }}"
+                  data-recruitment-id="{{ $res->getRecruitmentId() }}">
+            キャンセルする
+          </button>
         </div>
       @else
         <div class="ac">

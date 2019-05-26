@@ -29,14 +29,16 @@
                 <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" class="link">{{ $topRec->getTitle() }}</a>
               </div>
               <div class="mount">{{ $topRec->getMount() }}</div>
-              {{--はいを選択すると、キャンセルしましたの文言を確認ダイアログ上に表示しページを再読み込みする。--}}
               @if($topRec->afterDeadline())
                 <div class="mt15">
                   <div class="btn black">本イベントは終了しました</div>
                 </div>
               @else
                 <div class="mt15">
-                  <a href="" class="btn dark" onclick="confirm('参加申込をキャンセルします。よろしいですか？')">キャンセルする</a>
+                  <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $topRec->getRecruitmentId()]) }}"
+                          data-recruitment-id="{{ $topRec->getRecruitmentId() }}">
+                    キャンセルする
+                  </button>
                 </div>
               @endif
             </div>

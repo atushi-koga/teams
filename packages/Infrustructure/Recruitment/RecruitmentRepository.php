@@ -12,6 +12,7 @@ use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\Recruitment\TopRecruitment;
+use packages\Domain\Domain\Recruitment\UserRecruitment;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\UserId;
@@ -186,5 +187,35 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $attendList;
+    }
+
+    /**
+     * @param UserRecruitment $userRecruitment
+     * @return null|Recruitment
+     */
+    public function findAttend(UserRecruitment $userRecruitment): ?Recruitment
+    {
+        $EloquentUserRec = EloquentUsersRecruitment::query()
+                                                   ->where('user_id', $userRecruitment->getUserId())
+                                                   ->where('recruitment_id', $userRecruitment->getRecruitmentId())
+                                                   ->first();
+
+        if ($EloquentUserRec) {
+            $EloquentRec = $EloquentUserRec->recruitment;
+            $recruitment = $EloquentRec->toModel();
+            $recruitment->setId($EloquentRec->id);
+
+            return $recruitment;
+        } else {
+            return null;
+        }
+    }
+
+    public function cancel(UserRecruitment $userRecruitment): void
+    {
+        EloquentUsersRecruitment::query()
+                                ->where('user_id', $userRecruitment->getUserId())
+                                ->where('recruitment_id', $userRecruitment->getRecruitmentId())
+                                ->delete();
     }
 }

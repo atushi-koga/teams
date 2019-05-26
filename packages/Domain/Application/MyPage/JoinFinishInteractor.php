@@ -31,10 +31,6 @@ class JoinFinishInteractor implements JoinFinishUseCaseInterface
     {
         $detailRecruitment = $this->recruitmentRepository->detail($request);
 
-        if ($detailRecruitment->canJoin()) {
-            return $detailRecruitment;
-        }
-
-        abort(404);
+        return $detailRecruitment;
     }
 }

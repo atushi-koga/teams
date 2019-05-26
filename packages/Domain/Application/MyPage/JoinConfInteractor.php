@@ -25,16 +25,16 @@ class JoinConfInteractor implements JoinConfUseCaseInterface
 
     /**
      * @param DetailRecruitmentRequest $request
-     * @return DetailRecruitment
+     * @return DetailRecruitment|null
      */
-    public function handle(DetailRecruitmentRequest $request): DetailRecruitment
+    public function handle(DetailRecruitmentRequest $request): ?DetailRecruitment
     {
         $detailRecruitment = $this->recruitmentRepository->detail($request);
 
         if ($detailRecruitment->canJoin()) {
             return $detailRecruitment;
+        } else {
+            return null;
         }
-
-        abort(404);
     }
 }

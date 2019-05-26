@@ -38,4 +38,16 @@ interface RecruitmentRepositoryInterface
      * @return TopRecruitment[]
      */
     public function attendList(UserId $userId);
+
+    /**
+     * @param UserRecruitment $userRecruitment
+     * @return null|Recruitment
+     */
+    public function findAttend(UserRecruitment $userRecruitment);
+
+    /**
+     * @param UserRecruitment $userRecruitment
+     * @return void
+     */
+    public function cancel(UserRecruitment $userRecruitment);
 }
