@@ -13,8 +13,7 @@ class CreateRecruitmentTables extends Migration
      */
     public function up()
     {
-        Schema::create(
-            'recruitment', function (Blueprint $table) {
+        Schema::create('recruitment', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 100);
             $table->string('mount', 100);
@@ -24,6 +23,10 @@ class CreateRecruitmentTables extends Migration
             $table->integer('capacity');
             $table->date('deadline');
             $table->text('requirement')
+                  ->nullable();
+            $table->text('belongings')
+                  ->nullable();
+            $table->text('notes')
                   ->nullable();
             $table->text('image_path')
                   ->nullable();

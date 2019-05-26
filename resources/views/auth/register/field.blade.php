@@ -15,7 +15,9 @@
         @foreach($response->prefectures as $key => $value)
           <option value="{{ $key }}" @if(old('prefecture') == $key) selected @endif>{{ $value }}</option>
         @endforeach
-      </select> @error('prefecture')
+      </select>
+
+      @error('prefecture')
     </div>
   </div>
 
@@ -27,7 +29,9 @@
         @foreach($response->genders as $key => $value)
           <option value="{{ $key }}" @if(old('gender') == $key) selected @endif>{{ $value }}</option>
         @endforeach
-      </select> @error('gender')
+      </select>
+
+      @error('gender')
     </div>
   </div>
 

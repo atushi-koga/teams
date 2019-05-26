@@ -2,7 +2,7 @@
 php artisan config:clear
 php artisan view:clear
 php artisan route:clear
-git pull --no-ff --no-edit origin staging
+git pull --rebase origin master
 composer install --no-dev
 php artisan migrate
 php artisan config:cache

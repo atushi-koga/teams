@@ -35,14 +35,15 @@ class RegisterUserInteractorTest extends TestCase
         $repository = new UserRepository();
         $interactor = new RegisterUserInteractor($repository);
 
-        $user = new User(
-            'user test',
-            Prefecture::of(1),
-            Gender::of(2),
-            BirthDay::assemble('2000', '01', '11'),
-            Email::of('test@gmail.com'),
-            Password::ofRowPassword('1234abcd')
-        );
+        $request = [
+            'nickname'   => 'user test',
+            'prefecture' => '1',
+            'gender'     => '2',
+            'birthday'   => '2000-01-11',
+            'email'      => 'test@gmail.com',
+        ];
+        $user    = User::ofByArray($request);
+        $user->setPassword(Password::ofRowPassword('1234abcd'));
 
         $createdUser = $interactor->handle($user);
 

@@ -5,13 +5,9 @@ namespace packages\Infrustructure\User;
 
 use App\Eloquent\EloquentUser;
 use Carbon\Carbon;
-use packages\Domain\Domain\Common\Prefecture;
-use packages\Domain\Domain\User\BirthDay;
-use packages\Domain\Domain\User\Email;
-use packages\Domain\Domain\User\Gender;
-use packages\Domain\Domain\User\Password;
 use packages\Domain\Domain\User\User;
 use packages\Domain\Domain\User\UserRepositoryInterface;
+use packages\UseCase\MyPage\Account\AccountEditRequest;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -24,29 +20,52 @@ class UserRepository implements UserRepositoryInterface
      */
     public function create(User $user): User
     {
+        /** @var EloquentUser $record */
         $record = EloquentUser::query()
-                              ->create(
-                                  [
-                                      'nickname'   => $user->getNickName(),
-                                      'gender'     => $user->getGenderKey(),
-                                      'prefecture' => $user->getPrefectureKey(),
-                                      'birthday'   => $user->getBirthDate(),
-                                      'email'      => $user->getEmail(),
-                                      'password'   => $user->getPassword(),
-                                      'created_at' => Carbon::now(),
-                                  ]
-                              );
+            ->create([
+                'nickname'   => $user->getNickName(),
+                'gender'     => $user->getGenderKey(),
+                'prefecture' => $user->getPrefectureKey(),
+                'birthday'   => $user->getBirthDate(),
+                'email'      => $user->getEmail(),
+                'password'   => $user->getPassword(),
+                'created_at' => Carbon::now(),
+            ]);
 
-        $created_user = new User(
-            $record->nickname,
-            Prefecture::of($record->prefecture),
-            Gender::of($record->gender),
-            BirthDay::of($record->birthday),
-            Email::of($record->email),
-            Password::of($record->password)
-        );
-        $created_user->setId($record->id);
+        return $record->toModel();
+    }
 
-        return $created_user;
+    /**
+     * @param int $userId
+     * @return User
+     */
+    public function find(int $userId): User
+    {
+        /** @var EloquentUser $record */
+        $record = $this->findOrFail($userId);
+
+        return $record->toModel();
+    }
+
+    /**
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|static|static[]
+     */
+    public function findOrFail(int $userId)
+    {
+        return EloquentUser::query()
+            ->findOrFail($userId);
+    }
+
+    public function edit(AccountEditRequest $request): void
+    {
+        EloquentUser::query()
+            ->findOrFail($request->getUserId())
+            ->update([
+                'nickname'   => $request->getNickname(),
+                'prefecture' => $request->getPrefectureKey(),
+                'email'      => $request->getEmail(),
+                'password'   => $request->getHashPass()
+            ]);
     }
 }

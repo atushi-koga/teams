@@ -3,17 +3,20 @@ declare(strict_types=1);
 
 namespace packages\UseCase\MyPage\Top;
 
+use packages\Domain\Domain\Recruitment\TopRecruitment;
+
 class ShowTopResponse
 {
+    /** @var TopRecruitment[]  */
     public $recruitment;
 
     /**
      * ShowTopResponse constructor.
      *
-     * @param array $recruitmentList
+     * @param TopRecruitment[] $topRecruitments
      */
-    public function __construct(array $recruitmentList)
+    public function __construct(array $topRecruitments)
     {
-        $this->recruitment = $recruitmentList;
+        $this->recruitment = $topRecruitments;
     }
 }

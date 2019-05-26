@@ -5,6 +5,7 @@ namespace packages\Domain\Application\MyPage;
 
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
+use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\UseCase\MyPage\Top\ShowTopResponse;
 use packages\UseCase\MyPage\Top\ShowTopUseCaseInterface;
@@ -25,9 +26,9 @@ class ShowTopInteractor implements ShowTopUseCaseInterface
      */
     public function handle(BrowsingRestriction $browsingRestriction): ShowTopResponse
     {
-        /** @var Recruitment[] $recruitmentList */
-        $recruitmentList = $this->recruitmentRepository->searchForTop($browsingRestriction);
+        /** @var TopRecruitment[] $recruitmentList */
+        $topRecruitments = $this->recruitmentRepository->searchForTop($browsingRestriction);
 
-        return new ShowTopResponse($recruitmentList);
+        return new ShowTopResponse($topRecruitments);
     }
 }

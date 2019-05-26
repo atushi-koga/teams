@@ -13,9 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::transaction(function(){
-            $this->call(UsersSeeder::class);
-            $this->call(UserRecruitmentSeeder::class);
-        });
+        if (!App::environment(['testing', 'production'])) {
+            DB::transaction(function () {
+                $this->call(UsersSeeder::class);
+                $this->call(UserRecruitmentSeeder::class);
+            });
+        }
     }
 }

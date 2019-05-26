@@ -19,7 +19,7 @@ class Age
     public function __construct(int $value)
     {
         if (!self::isValidateValue($value)) {
-            throw new InvalidArgumentException('class' . __CLASS__ . " key:{$key}");
+            throw new InvalidArgumentException('class' . __CLASS__ . " value:{$value}");
         }
 
         $this->value = $value;

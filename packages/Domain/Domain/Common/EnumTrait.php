@@ -32,13 +32,17 @@ trait EnumTrait
         $this->value = self::Enum()[$key];
     }
 
-    /**
-     * @param $key
-     * @return bool
-     */
     final public static function isValidateValue($key): bool
     {
-        return array_key_exists($key, self::Enum());
+        return self::existKeyStrictly($key);
+    }
+
+    final public static function existKeyStrictly($key): bool
+    {
+        // array_key_exists()では型チェックができないため、キーを取り出しin_array()を使用
+        $keys = array_keys(self::Enum());
+
+        return in_array($key, $keys, true);
     }
 
     /**

@@ -26,10 +26,10 @@ class TopController extends Controller
         /** @var EloquentUser $loginUser */
         $loginUser = Auth::user();
 
-        $browsingRestriction = BrowsingRestriction::of(
-            Age::of($loginUser->birthday->age),
-            Gender::of($loginUser->gender)
-        );
+        $browsingRestriction = BrowsingRestriction::ofByArray([
+            'age'    => $loginUser->birthday->age,
+            'gender' => $loginUser->gender
+        ]);
 
         /** @var ShowTopResponse $response */
         $response = $interactor->handle($browsingRestriction);
@@ -45,9 +45,11 @@ class TopController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::guard()->logout();
+        Auth::guard()
+            ->logout();
 
-        $request->session()->invalidate();
+        $request->session()
+            ->invalidate();
 
         return redirect(route('showLoginForm'));
     }

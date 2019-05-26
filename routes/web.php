@@ -35,15 +35,28 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
          ->name('my-page.logout');
 
     /**
-     * 会員情報詳細・編集
+     * アカウント情報詳細・編集
      */
-//    Route::group(['prefix' => ''], function(){
-//        Route::get('/', 'MyPage\Controller@detail')
-//             ->name('.detail');
-//        Route::post('edit', 'MyPage\Controller@edit')
-//             ->name('.edit');
-//    });
+    Route::group(['prefix' => 'account'], function(){
+        Route::get('/', 'MyPage\AccountController@detail')
+             ->name('account.detail');
+        Route::group(['prefix' => 'edit'], function(){
+            Route::get('/', 'MyPage\AccountController@shoEditForm')
+                ->name('account.shoEditForm');
+            Route::post('/', 'MyPage\AccountController@edit')
+                ->name('account.edit');
+            Route::get('/finish', 'MyPage\AccountController@showEditFinish')
+                ->name('account.showEditFinish');
+        });
+    });
 
+    /**
+     * ユーザ情報
+     */
+    Route::group(['prefix' => 'user/{id}'], function(){
+        Route::get('/', 'MyPage\UserController@profile')
+            ->name('user.profile');
+    });
     /**
      * 参加申込情報
      */

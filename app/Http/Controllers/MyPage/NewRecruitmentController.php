@@ -33,24 +33,14 @@ class NewRecruitmentController extends Controller
 
     public function create(NewRecruitmentFormRequest $request, NewRecruitmentUseCaseInterface $interactor)
     {
-        $userId = Auth::id();
+        $recruitment = Recruitment::ofByArray($request->all() + ['create_id' => Auth::id()]);
 
-        $recruitment = new Recruitment(
-            $request->title,
-            $request->mount,
-            Prefecture::of($request->prefecture),
-            $request->schedule,
-            Date::ofFormatDate($request->date),
-            Capacity::of(intval($request->capacity)),
-            Date::ofFormatDate($request->deadline),
-            $userId
-        );
+        /** @var Recruitment $newRecruitment */
+        $newRecruitment = $interactor->handle($recruitment);
 
-        $interactor->handle($recruitment);
-
-
-        // フラッシュメッセージを入れる
+        session()->flash('status', '新規募集を登録しました');
 
         // 詳細画面に戻る
+        return redirect(route('detail-recruitment.detail', ['id' => $newRecruitment->getId()]));
     }
 }
