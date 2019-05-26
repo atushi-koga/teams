@@ -5,6 +5,7 @@ namespace App\Providers;
 use App;
 use Blade;
 use Illuminate\Support\ServiceProvider;
+use packages\Domain\Application\AttendListInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
 use packages\Domain\Application\DetailRecruitmentInteractor;
@@ -27,6 +28,7 @@ use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
 use packages\UseCase\MyPage\Account\AccountDetailUseCaseInterface;
 use packages\UseCase\MyPage\Account\AccountEditUseCaseInterface;
 use packages\UseCase\MyPage\Account\ShowAccountEditUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\AttendListCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinConfUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
@@ -85,6 +87,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AccountEditUseCaseInterface::class, AccountEditInteractor::class);
         $this->app->bind(JoinConfUseCaseInterface::class, JoinConfInteractor::class);
         $this->app->bind(JoinFinishUseCaseInterface::class, JoinFinishInteractor::class);
+        $this->app->bind(AttendListCaseInterface::class, AttendListInteractor::class);
 
         // Repository
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);

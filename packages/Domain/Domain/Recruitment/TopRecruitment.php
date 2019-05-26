@@ -73,4 +73,10 @@ class TopRecruitment
     {
         return $this->recruitment->getEntryCount();
     }
+
+    public function afterDeadline(): bool
+    {
+        return $this->recruitment->getDeadline()
+                                 ->afterDeadline();
+    }
 }
