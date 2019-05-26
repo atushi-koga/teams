@@ -14,8 +14,8 @@ use packages\Domain\Application\MyPage\DetailRecruitmentInteractor;
 use packages\Domain\Application\MyPage\JoinRecruitmentInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentFormInteractor;
 use packages\Domain\Application\MyPage\NewRecruitmentInteractor;
-use packages\Domain\Application\MyPage\ShowTopInteractor;
 use packages\Domain\Application\MyPage\UserProfileInteractor;
+use packages\Domain\Application\ShowTopInteractor;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\User\UserRepositoryInterface;
 use packages\Infrustructure\Recruitment\RecruitmentRepository;
@@ -29,8 +29,8 @@ use packages\UseCase\MyPage\Recruitment\DetailRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentUseCaseInterface;
-use packages\UseCase\MyPage\Top\ShowTopUseCaseInterface;
 use packages\UseCase\MyPage\User\UserProfileUseCaseInterface;
+use packages\UseCase\Top\ShowTopUseCaseInterface;
 
 class AppServiceProvider extends ServiceProvider
 {

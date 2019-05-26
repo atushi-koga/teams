@@ -16,10 +16,9 @@ interface RecruitmentRepositoryInterface
     public function create(Recruitment $recruitment);
 
     /**
-     * @param BrowsingRestriction $criteria
      * @return Recruitment[]
      */
-    public function searchForTop(BrowsingRestriction $criteria);
+    public function searchForTop();
 
     /**
      * @param DetailRecruitmentRequest $request

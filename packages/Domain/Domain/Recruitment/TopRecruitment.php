@@ -35,13 +35,13 @@ class TopRecruitment
     public function getHeldYear(): int
     {
         return $this->recruitment->getDate()
-            ->getYear();
+                                 ->getYear();
     }
 
     public function getHeldDate(): string
     {
         return $this->recruitment->getDate()
-            ->getDateWithDayOfWeek();
+                                 ->getDateWithDayOfWeek();
     }
 
     public function getCreateUserNickname(): string
