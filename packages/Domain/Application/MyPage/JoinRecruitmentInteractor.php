@@ -3,20 +3,30 @@ declare(strict_types=1);
 
 namespace packages\Domain\Application\MyPage;
 
-use packages\Domain\Domain\Recruitment\UsersRecruitmentRepositoryInterface;
+use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
+use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
+use packages\UseCase\Top\DetailRecruitmentRequest;
 
 class JoinRecruitmentInteractor implements JoinRecruitmentUseCaseInterface
 {
-    
-    private $usersRecruitmentRepository;
+    /** @var RecruitmentRepositoryInterface $recruitmentRepository */
+    private $recruitmentRepository;
 
-    public function __construct(UsersRecruitmentRepositoryInterface $usersRecruitmentRepository)
+    public function __construct(RecruitmentRepositoryInterface $recruitmentRepository)
     {
-        $this->usersRecruitmentRepository = $usersRecruitmentRepository;
+        $this->recruitmentRepository = $recruitmentRepository;
     }
 
-    public function handle(int $id): void
+    public function handle(DetailRecruitmentRequest $request): void
     {
+        $detailRecruitment = $this->recruitmentRepository->detail($request);
+
+        if ($detailRecruitment->canJoin()) {
+            $joinReq = new JoinRecruitmentRequest($request->getBrowsingUserId(), $request->getRecruitmentId());
+            $this->recruitmentRepository->join($joinReq);
+        } else {
+            abort(404);
+        }
     }
 }

@@ -72,6 +72,6 @@ class OpenUserInfo
     public function getUserAge(): int
     {
         return $this->birthday->calculateAge()
-            ->getValue();
+                              ->getValue();
     }
 }

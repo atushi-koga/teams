@@ -2,6 +2,8 @@
 
 Route::get('/', 'TopController@showTop')
      ->name('top');
+Route::get('/recruitment/{id}', 'TopController@detailRecruitment')
+     ->name('detail-recruitment');
 
 /**
  * 新規会員登録
@@ -37,25 +39,25 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
     /**
      * アカウント情報詳細・編集
      */
-    Route::group(['prefix' => 'account'], function(){
+    Route::group(['prefix' => 'account'], function () {
         Route::get('/', 'MyPage\AccountController@detail')
              ->name('account.detail');
-        Route::group(['prefix' => 'edit'], function(){
+        Route::group(['prefix' => 'edit'], function () {
             Route::get('/', 'MyPage\AccountController@shoEditForm')
-                ->name('account.shoEditForm');
+                 ->name('account.shoEditForm');
             Route::post('/', 'MyPage\AccountController@edit')
-                ->name('account.edit');
+                 ->name('account.edit');
             Route::get('/finish', 'MyPage\AccountController@showEditFinish')
-                ->name('account.showEditFinish');
+                 ->name('account.showEditFinish');
         });
     });
 
     /**
      * ユーザ情報
      */
-    Route::group(['prefix' => 'user/{id}'], function(){
+    Route::group(['prefix' => 'user/{id}'], function () {
         Route::get('/', 'MyPage\UserController@profile')
-            ->name('user.profile');
+             ->name('user.profile');
     });
     /**
      * 参加申込情報
@@ -72,11 +74,9 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
              ->name('new-recruitment.create');
     });
     /**
-     * 募集内容詳細、参加確認、参加完了
+     * 参加確認、参加申込、参加完了
      */
     Route::group(['prefix' => 'recruitment/{id}'], function () {
-        Route::get('/', 'MyPage\DetailRecruitmentController@detail')
-             ->name('detail-recruitment.detail');
         Route::get('join', 'MyPage\JoinController@showConf')
              ->name('attend-recruitment.showConf');
         Route::post('join', 'MyPage\JoinController@join')

@@ -22,15 +22,15 @@ class UserRepository implements UserRepositoryInterface
     {
         /** @var EloquentUser $record */
         $record = EloquentUser::query()
-            ->create([
-                'nickname'   => $user->getNickName(),
-                'gender'     => $user->getGenderKey(),
-                'prefecture' => $user->getPrefectureKey(),
-                'birthday'   => $user->getBirthDate(),
-                'email'      => $user->getEmail(),
-                'password'   => $user->getPassword(),
-                'created_at' => Carbon::now(),
-            ]);
+                              ->create([
+                                  'nickname'   => $user->getNickName(),
+                                  'gender'     => $user->getGenderKey(),
+                                  'prefecture' => $user->getPrefectureKey(),
+                                  'birthday'   => $user->getBirthDate(),
+                                  'email'      => $user->getEmail(),
+                                  'password'   => $user->getPassword(),
+                                  'created_at' => Carbon::now(),
+                              ]);
 
         return $record->toModel();
     }
@@ -54,18 +54,18 @@ class UserRepository implements UserRepositoryInterface
     public function findOrFail(int $userId)
     {
         return EloquentUser::query()
-            ->findOrFail($userId);
+                           ->findOrFail($userId);
     }
 
     public function edit(AccountEditRequest $request): void
     {
         EloquentUser::query()
-            ->findOrFail($request->getUserId())
-            ->update([
-                'nickname'   => $request->getNickname(),
-                'prefecture' => $request->getPrefectureKey(),
-                'email'      => $request->getEmail(),
-                'password'   => $request->getHashPass()
-            ]);
+                    ->findOrFail($request->getUserId())
+                    ->update([
+                        'nickname'   => $request->getNickname(),
+                        'prefecture' => $request->getPrefectureKey(),
+                        'email'      => $request->getEmail(),
+                        'password'   => $request->getHashPass()
+                    ]);
     }
 }

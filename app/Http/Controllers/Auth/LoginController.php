@@ -18,7 +18,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')
+             ->except('logout');
     }
 
     /**
@@ -62,14 +63,16 @@ class LoginController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
     {
-        $this->guard()->logout();
+        $this->guard()
+             ->logout();
 
-        $request->session()->invalidate();
+        $request->session()
+                ->invalidate();
 
         return redirect(route('top'));
     }
@@ -91,6 +94,6 @@ class LoginController extends Controller
      */
     public function redirectPath()
     {
-        return route('my-page.top');
+        return route('top');
     }
 }

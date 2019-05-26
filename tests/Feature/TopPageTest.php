@@ -23,7 +23,9 @@ class TopPageTest extends TestCase
         parent::setUp();
 
         $this->setInitData();
-        $this->user = $this->login();
+        $this->user = factory(EloquentUser::class)->create([
+            'nickname' => '田中tarou'
+        ]);
     }
 
     /**
@@ -33,8 +35,6 @@ class TopPageTest extends TestCase
      */
     public function testCanDisplayTop()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->get('/');
         $response->assertStatus(200)
                  ->assertViewIs('top.index');

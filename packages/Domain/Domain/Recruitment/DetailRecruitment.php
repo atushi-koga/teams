@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace packages\Domain\Domain\Recruitment;
 
+use Carbon\Carbon;
 use packages\Domain\Domain\User\OpenUserInfo;
 
 class DetailRecruitment
@@ -13,8 +14,8 @@ class DetailRecruitment
     /** @var OpenUserInfo */
     private $createUserInfo;
 
-    /** @var int */
-    private $browsing_user_id;
+    /** @var int|null */
+    private $browsingUserId;
 
     /** @var OpenUserInfo[] */
     private $participantInfoList;
@@ -22,20 +23,20 @@ class DetailRecruitment
     /**
      * DetailRecruitment constructor.
      *
-     * @param Recruitment  $recruitment
-     * @param OpenUserInfo $createUserInfo
-     * @param int          $browsing_user_id
-     * @param array        $participantInfoList
+     * @param Recruitment    $recruitment
+     * @param OpenUserInfo   $createUserInfo
+     * @param int            $browsingUserId
+     * @param OpenUserInfo[] $participantInfoList
      */
     public function __construct(
         Recruitment $recruitment,
         OpenUserInfo $createUserInfo,
-        int $browsing_user_id,
+        ?int $browsingUserId,
         array $participantInfoList)
     {
         $this->recruitment         = $recruitment;
         $this->createUserInfo      = $createUserInfo;
-        $this->browsing_user_id    = $browsing_user_id;
+        $this->browsingUserId      = $browsingUserId;
         $this->participantInfoList = $participantInfoList;
     }
 
@@ -44,14 +45,24 @@ class DetailRecruitment
         return new self(
             $attributes['recruitment'],
             $attributes['createUserInfo'],
-            $attributes['browsing_user_id'],
+            $attributes['browsingUserId'],
             $attributes['participantInfoList']
         );
+    }
+
+    public function getRecruitmentId(): int
+    {
+        return $this->recruitment->getId();
     }
 
     public function getTitle(): string
     {
         return $this->recruitment->getTitle();
+    }
+
+    public function getMount(): string
+    {
+        return $this->recruitment->getMount();
     }
 
     public function getCapacity(): int
@@ -72,7 +83,7 @@ class DetailRecruitment
     public function getHeldDate(): string
     {
         return $this->recruitment->getDate()
-            ->getDateWithDayOfWeek();
+                                 ->getDateWithDayOfWeek();
     }
 
     public function getRequirement(): string
@@ -103,8 +114,18 @@ class DetailRecruitment
     public function getHeldDay(): string
     {
         $year = $this->recruitment->getDate()
-            ->getYear();
+                                  ->getYear();
         $date = $this->getHeldDate();
+
+        return "{$year}/{$date}";
+    }
+
+    public function getDeadlineDay(): string
+    {
+        $year = $this->recruitment->getDeadline()
+                                  ->getYear();
+        $date = $this->recruitment->getDeadline()
+                                  ->getDateWithDayOfWeek();
 
         return "{$year}/{$date}";
     }
@@ -119,14 +140,60 @@ class DetailRecruitment
         return $this->participantInfoList;
     }
 
-    public function getBrowsingUserId(): int
+    public function getBrowsingUserId(): ?int
     {
-        return $this->browsing_user_id;
+        return $this->browsingUserId;
+    }
+
+    /**
+     * 募集締め切りの翌日以降かどうかを判定
+     *
+     * @return bool
+     */
+    public function afterDeadline(): bool
+    {
+        $deadline = $this->recruitment->getDeadline()
+                                      ->getValue();
+
+        return Carbon::today()
+                     ->gt($deadline);
     }
 
     public function browsingUserIsCreateUser(): bool
     {
-        return $this->browsing_user_id === $this->getCreateUserId();
+        return $this->browsingUserId === $this->getCreateUserId();
     }
 
+    /**
+     * 閲覧ユーザが既に参加申込済みかどうかを判定
+     *
+     * @return bool
+     */
+    public function haveEntry(): bool
+    {
+        foreach ($this->participantInfoList as $openUserInfo) {
+            if ($openUserInfo->getUserId() === $this->getBrowsingUserId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 参加申込可能かどうかを判定
+     *
+     * @return bool
+     */
+    public function canJoin(): bool
+    {
+        if (!$this->afterDeadline()
+            && !$this->browsingUserIsCreateUser()
+            && !$this->haveEntry()
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace packages\UseCase\MyPage\Recruitment;
 
+use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
-interface JoinRecruitmentUseCaseInterface
+interface JoinFinishUseCaseInterface
 {
     /**
      * @param DetailRecruitmentRequest $request
-     * @return void
+     * @return DetailRecruitment
      */
     public function handle(DetailRecruitmentRequest $request);
 }

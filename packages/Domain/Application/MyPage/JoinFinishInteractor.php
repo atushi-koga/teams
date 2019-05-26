@@ -1,15 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace packages\Domain\Application\MyPage;
+namespace packages\Domain\Application;
 
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
-use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
+use packages\UseCase\Top\DetailRecruitmentRequest;
 
-class DetailRecruitmentInteractor implements DetailRecruitmentUseCaseInterface
+class JoinFinishInteractor implements JoinFinishUseCaseInterface
 {
     /** @var RecruitmentRepositoryInterface */
     private $recruitmentRepository;
@@ -30,6 +29,12 @@ class DetailRecruitmentInteractor implements DetailRecruitmentUseCaseInterface
      */
     public function handle(DetailRecruitmentRequest $request): DetailRecruitment
     {
-        return $this->recruitmentRepository->detail($request);
+        $detailRecruitment = $this->recruitmentRepository->detail($request);
+
+        if ($detailRecruitment->canJoin()) {
+            return $detailRecruitment;
+        }
+
+        abort(404);
     }
 }

@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace packages\Domain\Domain\Recruitment;
 
-use Illuminate\Support\Collection;
-use packages\Domain\Domain\User\BrowsingRestriction;
-use packages\UseCase\MyPage\Recruitment\DetailRecruitmentRequest;
+
+use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
+use packages\UseCase\Top\DetailRecruitmentRequest;
 
 interface RecruitmentRepositoryInterface
 {
@@ -26,4 +26,9 @@ interface RecruitmentRepositoryInterface
      */
     public function detail(DetailRecruitmentRequest $request);
 
+    /**
+     * @param JoinRecruitmentRequest $request
+     * @return void
+     */
+    public function join(JoinRecruitmentRequest $request);
 }
