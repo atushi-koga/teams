@@ -78,12 +78,12 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
              ->name('new-recruitment.create');
     });
     /**
-     * イベント管理
+     * イベント、参加者管理
      */
     Route::group(['prefix' => 'manage'], function () {
         // イベント一覧、作成、編集、削除
         Route::group(['prefix' => 'event'], function () {
-            Route::get('create', 'MyPage\ManageEventController@list')
+            Route::get('/', 'MyPage\ManageEventController@list')
                  ->name('manage-event.list');
             Route::get('create', 'MyPage\ManageEventController@createForm')
                  ->name('manage-event.createForm');
@@ -99,6 +99,15 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
                  ->name('manage-event.editFinish');
             Route::post('remove/{id}', 'MyPage\ManageEventController@remove')
                  ->name('manage-event.remove');
+        });
+        // 参加者一覧、参加承認
+        Route::group(['prefix' => 'attend'], function () {
+            Route::get('/', 'MyPage\ManageAttendController@list')
+                 ->name('manage-attend.list');
+            Route::post('accept/{user-id}', 'MyPage\ManageAttendController@accept')
+                 ->name('manage-attend.accept');
+            Route::post('not-accept/{user-id}', 'MyPage\ManageAttendController@notAccept')
+                 ->name('manage-attend.not-accept');
         });
     });
     /**

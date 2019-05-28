@@ -9,7 +9,7 @@ class ManageEventController extends Controller
 {
     public function list()
     {
-        
+
     }
 
     public function createForm()
