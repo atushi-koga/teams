@@ -62,7 +62,7 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
     /**
      * 参加申込情報
      */
-    Route::group(['prefix' => 'attend/list'], function(){
+    Route::group(['prefix' => 'attend/list'], function () {
         Route::get('/', 'MyPage\AttendController@list')
              ->name('attend.list');
         Route::post('/{id}/cancel', 'MyPage\AttendController@cancel')
@@ -76,6 +76,30 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
              ->name('new-recruitment.showForm');
         Route::post('/', 'MyPage\NewRecruitmentController@create')
              ->name('new-recruitment.create');
+    });
+    /**
+     * イベント管理
+     */
+    Route::group(['prefix' => 'manage'], function () {
+        // イベント一覧、作成、編集、削除
+        Route::group(['prefix' => 'event'], function () {
+            Route::get('create', 'MyPage\ManageEventController@list')
+                 ->name('manage-event.list');
+            Route::get('create', 'MyPage\ManageEventController@createForm')
+                 ->name('manage-event.createForm');
+            Route::post('create', 'MyPage\ManageEventController@create')
+                 ->name('manage-event.create');
+            Route::get('create/finish', 'MyPage\ManageEventController@createFinish')
+                 ->name('manage-event.createFinish');
+            Route::get('edit/{id}', 'MyPage\ManageEventController@editForm')
+                 ->name('manage-event.editForm');
+            Route::post('edit/{id}', 'MyPage\ManageEventController@edit')
+                 ->name('manage-event.edit');
+            Route::get('edit/{id}/finish', 'MyPage\ManageEventController@editFinish')
+                 ->name('manage-event.editFinish');
+            Route::post('remove/{id}', 'MyPage\ManageEventController@remove')
+                 ->name('manage-event.remove');
+        });
     });
     /**
      * 参加確認、参加申込、参加完了
