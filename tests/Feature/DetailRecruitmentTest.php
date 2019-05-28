@@ -28,8 +28,6 @@ class DetailRecruitmentTest extends TestCase
 
     public function testCanDisplayDetailRecruitmentView()
     {
-        $this->withoutExceptionHandling();
-
         $recruitment = factory(EloquentRecruitment::class)->create();
 
         $response = $this->get("/recruitment/{$recruitment->id}");

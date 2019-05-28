@@ -1,7 +1,7 @@
 <nav class="header header-border navbar navbar-expand-md navbar-light">
   <div class="container">
     <a class="navbar-brand" href="{{ route('top') }}">
-      {{ config('app.name', 'Laravel') }}
+      {{ config('app.name') }}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -18,14 +18,12 @@
           </li>
         @else
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('new-recruitment.showForm') }}" role="button">
-              {{ __('recruitment.register_recruitment') }}
+            <a class="nav-link" href="{{ route('manage-event.list') }}" role="button">
+              {{ __('recruitment.manage_event') }}
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('attend.list') }}" role="button">
-              参加申込一覧
-            </a>
+            <a class="nav-link" href="{{ route('attend.list') }}" role="button"> 参加申込一覧 </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('account.detail') }}" role="button">会員情報 </a>

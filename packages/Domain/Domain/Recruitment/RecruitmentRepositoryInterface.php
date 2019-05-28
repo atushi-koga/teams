@@ -40,6 +40,13 @@ interface RecruitmentRepositoryInterface
     public function attendList(UserId $userId);
 
     /**
+     * @param UserId $userId
+     * @return CreatedRecruitment[]
+     */
+    public function createdList(UserId $userId);
+
+
+        /**
      * @param UserRecruitment $userRecruitment
      * @return null|Recruitment
      */
