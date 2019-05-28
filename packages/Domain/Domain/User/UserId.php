@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace packages\Domain\Domain\User;
@@ -7,14 +6,11 @@ namespace packages\Domain\Domain\User;
 use InvalidArgumentException;
 use packages\Domain\Domain\Common\ValueObjectOf;
 
-class Age
+class UserId
 {
     use ValueObjectOf;
 
-    /** @var int */
     private $value;
-
-    const MAX_AGE = 150;
 
     public function __construct(int $value)
     {
@@ -27,7 +23,7 @@ class Age
 
     public static function isValidateValue(int $value): bool
     {
-        return $value < self::MAX_AGE;
+        return $value > 0;
     }
 
     public function getValue(): int

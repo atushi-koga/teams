@@ -19,17 +19,21 @@ class JoinController extends Controller
      *
      * @param                          $id
      * @param JoinConfUseCaseInterface $interactor
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function showConf($id, JoinConfUseCaseInterface $interactor)
     {
         $browsingUserId = Auth::id();
         $request        = new DetailRecruitmentRequest(intval($id), $browsingUserId);
 
-        /** @var DetailRecruitment $res */
+        /** @var DetailRecruitment|null $res */
         $res = $interactor->handle($request);
 
-        return view('my_page.attend_recruitment.conf', compact('res'));
+        if (is_null($res)) {
+            return redirect(route('detail-recruitment', ['id' => $id]));
+        } else {
+            return view('my_page.attend_recruitment.conf', compact('res'));
+        }
     }
 
     /**

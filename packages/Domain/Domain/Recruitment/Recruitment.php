@@ -29,7 +29,7 @@ class Recruitment
     /** @var Capacity */
     private $capacity;
 
-    /** @var Capacity */
+    /** @var Deadline */
     private $deadline;
 
     /** @var string $requirement */
@@ -56,7 +56,7 @@ class Recruitment
      * @param string      $schedule
      * @param Date        $date
      * @param Capacity    $capacity
-     * @param Date        $deadline
+     * @param Deadline    $deadline
      * @param string      $requirement
      * @param null|string $belongings
      * @param null|string $notes
@@ -69,7 +69,7 @@ class Recruitment
         string $schedule,
         Date $date,
         Capacity $capacity,
-        Date $deadline,
+        Deadline $deadline,
         string $requirement,
         ?string $belongings,
         ?string $notes,
@@ -133,7 +133,7 @@ class Recruitment
         return $this->capacity->getValue();
     }
 
-    public function getDeadline(): Date
+    public function getDeadline(): Deadline
     {
         return $this->deadline;
     }
@@ -187,7 +187,7 @@ class Recruitment
             $attributes['schedule'],
             Date::ofFormatDate($attributes['date']),
             Capacity::of(intval($attributes['capacity'])),
-            Date::ofFormatDate($attributes['deadline']),
+            Deadline::ofFormatDate($attributes['deadline']),
             $attributes['requirement'],
             $attributes['belongings'],
             $attributes['notes'],

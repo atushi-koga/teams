@@ -12,8 +12,10 @@ use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\Recruitment\TopRecruitment;
+use packages\Domain\Domain\Recruitment\UserRecruitment;
 use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
+use packages\Domain\Domain\User\UserId;
 use packages\Domain\Domain\User\UserStatus;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
@@ -142,5 +144,78 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
                                     'user_status'    => UserStatus::PARTICIPANT_STATUS,
                                     'created_at'     => Carbon::now(),
                                 ]);
+    }
+
+    /**
+     * @param UserId $userId
+     * @return TopRecruitment[]
+     */
+    public function attendList(UserId $userId): array
+    {
+        $results = EloquentUsersRecruitment::query()
+                                           ->where('user_id', $userId->getValue())
+                                           ->get();
+
+        if ($results->count() === 0) {
+            return [];
+        }
+
+        $recruitmentIds = $results->pluck('recruitment_id')
+                                  ->toArray();
+        $EloquentRecs   = EloquentRecruitment::query()
+                                             ->whereIn('id', $recruitmentIds)
+                                             ->orderBy('date', 'desc')
+                                             ->get();
+
+        $attendList = [];
+        foreach ($EloquentRecs as $EloquentRec) {
+            /** @var Recruitment $recruitment */
+            $recruitment = $EloquentRec->toModel();
+            $recruitment->setId($EloquentRec->id);
+
+            $count = $EloquentRec->usersRecruitment()
+                                 ->entryUser()
+                                 ->count();
+            $recruitment->setEntryCount($count);
+
+            $createUser = $EloquentRec->createUser->toModel();
+
+            $attendList[] = TopRecruitment::ofByArray([
+                'recruitment' => $recruitment,
+                'createUser'  => $createUser,
+            ]);
+        }
+
+        return $attendList;
+    }
+
+    /**
+     * @param UserRecruitment $userRecruitment
+     * @return null|Recruitment
+     */
+    public function findAttend(UserRecruitment $userRecruitment): ?Recruitment
+    {
+        $EloquentUserRec = EloquentUsersRecruitment::query()
+                                                   ->where('user_id', $userRecruitment->getUserId())
+                                                   ->where('recruitment_id', $userRecruitment->getRecruitmentId())
+                                                   ->first();
+
+        if ($EloquentUserRec) {
+            $EloquentRec = $EloquentUserRec->recruitment;
+            $recruitment = $EloquentRec->toModel();
+            $recruitment->setId($EloquentRec->id);
+
+            return $recruitment;
+        } else {
+            return null;
+        }
+    }
+
+    public function cancel(UserRecruitment $userRecruitment): void
+    {
+        EloquentUsersRecruitment::query()
+                                ->where('user_id', $userRecruitment->getUserId())
+                                ->where('recruitment_id', $userRecruitment->getRecruitmentId())
+                                ->delete();
     }
 }

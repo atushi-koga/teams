@@ -10,7 +10,7 @@ class Date
     use ValueObjectOf;
 
     /** @var Carbon */
-    private $value;
+    protected $value;
 
     /**
      * Date constructor.
@@ -31,7 +31,7 @@ class Date
     {
         //@todo: 日付形式が無効であればthrow exceptionとする
 
-        return new self(Carbon::parse($value));
+        return new static(Carbon::parse($value));
     }
 
     public function getFormatDate(): string
@@ -46,7 +46,7 @@ class Date
 
     public function getDateWithDayOfWeek(): string
     {
-        $date       = $this->value->format('n/j');
+        $date      = $this->value->format('n/j');
         $dayOfWeek = $this->value->formatLocalized('%a');
 
         return "{$date}({$dayOfWeek})";

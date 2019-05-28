@@ -16,8 +16,14 @@ class EloquentUsersRecruitment extends Model
         return $this->belongsTo(EloquentUser::class, 'user_id', 'id');
     }
 
+    public function recruitment()
+    {
+        return $this->belongsTo(EloquentRecruitment::class, 'recruitment_id', 'id');
+    }
+
     public function scopeEntryUser($query)
     {
         return $query->where('user_status', '<>', UserStatus::ADMIN_STATUS);
     }
+
 }

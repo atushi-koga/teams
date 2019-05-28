@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace packages\Domain\Application;
 
-use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
-use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
-use packages\UseCase\Top\DetailRecruitmentRequest;
+use packages\Domain\Domain\Recruitment\TopRecruitment;
+use packages\Domain\Domain\User\UserId;
+use packages\UseCase\MyPage\Recruitment\AttendListCaseInterface;
 
-class JoinFinishInteractor implements JoinFinishUseCaseInterface
+class AttendListInteractor implements AttendListCaseInterface
 {
     /** @var RecruitmentRepositoryInterface */
     private $recruitmentRepository;
@@ -24,13 +24,11 @@ class JoinFinishInteractor implements JoinFinishUseCaseInterface
     }
 
     /**
-     * @param DetailRecruitmentRequest $request
-     * @return DetailRecruitment
+     * @param UserId $userId
+     * @return TopRecruitment[]
      */
-    public function handle(DetailRecruitmentRequest $request): DetailRecruitment
+    public function handle(UserId $userId): array
     {
-        $detailRecruitment = $this->recruitmentRepository->detail($request);
-
-        return $detailRecruitment;
+        return $this->recruitmentRepository->attendList($userId);
     }
 }

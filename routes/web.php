@@ -62,8 +62,12 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
     /**
      * 参加申込情報
      */
-    Route::get('attend/list', 'MyPage\AttendController@list')
-         ->name('attend.list');
+    Route::group(['prefix' => 'attend/list'], function(){
+        Route::get('/', 'MyPage\AttendController@list')
+             ->name('attend.list');
+        Route::post('/{id}/cancel', 'MyPage\AttendController@cancel')
+             ->name('attend.cancel');
+    });
     /**
      * 募集内容登録
      */
