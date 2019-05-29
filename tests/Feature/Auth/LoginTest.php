@@ -18,10 +18,9 @@ class LoginTest extends TestCase
      */
     public function testCanDisplayLoginForm()
     {
-        $response = $this->get('/login');
-
-        $response->assertStatus(200)
-                 ->assertViewIs('auth.login');
+        $this->get('/login')
+             ->assertStatus(200)
+             ->assertViewIs('auth.login');
     }
 
     /**
@@ -30,9 +29,8 @@ class LoginTest extends TestCase
      */
     public function testCanNotDisplayWithoutAuth()
     {
-        $response = $this->get('/my-page');
-
-        $response->assertRedirect('/login');
+        $this->get('/my-page/account')
+             ->assertRedirect('/login');
     }
 
     /**
@@ -41,20 +39,16 @@ class LoginTest extends TestCase
     public function testCanLogin()
     {
         $rowPass = '11111111';
-        $user    = factory(EloquentUser::class)->create(
-            [
-                'password' => Password::ofRowPassword($rowPass)
-                                      ->getHash(),
-            ]
-        );
+        $user    = factory(EloquentUser::class)->create([
+            'password' => Password::ofRowPassword($rowPass)
+                                  ->getHash(),
+        ]);
 
-        $this->post(
-            '/login', [
-                'email'    => $user->email,
-                'password' => $rowPass,
-            ]
-        )
-             ->assertRedirect(route('my-page.top'));
+        $this->post('/login', [
+            'email'    => $user->email,
+            'password' => $rowPass,
+        ])
+             ->assertRedirect('/');
     }
 
     /**
@@ -62,20 +56,16 @@ class LoginTest extends TestCase
      */
     public function testCanNotLogin()
     {
-        $user = factory(EloquentUser::class)->create(
-            [
-                'password' => Password::ofRowPassword('11111111')
-                                      ->getHash(),
-            ]
-        );
+        $user = factory(EloquentUser::class)->create([
+            'password' => Password::ofRowPassword('11111111')
+                                  ->getHash(),
+        ]);
 
         $this->from('/login')
-             ->post(
-                 '/login', [
-                     'email'    => $user->email,
-                     'password' => '11111112',
-                 ]
-             )
-             ->assertRedirect(route('showLoginForm'));
+             ->post('/login', [
+                 'email'    => $user->email,
+                 'password' => '11111112',
+             ])
+             ->assertRedirect('/login');
     }
 }
