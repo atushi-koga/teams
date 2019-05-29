@@ -35,7 +35,7 @@ class ManageEventController extends Controller
 
     public function editForm()
     {
-
+        return view('');
     }
 
     public function edit()

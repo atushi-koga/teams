@@ -7,7 +7,7 @@ use App\Eloquent\EloquentUser;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ManageEventListTest extends TestCase
+class CreatedEventListTest extends TestCase
 {
     use RefreshDatabase;
 
