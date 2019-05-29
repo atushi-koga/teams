@@ -8,6 +8,7 @@ use App\Eloquent\EloquentUser;
 use App\Eloquent\EloquentUsersRecruitment;
 use Carbon\Carbon;
 use DB;
+use packages\Domain\Domain\Recruitment\CreatedRecruitment;
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
@@ -187,6 +188,38 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $attendList;
+    }
+
+    /**
+     * @param UserId $userId
+     * @return CreatedRecruitment[]
+     */
+    public function createdList(UserId $userId): array
+    {
+        $EloquentRecs = EloquentRecruitment::query()
+                                           ->where('create_id', $userId->getValue())
+                                           ->orderBy('date', 'desc')
+                                           ->get();
+
+        if ($EloquentRecs->count() === 0) {
+            return [];
+        }
+
+        $createdList = [];
+        foreach ($EloquentRecs as $EloquentRec) {
+            /** @var Recruitment $recruitment */
+            $recruitment = $EloquentRec->toModel();
+            $recruitment->setId($EloquentRec->id);
+
+            $count = $EloquentRec->usersRecruitment()
+                                 ->entryUser()
+                                 ->count();
+            $recruitment->setEntryCount($count);
+
+            $createdList[] = CreatedRecruitment::of($recruitment);
+        }
+
+        return $createdList;
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use packages\Domain\Application\AttendListInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserFormInteractor;
 use packages\Domain\Application\Auth\Register\RegisterUserInteractor;
+use packages\Domain\Application\CreatedEventInteractor;
 use packages\Domain\Application\DetailRecruitmentInteractor;
 use packages\Domain\Application\JoinConfInteractor;
 use packages\Domain\Application\JoinFinishInteractor;
@@ -31,6 +32,7 @@ use packages\UseCase\MyPage\Account\AccountEditUseCaseInterface;
 use packages\UseCase\MyPage\Account\ShowAccountEditUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\AttendListCaseInterface;
 use packages\UseCase\MyPage\Recruitment\CancelAttendUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\CreatedEventUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinConfUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
@@ -91,6 +93,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(JoinFinishUseCaseInterface::class, JoinFinishInteractor::class);
         $this->app->bind(AttendListCaseInterface::class, AttendListInteractor::class);
         $this->app->bind(CancelAttendUseCaseInterface::class, CancelAttendInteractor::class);
+        $this->app->bind(CreatedEventUseCaseInterface::class, CreatedEventInteractor::class);
 
         // Repository
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);

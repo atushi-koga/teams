@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'register_recruitment' => '募集内容登録',
+    'manage_event'         => '作成イベント',
     'title'                => 'タイトル',
     'mount'                => '山の名称など',
     'image_path'           => '画像',
