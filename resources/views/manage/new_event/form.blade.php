@@ -4,6 +4,6 @@
 @endpush
 @section('content')
   <div class="container">
-    @include('my_page.new_recruitment.field')
+    @include('manage.new_event.field')
   </div>
 @endsection

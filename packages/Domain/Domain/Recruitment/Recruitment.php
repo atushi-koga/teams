@@ -183,7 +183,7 @@ class Recruitment
         return new self(
             $attributes['title'],
             $attributes['mount'],
-            Prefecture::of($attributes['prefecture']),
+            Prefecture::of(intval($attributes['prefecture'])),
             $attributes['schedule'],
             Date::ofFormatDate($attributes['date']),
             Capacity::of(intval($attributes['capacity'])),

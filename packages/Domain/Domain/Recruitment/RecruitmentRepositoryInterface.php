@@ -12,7 +12,7 @@ interface RecruitmentRepositoryInterface
 {
     /**
      * @param Recruitment $recruitment
-     * @return Recruitment
+     * @return void
      */
     public function create(Recruitment $recruitment);
 
