@@ -8,9 +8,11 @@ use App\Eloquent\EloquentUser;
 use App\Eloquent\EloquentUsersRecruitment;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use packages\Domain\Domain\Recruitment\CreatedRecruitment;
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
+use packages\Domain\Domain\Recruitment\RecruitmentId;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\Recruitment\UserRecruitment;
@@ -18,6 +20,7 @@ use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\UserId;
 use packages\Domain\Domain\User\UserStatus;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
@@ -62,6 +65,32 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     }
 
     /**
+     * @param EditRecruitmentRequest $request
+     */
+    public function edit(EditRecruitmentRequest $request): void
+    {
+        $recruitment = $request->getRecruitment();
+        $editUserId  = $request->getEditUserId();
+
+        EloquentRecruitment::query()
+                           ->where('create_id', $editUserId->getValue())
+                           ->findOrFail($recruitment->getId())
+                           ->update([
+                               'title'       => $recruitment->getTitle(),
+                               'mount'       => $recruitment->getMount(),
+                               'prefecture'  => $recruitment->getPrefectureKey(),
+                               'schedule'    => $recruitment->getSchedule(),
+                               'date'        => $recruitment->getFormatDate(),
+                               'capacity'    => $recruitment->getCapacityValue(),
+                               'deadline'    => $recruitment->getFormatDeadline(),
+                               'requirement' => $recruitment->getRequirement(),
+                               'belongings'  => $recruitment->getBelongings(),
+                               'notes'       => $recruitment->getNotes(),
+                               'update_id'   => $editUserId->getValue(),
+                           ]);
+    }
+
+    /**
      * 公開範囲の募集情報を表示する
      *
      * @return TopRecruitment[]
@@ -91,6 +120,18 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $topRecruitments;
+    }
+
+    public function findOrFail(RecruitmentId $recruitmentId): Recruitment
+    {
+        /** @var EloquentRecruitment $eloquentRec */
+        $eloquentRec = EloquentRecruitment::query()
+                                          ->findOrFail($recruitmentId->getValue());
+
+        $recruitment = $eloquentRec->toModel();
+        $recruitment->setId($eloquentRec->id);
+
+        return $recruitment;
     }
 
     public function detail(DetailRecruitmentRequest $request): DetailRecruitment

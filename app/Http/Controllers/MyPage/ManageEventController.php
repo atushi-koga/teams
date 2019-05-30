@@ -8,8 +8,13 @@ use Auth;
 use Illuminate\Http\Request;
 use packages\Domain\Domain\Recruitment\CreatedRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
+use packages\Domain\Domain\Recruitment\RecruitmentId;
 use packages\Domain\Domain\User\UserId;
 use packages\UseCase\MyPage\Recruitment\CreatedEventUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentFormResponse;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentFormUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormResponse;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentUseCaseInterface;
@@ -70,14 +75,29 @@ class ManageEventController extends Controller
         return view('manage.new_event.finish');
     }
 
-    public function editForm()
+    public function editForm($id, EditRecruitmentFormUseCaseInterface $interactor)
     {
-        //        return view('');
+        $recruitmentId = RecruitmentId::of(intval($id));
+
+        /** @var EditRecruitmentFormResponse $res */
+        $res = $interactor->handle($recruitmentId);
+
+        return view('manage.edit_event.form')->with([
+            'recruitment' => $res->getRecruitment(),
+            'prefectures' => $res->getPrefectures()
+        ]);
     }
 
-    public function edit()
+    public function edit($id, Request $request, EditRecruitmentUseCaseInterface $interactor)
     {
+        $editUserId  = UserId::of(Auth::id());
+        $recruitment = Recruitment::ofByArray($request->all());
+        $recruitment->setId(intval($id));
 
+        $req = new EditRecruitmentRequest($editUserId, $recruitment);
+        $interactor->handle($req);
+
+        return view('manage.edit_event.finish');
     }
 
     public function editFinish()

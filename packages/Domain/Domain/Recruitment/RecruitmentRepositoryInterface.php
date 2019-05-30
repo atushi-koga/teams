@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace packages\Domain\Domain\Recruitment;
 
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use packages\Domain\Domain\User\UserId;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
@@ -17,9 +19,22 @@ interface RecruitmentRepositoryInterface
     public function create(Recruitment $recruitment);
 
     /**
+     * @param EditRecruitmentRequest $request
+     * @return void
+     */
+    public function edit(EditRecruitmentRequest $request);
+
+    /**
      * @return Recruitment[]
      */
     public function searchForTop();
+
+    /**
+     * @param RecruitmentId $recruitmentId
+     * @return Recruitment
+     */
+    public function findOrFail(RecruitmentId $recruitmentId);
+
 
     /**
      * @param DetailRecruitmentRequest $request

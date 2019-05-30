@@ -60,7 +60,6 @@ class Recruitment
      * @param string      $requirement
      * @param null|string $belongings
      * @param null|string $notes
-     * @param int         $createUserId
      */
     public function __construct(
         string $title,
@@ -72,20 +71,18 @@ class Recruitment
         Deadline $deadline,
         string $requirement,
         ?string $belongings,
-        ?string $notes,
-        int $createUserId
+        ?string $notes
     ) {
-        $this->title        = $title;
-        $this->mount        = $mount;
-        $this->prefecture   = $prefecture;
-        $this->schedule     = $schedule;
-        $this->date         = $date;
-        $this->capacity     = $capacity;
-        $this->requirement  = $requirement;
-        $this->belongings   = $belongings;
-        $this->notes        = $notes;
-        $this->deadline     = $deadline;
-        $this->createUserId = $createUserId;
+        $this->title       = $title;
+        $this->mount       = $mount;
+        $this->prefecture  = $prefecture;
+        $this->schedule    = $schedule;
+        $this->date        = $date;
+        $this->capacity    = $capacity;
+        $this->deadline    = $deadline;
+        $this->requirement = $requirement;
+        $this->belongings  = $belongings;
+        $this->notes       = $notes;
     }
 
     public function getId(): int
@@ -178,9 +175,14 @@ class Recruitment
         $this->count = $count;
     }
 
+    public function setCreateId(int $userId)
+    {
+        $this->createUserId = $userId;
+    }
+
     public static function ofByArray(array $attributes): self
     {
-        return new self(
+        $recruitment = new self(
             $attributes['title'],
             $attributes['mount'],
             Prefecture::of(intval($attributes['prefecture'])),
@@ -190,8 +192,13 @@ class Recruitment
             Deadline::ofFormatDate($attributes['deadline']),
             $attributes['requirement'],
             $attributes['belongings'],
-            $attributes['notes'],
-            $attributes['create_id']
+            $attributes['notes']
         );
+
+        if (isset($attributes['create_id'])) {
+            $recruitment->setCreateId($attributes['create_id']);
+        }
+
+        return $recruitment;
     }
 }
