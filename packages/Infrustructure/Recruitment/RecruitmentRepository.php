@@ -20,6 +20,7 @@ use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\UserId;
 use packages\Domain\Domain\User\UserStatus;
+use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
@@ -88,6 +89,29 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
                                'notes'       => $recruitment->getNotes(),
                                'update_id'   => $editUserId->getValue(),
                            ]);
+    }
+
+    /**
+     * @param DeleteRecruitmentRequest $request
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function delete(DeleteRecruitmentRequest $request): void
+    {
+        $userId        = $request->getDeleteUserId()
+                                 ->getValue();
+        $recruitmentId = $request->getRecruitmentId()
+                                 ->getValue();
+        $eloquentRec   = EloquentRecruitment::query()
+                                            ->where('create_id', $userId)
+                                            ->findOrFail($recruitmentId);
+
+        DB::transaction(function () use ($eloquentRec) {
+            EloquentUsersRecruitment::query()
+                                    ->where('recruitment_id', $eloquentRec->id)
+                                    ->delete();
+            $eloquentRec->delete();
+        });
     }
 
     /**

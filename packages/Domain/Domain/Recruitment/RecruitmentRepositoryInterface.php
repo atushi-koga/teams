@@ -6,6 +6,7 @@ namespace packages\Domain\Domain\Recruitment;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use packages\Domain\Domain\User\UserId;
+use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
@@ -23,6 +24,12 @@ interface RecruitmentRepositoryInterface
      * @return void
      */
     public function edit(EditRecruitmentRequest $request);
+
+    /**
+     * @param DeleteRecruitmentRequest $request
+     * @return void
+     */
+    public function delete(DeleteRecruitmentRequest $request);
 
     /**
      * @return Recruitment[]

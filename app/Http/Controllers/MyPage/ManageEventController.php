@@ -11,6 +11,8 @@ use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentId;
 use packages\Domain\Domain\User\UserId;
 use packages\UseCase\MyPage\Recruitment\CreatedEventUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentFormResponse;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentFormUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
@@ -97,16 +99,22 @@ class ManageEventController extends Controller
         $req = new EditRecruitmentRequest($editUserId, $recruitment);
         $interactor->handle($req);
 
-        return view('manage.edit_event.finish');
+        return redirect(route('manage-event.editFinish', ['id' => $id]));
     }
 
     public function editFinish()
     {
-
+        return view('manage.edit_event.finish');
     }
 
-    public function remove()
+    public function remove(Request $request, DeleteRecruitmentUseCaseInterface $interactor)
     {
+        $recruitmentId = RecruitmentId::of(intval($request->input('recruitment_id')));
+        $deleteUserId  = UserId::of(Auth::id());
+        $req           = new DeleteRecruitmentRequest($deleteUserId, $recruitmentId);
 
+        $interactor->handle($req);
+
+        return 200;
     }
 }
