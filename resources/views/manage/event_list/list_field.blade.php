@@ -46,7 +46,7 @@
                       <a href="{{ route('manage-event.editForm', ['id' => $createdRec->getRecruitmentId()]) }}" type="button" class="btn btn-primary"> 編集 </a>
                     </div>
                     <div class="d-inline-block">
-                      <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $createdRec->getRecruitmentId()]) }}"
+                      <button type="button" class="btn dark delete-event" data-url="{{ route('manage-event.remove', ['id' => $createdRec->getRecruitmentId()]) }}"
                               data-recruitment-id="{{ $createdRec->getRecruitmentId() }}">
                         削除
                       </button>
