@@ -9,6 +9,7 @@ use packages\Domain\Domain\User\UserId;
 use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\ManageAttendListRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
 interface RecruitmentRepositoryInterface
@@ -59,14 +60,19 @@ interface RecruitmentRepositoryInterface
      * @param UserId $userId
      * @return TopRecruitment[]
      */
-    public function attendList(UserId $userId);
+    public function MyAttendList(UserId $userId);
+
+    /**
+     * @param ManageAttendListRequest $request
+     * @return array
+     */
+    public function manageAttendList(ManageAttendListRequest $request);
 
     /**
      * @param UserId $userId
      * @return CreatedRecruitment[]
      */
     public function createdList(UserId $userId);
-
 
         /**
      * @param UserRecruitment $userRecruitment

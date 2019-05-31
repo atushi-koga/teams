@@ -12,6 +12,7 @@ use packages\Domain\Application\CreatedEventInteractor;
 use packages\Domain\Application\DetailRecruitmentInteractor;
 use packages\Domain\Application\JoinConfInteractor;
 use packages\Domain\Application\JoinFinishInteractor;
+use packages\Domain\Application\ManageAttendListInteractor;
 use packages\Domain\Application\MyPage\AccountDetailInteractor;
 use packages\Domain\Application\MyPage\AccountEditInteractor;
 use packages\Domain\Application\MyPage\CancelAttendInteractor;
@@ -42,6 +43,7 @@ use packages\UseCase\MyPage\Recruitment\EditRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinConfUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinFinishUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\ManageAttendListCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentFormUseCaseInterface;
 use packages\UseCase\MyPage\Recruitment\NewRecruitmentUseCaseInterface;
 use packages\UseCase\MyPage\User\UserProfileUseCaseInterface;
@@ -103,6 +105,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EditRecruitmentFormUseCaseInterface::class, EditRecruitmentFormInteractor::class);
         $this->app->bind(EditRecruitmentUseCaseInterface::class, EditRecruitmentInteractor::class);
         $this->app->bind(DeleteRecruitmentUseCaseInterface::class, DeleteRecruitmentInteractor::class);
+        $this->app->bind(ManageAttendListCaseInterface::class, ManageAttendListInteractor::class);
 
         // Repository
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);

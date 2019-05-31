@@ -23,6 +23,7 @@ use packages\Domain\Domain\User\UserStatus;
 use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\ManageAttendListRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
 class RecruitmentRepository implements RecruitmentRepositoryInterface
@@ -210,7 +211,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
      * @param UserId $userId
      * @return TopRecruitment[]
      */
-    public function attendList(UserId $userId): array
+    public function MyAttendList(UserId $userId): array
     {
         $results = EloquentUsersRecruitment::query()
                                            ->where('user_id', $userId->getValue())
@@ -247,6 +248,33 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $attendList;
+    }
+
+    /**
+     * @param ManageAttendListRequest $request
+     * @return array
+     */
+    public function manageAttendList(ManageAttendListRequest $request): array
+    {
+        $recruitmentId  = $request->getRecruitmentId()
+                                  ->getValue();
+        $browsingUserId = $request->getUserId()
+                                  ->getValue();
+
+        /** @var EloquentRecruitment $eloquentRec */
+        $eloquentRec = EloquentRecruitment::query()
+                                          ->where('create_id', $browsingUserId)
+                                          ->findOrFail($recruitmentId);
+
+        $userIds = $eloquentRec->usersRecruitment()
+                               ->entryUser()
+                               ->get()
+                               ->map(function ($item) {
+                                   return $item->user_id;
+                               })
+                               ->toArray();
+
+        return $userIds;
     }
 
     /**

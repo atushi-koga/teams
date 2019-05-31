@@ -6,6 +6,7 @@ namespace packages\Infrustructure\User;
 use App\Eloquent\EloquentUser;
 use Carbon\Carbon;
 use packages\Domain\Domain\User\User;
+use packages\Domain\Domain\User\UserId;
 use packages\Domain\Domain\User\UserRepositoryInterface;
 use packages\UseCase\MyPage\Account\AccountEditRequest;
 
@@ -67,5 +68,22 @@ class UserRepository implements UserRepositoryInterface
                         'email'      => $request->getEmail(),
                         'password'   => $request->getHashPass()
                     ]);
+    }
+
+    /**
+     * @param array $userIds
+     * @return User[]
+     */
+    public function getByIds(array $userIds)
+    {
+        $users = EloquentUser::query()
+                             ->whereIn('id', $userIds)
+                             ->get()
+                             ->map(function ($item /** @var EloquentUser $item */) {
+                                 return $item->toModel();
+                             })
+                             ->toArray();
+
+        return $users;
     }
 }

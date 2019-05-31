@@ -15,14 +15,20 @@ interface UserRepositoryInterface
     public function create(User $user);
 
     /**
-     * @param int $request
+     * @param int $userId
      * @return User
      */
-    public function find(int $request);
+    public function find(int $userId);
 
     /**
      * @param AccountEditRequest $request
      * @return void
      */
     public function edit(AccountEditRequest $request);
+
+    /**
+     * @param array $userIds
+     * @return User[]
+     */
+    public function getByIds(array $userIds);
 }

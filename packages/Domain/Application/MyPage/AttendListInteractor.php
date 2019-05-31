@@ -29,6 +29,6 @@ class AttendListInteractor implements AttendListCaseInterface
      */
     public function handle(UserId $userId): array
     {
-        return $this->recruitmentRepository->attendList($userId);
+        return $this->recruitmentRepository->MyAttendList($userId);
     }
 }

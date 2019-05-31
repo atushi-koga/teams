@@ -100,13 +100,15 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
             Route::post('remove/{id}', 'MyPage\ManageEventController@remove')
                  ->name('manage-event.remove');
         });
-        // 参加者一覧、参加承認
-        Route::group(['prefix' => 'attend'], function () {
-            Route::get('/', 'MyPage\ManageAttendController@list')
+        /**
+         * 参加者一覧、参加承認
+         */
+        Route::group(['prefix' => 'attend/event/{id}'], function () {
+            Route::get('/', 'ManageAttendController@list')
                  ->name('manage-attend.list');
-            Route::post('accept/{user-id}', 'MyPage\ManageAttendController@accept')
+            Route::post('accept/{user-id}', 'ManageAttendController@accept')
                  ->name('manage-attend.accept');
-            Route::post('not-accept/{user-id}', 'MyPage\ManageAttendController@notAccept')
+            Route::post('not-accept/{user-id}', 'ManageAttendController@notAccept')
                  ->name('manage-attend.not-accept');
         });
     });
