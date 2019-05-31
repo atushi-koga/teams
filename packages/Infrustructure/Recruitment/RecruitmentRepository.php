@@ -8,9 +8,11 @@ use App\Eloquent\EloquentUser;
 use App\Eloquent\EloquentUsersRecruitment;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use packages\Domain\Domain\Recruitment\CreatedRecruitment;
 use packages\Domain\Domain\Recruitment\DetailRecruitment;
 use packages\Domain\Domain\Recruitment\Recruitment;
+use packages\Domain\Domain\Recruitment\RecruitmentId;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\Recruitment\TopRecruitment;
 use packages\Domain\Domain\Recruitment\UserRecruitment;
@@ -18,6 +20,7 @@ use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\Domain\Domain\User\OpenUserInfo;
 use packages\Domain\Domain\User\UserId;
 use packages\Domain\Domain\User\UserStatus;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
@@ -25,46 +28,66 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
 {
     /**
      * @param Recruitment $recruitment
-     * @return Recruitment
+     * @return void
      * @throws \Exception
      * @throws \Throwable
      */
-    public function create(Recruitment $recruitment): Recruitment
+    public function create(Recruitment $recruitment): void
     {
-        return DB::transaction(
-            function () use ($recruitment) {
-                /** @var EloquentRecruitment $recruitmentRecord */
-                $recruitmentRecord = EloquentRecruitment::query()
-                                                        ->create(
-                                                            [
-                                                                'title'       => $recruitment->getTitle(),
-                                                                'mount'       => $recruitment->getMount(),
-                                                                'prefecture'  => $recruitment->getPrefectureKey(),
-                                                                'schedule'    => $recruitment->getSchedule(),
-                                                                'date'        => $recruitment->getFormatDate(),
-                                                                'capacity'    => $recruitment->getCapacityValue(),
-                                                                'deadline'    => $recruitment->getFormatDeadline(),
-                                                                'requirement' => $recruitment->getRequirement(),
-                                                                'belongings'  => $recruitment->getBelongings(),
-                                                                'notes'       => $recruitment->getNotes(),
-                                                                'create_id'   => $recruitment->getCreateUserId(),
-                                                            ]);
+        DB::transaction(function () use ($recruitment) {
+            /** @var EloquentRecruitment $eloquentRec */
+            $eloquentRec = EloquentRecruitment::query()
+                                              ->create(
+                                                  [
+                                                      'title'       => $recruitment->getTitle(),
+                                                      'mount'       => $recruitment->getMount(),
+                                                      'prefecture'  => $recruitment->getPrefectureKey(),
+                                                      'schedule'    => $recruitment->getSchedule(),
+                                                      'date'        => $recruitment->getFormatDate(),
+                                                      'capacity'    => $recruitment->getCapacityValue(),
+                                                      'deadline'    => $recruitment->getFormatDeadline(),
+                                                      'requirement' => $recruitment->getRequirement(),
+                                                      'belongings'  => $recruitment->getBelongings(),
+                                                      'notes'       => $recruitment->getNotes(),
+                                                      'create_id'   => $recruitment->getCreateUserId(),
+                                                  ]);
 
-                EloquentUsersRecruitment::query()
-                                        ->create(
-                                            [
-                                                'user_id'        => $recruitmentRecord->create_id,
-                                                'recruitment_id' => $recruitmentRecord->id,
-                                                'is_accepted'    => true,
-                                                'user_status'    => UserStatus::ADMIN_STATUS,
-                                                'created_at'     => Carbon::now(),
-                                            ]);
+            EloquentUsersRecruitment::query()
+                                    ->create(
+                                        [
+                                            'user_id'        => $eloquentRec->create_id,
+                                            'recruitment_id' => $eloquentRec->id,
+                                            'is_accepted'    => true,
+                                            'user_status'    => UserStatus::ADMIN_STATUS,
+                                            'created_at'     => Carbon::now(),
+                                        ]);
+        });
+    }
 
-                $newRecruitment = $recruitmentRecord->toModel();
-                $newRecruitment->setId($recruitmentRecord->id);
+    /**
+     * @param EditRecruitmentRequest $request
+     */
+    public function edit(EditRecruitmentRequest $request): void
+    {
+        $recruitment = $request->getRecruitment();
+        $editUserId  = $request->getEditUserId();
 
-                return $newRecruitment;
-            });
+        EloquentRecruitment::query()
+                           ->where('create_id', $editUserId->getValue())
+                           ->findOrFail($recruitment->getId())
+                           ->update([
+                               'title'       => $recruitment->getTitle(),
+                               'mount'       => $recruitment->getMount(),
+                               'prefecture'  => $recruitment->getPrefectureKey(),
+                               'schedule'    => $recruitment->getSchedule(),
+                               'date'        => $recruitment->getFormatDate(),
+                               'capacity'    => $recruitment->getCapacityValue(),
+                               'deadline'    => $recruitment->getFormatDeadline(),
+                               'requirement' => $recruitment->getRequirement(),
+                               'belongings'  => $recruitment->getBelongings(),
+                               'notes'       => $recruitment->getNotes(),
+                               'update_id'   => $editUserId->getValue(),
+                           ]);
     }
 
     /**
@@ -97,6 +120,18 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $topRecruitments;
+    }
+
+    public function findOrFail(RecruitmentId $recruitmentId): Recruitment
+    {
+        /** @var EloquentRecruitment $eloquentRec */
+        $eloquentRec = EloquentRecruitment::query()
+                                          ->findOrFail($recruitmentId->getValue());
+
+        $recruitment = $eloquentRec->toModel();
+        $recruitment->setId($eloquentRec->id);
+
+        return $recruitment;
     }
 
     public function detail(DetailRecruitmentRequest $request): DetailRecruitment

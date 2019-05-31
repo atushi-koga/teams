@@ -5,9 +5,10 @@ namespace packages\Domain\Application\MyPage;
 
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
-use packages\UseCase\MyPage\Recruitment\NewRecruitmentUseCaseInterface;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\EditRecruitmentUseCaseInterface;
 
-class NewRecruitmentInteractor implements NewRecruitmentUseCaseInterface
+class EditRecruitmentInteractor implements EditRecruitmentUseCaseInterface
 {
     /** @var RecruitmentRepositoryInterface */
     private $recruitmentRepository;
@@ -23,11 +24,11 @@ class NewRecruitmentInteractor implements NewRecruitmentUseCaseInterface
     }
 
     /**
-     * @param Recruitment $recruitment
+     * @param EditRecruitmentRequest $request
      * @return void
      */
-    public function handle(Recruitment $recruitment): void
+    public function handle(EditRecruitmentRequest $request): void
     {
-        $this->recruitmentRepository->create($recruitment);
+        $this->recruitmentRepository->edit($request);
     }
 }

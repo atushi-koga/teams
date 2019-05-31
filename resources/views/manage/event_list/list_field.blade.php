@@ -4,7 +4,7 @@
       作成イベント
     </div>
     <div>
-      <button class="btn btn-primary">イベント作成</button>
+      <a href="{{ route('manage-event.create') }}" class="btn btn-primary">イベント作成</a>
     </div>
   </div>
   <div class="list-box">

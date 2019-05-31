@@ -27,7 +27,7 @@ class Date
         return $this->value;
     }
 
-    public static function ofFormatDate(string $value): self
+    public static function ofFormatDate(string $value)
     {
         //@todo: 日付形式が無効であればthrow exceptionとする
 
