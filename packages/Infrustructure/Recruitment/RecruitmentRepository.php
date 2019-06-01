@@ -23,6 +23,7 @@ use packages\Domain\Domain\User\UserStatus;
 use packages\UseCase\MyPage\Recruitment\DeleteRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\EditRecruitmentRequest;
 use packages\UseCase\MyPage\Recruitment\JoinRecruitmentRequest;
+use packages\UseCase\MyPage\Recruitment\ManageAttendListRequest;
 use packages\UseCase\Top\DetailRecruitmentRequest;
 
 class RecruitmentRepository implements RecruitmentRepositoryInterface
@@ -115,24 +116,24 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     }
 
     /**
-     * 公開範囲の募集情報を表示する
+     * 応募締め切り前の募集情報を取得する
      *
      * @return TopRecruitment[]
      */
     public function searchForTop(): array
     {
+        $today = Carbon::today()->format('Y-m-d');
         $results = EloquentRecruitment::query()
+                                      ->where('deadline', '>', $today)
                                       ->orderBy('date')
                                       ->get();
 
         $topRecruitments = [];
         foreach ($results as $r/** @var EloquentRecruitment $r */) {
             $recruitment = $r->toModel();
-            $recruitment->setId($r->id);
-
-            $count = $r->usersRecruitment()
-                       ->entryUser()
-                       ->count();
+            $count       = $r->usersRecruitment()
+                             ->entryUser()
+                             ->count();
             $recruitment->setEntryCount($count);
 
             $createUser = $r->createUser->toModel();
@@ -210,7 +211,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
      * @param UserId $userId
      * @return TopRecruitment[]
      */
-    public function attendList(UserId $userId): array
+    public function MyAttendList(UserId $userId): array
     {
         $results = EloquentUsersRecruitment::query()
                                            ->where('user_id', $userId->getValue())
@@ -247,6 +248,33 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         }
 
         return $attendList;
+    }
+
+    /**
+     * @param ManageAttendListRequest $request
+     * @return array
+     */
+    public function manageAttendList(ManageAttendListRequest $request): array
+    {
+        $recruitmentId  = $request->getRecruitmentId()
+                                  ->getValue();
+        $browsingUserId = $request->getUserId()
+                                  ->getValue();
+
+        /** @var EloquentRecruitment $eloquentRec */
+        $eloquentRec = EloquentRecruitment::query()
+                                          ->where('create_id', $browsingUserId)
+                                          ->findOrFail($recruitmentId);
+
+        $userIds = $eloquentRec->usersRecruitment()
+                               ->entryUser()
+                               ->get()
+                               ->map(function ($item) {
+                                   return $item->user_id;
+                               })
+                               ->toArray();
+
+        return $userIds;
     }
 
     /**

@@ -40,7 +40,7 @@
                 @else
                   <div class="mt15">
                     <div class="d-inline-block">
-                      <a href="" type="button" class="btn btn-primary"> 参加者一覧 </a>
+                      <a href="{{ route('manage-attend.list', ['id' => $createdRec->getRecruitmentId()]) }}" type="button" class="btn btn-primary"> 参加者一覧 </a>
                     </div>
                     <div class="d-inline-block">
                       <a href="{{ route('manage-event.editForm', ['id' => $createdRec->getRecruitmentId()]) }}" type="button" class="btn btn-primary"> 編集 </a>

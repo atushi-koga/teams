@@ -42,7 +42,7 @@ class UsersSeeder extends Seeder
                                                              ->getKey(),
                                 'prefecture'        => Prefecture::of(2)
                                                                  ->getKey(),
-                                'birthday'          => BirthDay::of(Carbon::parse('1989-7-11'))
+                                'birthday'          => BirthDay::of(Carbon::parse('1990-7-11'))
                                                                ->getFormatBirthDate(),
                                 'email'             => Email::of('test2@gmail.com')
                                                             ->getValue(),
@@ -50,7 +50,22 @@ class UsersSeeder extends Seeder
                                 'password'          => Password::ofRowPassword('22222222')
                                                                ->getHash(),
                                 'created_at'        => Carbon::now(),
-                            ]
+                            ],
+                            [
+                                'nickname'          => 'test user3',
+                                'gender'            => Gender::of(1)
+                                                             ->getKey(),
+                                'prefecture'        => Prefecture::of(3)
+                                                                 ->getKey(),
+                                'birthday'          => BirthDay::of(Carbon::parse('1991-7-12'))
+                                                               ->getFormatBirthDate(),
+                                'email'             => Email::of('test3@gmail.com')
+                                                            ->getValue(),
+                                'email_verified_at' => null,
+                                'password'          => Password::ofRowPassword('33333333')
+                                                               ->getHash(),
+                                'created_at'        => Carbon::now(),
+                            ],
                         ]
                     );
     }

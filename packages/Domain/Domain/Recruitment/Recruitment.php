@@ -195,6 +195,10 @@ class Recruitment
             $attributes['notes']
         );
 
+        if (isset($attributes['id'])) {
+            $recruitment->setId($attributes['id']);
+        }
+
         if (isset($attributes['create_id'])) {
             $recruitment->setCreateId($attributes['create_id']);
         }
