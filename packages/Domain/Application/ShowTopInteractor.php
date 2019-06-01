@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace packages\Domain\Application;
 
-use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\Recruitment\TopRecruitment;
-use packages\Domain\Domain\User\BrowsingRestriction;
 use packages\UseCase\Top\ShowTopResponse;
 use packages\UseCase\Top\ShowTopUseCaseInterface;
 

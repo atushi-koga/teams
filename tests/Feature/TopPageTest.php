@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Eloquent\EloquentRecruitment;
 use App\Eloquent\EloquentUser;
+use Artisan;
 use packages\Domain\Domain\Recruitment\Recruitment;
 use packages\Domain\Domain\Recruitment\RecruitmentRepositoryInterface;
 use packages\Domain\Domain\Recruitment\TopRecruitment;
@@ -18,14 +20,16 @@ class TopPageTest extends TestCase
     /** @var EloquentUser $user */
     private $user;
 
+    /** @var EloquentRecruitment $recruitment */
+    private $recruitment;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->setInitData();
-        $this->user = factory(EloquentUser::class)->create([
-            'nickname' => '田中tarou'
-        ]);
+        $this->user        = factory(EloquentUser::class)->create();
+        $this->recruitment = factory(EloquentRecruitment::class)->create();
     }
 
     /**
@@ -40,30 +44,11 @@ class TopPageTest extends TestCase
                  ->assertViewIs('top.index');
     }
 
-    public function recruitment()
-    {
-        return Recruitment::ofByArray([
-            'title'       => '丹沢大山に登ろう',
-            'mount'       => '丹沢大山',
-            'prefecture'  => 14,
-            'schedule'    => '伊勢原駅→登山開始→下山完了',
-            'date'        => '2019/10/3',
-            'capacity'    => 5,
-            'deadline'    => '2019/9/28',
-            'requirement' => 'ルールを守れる方',
-            'belongings'  => '昼食、登山靴、着替類',
-            'notes'       => '自己責任でお願いします',
-            'create_id'   => 1,
-        ]);
-    }
-
     public function testCanCallSearchForTop()
     {
         /** @var Recruitment $recruitment */
-        $recruitment = $this->recruitment();
-        $recruitment->setId(1);
-
-        $createUser = $this->user->toModel();
+        $recruitment = $this->recruitment->toModel();
+        $createUser  = $this->user->toModel();
 
         $topRecruitments[] = TopRecruitment::ofByArray([
             'recruitment' => $recruitment,
@@ -83,10 +68,8 @@ class TopPageTest extends TestCase
     public function testCanDisplayRecruitmentInfo()
     {
         /** @var Recruitment $recruitment */
-        $recruitment = $this->recruitment();
-        $recruitment->setId(1);
+        $recruitment = $this->recruitment->toModel();
         $recruitment->setEntryCount(3);
-
         $createUser = $this->user->toModel();
 
         $topRec = TopRecruitment::ofByArray([

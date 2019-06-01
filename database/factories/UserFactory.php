@@ -11,7 +11,7 @@ use packages\Domain\Domain\User\Password;
 
 $factory->define(EloquentUser::class, function (Faker $faker) {
     return [
-        'nickname'          => mb_substr($faker->name, 0, 20),
+        'nickname'          => '田中tarou',
         'gender'            => Gender::of(1)
                                      ->getKey(),
         'prefecture'        => Prefecture::of(1)

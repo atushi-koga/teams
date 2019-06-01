@@ -30,8 +30,8 @@ class CreateUsersRecruitmentTables extends Migration
             $table->foreign('recruitment_id')
                   ->references('id')
                   ->on('recruitment');
-//
-//            $table->unique(['user_id', 'recruitment_id']);
+
+            $table->unique(['user_id', 'recruitment_id']);
         });
     }
 
