@@ -122,7 +122,8 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
      */
     public function searchForTop(): array
     {
-        $today = Carbon::today()->format('Y-m-d');
+        $today   = Carbon::today()
+                         ->format('Y-m-d');
         $results = EloquentRecruitment::query()
                                       ->where('deadline', '>', $today)
                                       ->orderBy('date')
@@ -214,6 +215,7 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
     {
         $results = EloquentUsersRecruitment::query()
                                            ->where('user_id', $userId->getValue())
+                                           ->entryUser()
                                            ->get();
 
         if ($results->count() === 0) {
@@ -231,7 +233,6 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         foreach ($EloquentRecs as $EloquentRec) {
             /** @var Recruitment $recruitment */
             $recruitment = $EloquentRec->toModel();
-            $recruitment->setId($EloquentRec->id);
 
             $count = $EloquentRec->usersRecruitment()
                                  ->entryUser()
@@ -322,7 +323,6 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
         if ($EloquentUserRec) {
             $EloquentRec = $EloquentUserRec->recruitment;
             $recruitment = $EloquentRec->toModel();
-            $recruitment->setId($EloquentRec->id);
 
             return $recruitment;
         } else {

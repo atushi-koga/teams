@@ -14,10 +14,10 @@
       <div style="margin-bottom: 40px; max-width: 600px; margin-left:auto; margin-right:auto;">
         <div style="display: flex; display: -webkit-flex; flex-direction: row; align-items: flex-start; justify-content: flex-start;">
           <div style="width: 120px; height: 120px; margin-right: 20px;">
-            <img src="/Penguins.jpg" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            <img src="/default_icon.jpeg" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
           </div>
           <div>
-            <div class="font18">{{ $r->getNickname() }}</div>
+            <div class="font18"><a href="{{ route('user.profile', ['id' => $r->getUserId()]) }}">{{ $r->getNickname() }}</a></div>
             <div class="font16">{{ $r->getGenderValue() }}</div>
             <div class="font16">{{ $r->getUserAge() }}歳</div>
           </div>
@@ -27,7 +27,7 @@
       <div style="margin-bottom: 40px; max-width: 600px; margin-left:auto; margin-right:auto;">
         <div style="display: flex; display: -webkit-flex; flex-direction: row; align-items: flex-start; justify-content: flex-start;">
           <div style="width: 120px; height: 120px; margin-right: 20px;">
-            <img src="/Penguins.jpg" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+            <img src="/default_icon.jpeg" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
           </div>
           <div>
             <div class="font18">nickname</div>
