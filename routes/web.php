@@ -30,16 +30,13 @@ Route::group(['prefix' => 'login'], function () {
 /**
  * マイページ
  */
-Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
-    Route::get('/', 'MyPage\TopController@showTop')
-         ->name('my-page.top');
-    Route::get('logout', 'MyPage\TopController@logout')
-         ->name('my-page.logout');
-
+Route::group(['middleware' => 'auth'], function () {
     /**
      * アカウント情報詳細・編集
      */
     Route::group(['prefix' => 'account'], function () {
+        Route::get('/logout', 'MyPage\AccountController@logout')
+             ->name('account.logout');
         Route::get('/', 'MyPage\AccountController@detail')
              ->name('account.detail');
         Route::group(['prefix' => 'edit'], function () {

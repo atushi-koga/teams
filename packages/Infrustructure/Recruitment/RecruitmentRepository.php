@@ -166,7 +166,6 @@ class RecruitmentRepository implements RecruitmentRepositoryInterface
                                                 ->findOrFail($request->getRecruitmentId());
 
         $recruitment = $recruitmentRecord->toModel();
-        $recruitment->setId($recruitmentRecord->id);
 
         $entryUsers = $recruitmentRecord->usersRecruitment()
                                         ->entryUser()

@@ -37,8 +37,8 @@ class EditEventTest extends TestCase
              ->assertViewIs('manage.edit_event.form');
     }
 
-    public function testCanDisplayCreatedRecruitmentInfoInEditForm()
-    {
-
-    }
+//    public function testCanDisplayCreatedRecruitmentInfoInEditForm()
+//    {
+//
+//    }
 }

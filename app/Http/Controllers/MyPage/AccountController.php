@@ -80,4 +80,22 @@ class AccountController extends Controller
     {
         return view('my_page.account.edit_finish');
     }
+
+    /**
+     * ログアウト
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard()
+            ->logout();
+
+        $request->session()
+                ->invalidate();
+
+        return redirect(route('top'));
+    }
+
 }

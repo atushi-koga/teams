@@ -12,7 +12,7 @@
     <div class="col-md-6">
       <select id="prefecture" class="select @if($errors->has('prefecture')) invalid @endif" name="prefecture" required>
         <option value="">----</option>
-        @foreach($response->prefectures as $key => $value)
+        @foreach($res->prefectures as $key => $value)
           <option value="{{ $key }}" @if(old('prefecture') == $key) selected @endif>{{ $value }}</option>
         @endforeach
       </select>
@@ -26,7 +26,7 @@
     <div class="col-md-6">
       <select id="gender" name="gender" class="select @if($errors->has('gender')) invalid @endif" required>
         <option value="">----</option>
-        @foreach($response->genders as $key => $value)
+        @foreach($res->genders as $key => $value)
           <option value="{{ $key }}" @if(old('gender') == $key) selected @endif>{{ $value }}</option>
         @endforeach
       </select>
@@ -40,19 +40,19 @@
     <div class="col-md-6">
       <select id="birth_year" name="birth_year" style="width: 90px" class="select @if($errors->has('birthday')) invalid @endif" required>
         <option value="">----</option>
-          @foreach($response->birthYearList as $key => $value)
+          @foreach($res->birthYearList as $key => $value)
             <option value="{{ $key }}" @if(old('birth_year') == $key) selected @endif>{{ $value }}</option>
           @endforeach
       </select>／
       <select id="birth_month" name="birth_month" class="select @if($errors->has('birthday')) invalid @endif" style="width: 70px" required>
         <option value=""> --- </option>
-        @foreach($response->birthMonthList as $key => $value)
+        @foreach($res->birthMonthList as $key => $value)
           <option value="{{ $key }}" @if(old('birth_month') == $key) selected @endif>{{ $value }}</option>
         @endforeach
       </select>／
       <select id="birth_day" name="birth_day" class="select @if($errors->has('birthday')) invalid @endif" style="width: 70px" required>
         <option value="">----</option>
-        @foreach($response->birthDayList as $key => $value)
+        @foreach($res->birthDayList as $key => $value)
           <option value="{{ $key }}" @if(old('birth_day') == $key) selected @endif>{{ $value }}</option>
         @endforeach
       </select>
@@ -72,6 +72,7 @@
     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('register_user.password') }}</label>
     <div class="col-md-6">
       <input id="password" type="password" class="form-control @if($errors->has('password')) invalid @endif" name="password" required> @error('password')
+      <div><span>※半角英数字8文字以上で入力してください</span></div>
     </div>
   </div>
 

@@ -12,6 +12,7 @@ use packages\Domain\Domain\User\Email;
 use packages\Domain\Domain\User\Gender;
 use packages\Domain\Domain\User\Password;
 use packages\Domain\Domain\User\User;
+use packages\UseCase\Auth\Register\RegisterUserFormResponse;
 use packages\UseCase\Auth\Register\RegisterUserFormUseCaseInterface;
 use packages\UseCase\Auth\Register\RegisterUserUseCaseInterface;
 
@@ -27,7 +28,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest')
-            ->except('showComplete');
+             ->except('showComplete');
     }
 
     /**
@@ -38,9 +39,10 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm(RegisterUserFormUseCaseInterface $interactor)
     {
-        $response = $interactor->handle();
+        /** @var RegisterUserFormResponse $res */
+        $res = $interactor->handle();
 
-        return view('auth.register.form', compact('response'));
+        return view('auth.register.form', compact('res'));
     }
 
     /**
@@ -53,7 +55,7 @@ class RegisterController extends Controller
     public function register(RegisterUserFormRequest $request, RegisterUserUseCaseInterface $interactor)
     {
         $birthday = "{$request->birth_year}-{$request->birth_month}-{$request->birth_day}";
-        $user     = User::ofByArray($request->all() + ['birthday' => $birthday]);
+        $user     = User::ofByArray($request->all() + ['birthday' => $birthday,]);
         $user->setPassword(Password::ofRowPassword($request->password));
 
         /** @var User $created_user */
@@ -70,7 +72,7 @@ class RegisterController extends Controller
         ]);
 
         $this->guard()
-            ->login($loginUser);
+             ->login($loginUser);
 
         return redirect(route('register.showComplete'));
     }

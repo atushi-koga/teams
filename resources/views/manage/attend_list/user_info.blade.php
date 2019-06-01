@@ -5,7 +5,7 @@
   <div class="mb20">
     <div>
       <div>
-        <a href="{{ route('my-page.top') }}">TOP</a>&nbsp;&gt;&nbsp;<span>参加者一覧</span>
+        <a href="{{ route('top') }}">TOP</a>&nbsp;&gt;&nbsp;<span>参加者一覧</span>
       </div>
     </div>
   </div>

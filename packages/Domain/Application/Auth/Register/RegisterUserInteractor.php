@@ -12,11 +12,6 @@ class RegisterUserInteractor implements RegisterUserUseCaseInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * RegisterUserInteractor constructor.
-     *
-     * @param UserRepositoryInterface $userRepository
-     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;

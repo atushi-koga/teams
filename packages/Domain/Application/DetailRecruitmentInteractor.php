@@ -14,20 +14,11 @@ class DetailRecruitmentInteractor implements DetailRecruitmentUseCaseInterface
     /** @var RecruitmentRepositoryInterface */
     private $recruitmentRepository;
 
-    /**
-     * NewRecruitmentInteractor constructor.
-     *
-     * @param RecruitmentRepositoryInterface $recruitmentRepository
-     */
     public function __construct(RecruitmentRepositoryInterface $recruitmentRepository)
     {
         $this->recruitmentRepository = $recruitmentRepository;
     }
 
-    /**
-     * @param DetailRecruitmentRequest $request
-     * @return DetailRecruitment
-     */
     public function handle(DetailRecruitmentRequest $request): DetailRecruitment
     {
         return $this->recruitmentRepository->detail($request);

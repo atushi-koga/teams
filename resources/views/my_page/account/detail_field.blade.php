@@ -5,7 +5,7 @@
   <div class="mb20">
     <div>
       <div>
-        <a href="{{ route('my-page.top') }}">TOP</a>&nbsp;&gt;&nbsp;<span>アカウント情報</span>
+        <a href="{{ route('top') }}">TOP</a>&nbsp;&gt;&nbsp;<span>アカウント情報</span>
       </div>
     </div>
   </div>
@@ -30,6 +30,11 @@
       <div class="col-md-6 offset-md-4">
         <a href="{{ route('account.shoEditForm') }}" class="btn green">
           編集する
+        </a>
+      </div>
+      <div class="col-md-6 offset-md-4">
+        <a href="{{ route('account.logout') }}" class="btn btn-dark">
+          ログアウト
         </a>
       </div>
     </div>

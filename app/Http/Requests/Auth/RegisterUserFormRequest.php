@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Rules\PasswordRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use packages\Domain\Domain\Common\Prefecture;
@@ -32,7 +33,7 @@ class RegisterUserFormRequest extends FormRequest
             'gender'     => ['required', Rule::in(array_keys(Gender::Enum()))],
             'birthday'   => ['required', 'date_format:Y-n-j', 'before:tomorrow',],
             'email'      => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'password'   => ['required', 'string', 'min:8', 'confirmed'],
+            'password'   => ['required', 'string', new PasswordRule(), 'confirmed'],
         ];
     }
 
