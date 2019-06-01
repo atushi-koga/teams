@@ -15,19 +15,11 @@ class AccountEditInteractor implements AccountEditUseCaseInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * NewRecruitmentInteractor constructor.
-     *
-     * @param UserRepositoryInterface $userRepository
-     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * @param AccountEditRequest $request
-     */
     public function handle(AccountEditRequest $request)
     {
         $this->userRepository->edit($request);

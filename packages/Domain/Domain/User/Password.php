@@ -22,10 +22,6 @@ class Password
         return $this->value;
     }
 
-    /**
-     * @param string $row
-     * @return Password
-     */
     public static function ofRowPassword(string $row): self
     {
         return new self(Hash::make($row));

@@ -13,3 +13,6 @@
     </div>
   </div>
 @endsection
+@push('script')
+  <script src="/js/edit_account.js"></script>
+@endpush

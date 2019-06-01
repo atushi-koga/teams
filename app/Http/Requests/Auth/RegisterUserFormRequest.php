@@ -28,12 +28,12 @@ class RegisterUserFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nickname'   => ['required', 'string', 'max:20'],
+            'nickname'   => ['required', 'max:20'],
             'prefecture' => ['required', Rule::in(array_keys(Prefecture::Enum()))],
             'gender'     => ['required', Rule::in(array_keys(Gender::Enum()))],
             'birthday'   => ['required', 'date_format:Y-n-j', 'before:tomorrow',],
-            'email'      => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'password'   => ['required', 'string', new PasswordRule(), 'confirmed'],
+            'email'      => ['required', 'email', 'max:100', 'unique:users'],
+            'password'   => ['required', new PasswordRule(), 'confirmed'],
         ];
     }
 

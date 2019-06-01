@@ -27,24 +27,27 @@ class AccountEditRequest
     /**
      * AccountEditRequest constructor.
      *
-     * @param int        $userId
-     * @param string     $nickname
-     * @param Prefecture $prefecture
-     * @param Email      $email
-     * @param Password   $password
+     * @param int         $userId
+     * @param string      $nickname
+     * @param Prefecture  $prefecture
+     * @param Email       $email
+     * @param string|null $password
      */
     public function __construct(
         int $userId,
         string $nickname,
         Prefecture $prefecture,
         Email $email,
-        Password $password
+        ?string $password
     ) {
         $this->userId     = $userId;
         $this->nickname   = $nickname;
         $this->prefecture = $prefecture;
         $this->email      = $email;
-        $this->password   = $password;
+
+        if (!is_null($password)) {
+            $this->password = Password::ofRowPassword($password);
+        }
     }
 
     public function getUserId(): int
@@ -67,8 +70,8 @@ class AccountEditRequest
         return $this->email->getValue();
     }
 
-    public function getHashPass(): string
+    public function getHashPass(): ?string
     {
-        return $this->password->getHash();
+        return $this->password ? $this->password->getHash() : null;
     }
 }

@@ -65,15 +65,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/{id}/cancel', 'MyPage\AttendController@cancel')
              ->name('attend.cancel');
     });
-    /**
-     * 募集内容登録
-     */
-    Route::group(['prefix' => '/new-recruitment'], function () {
-        Route::get('/', 'MyPage\NewRecruitmentController@showForm')
-             ->name('new-recruitment.showForm');
-        Route::post('/', 'MyPage\NewRecruitmentController@create')
-             ->name('new-recruitment.create');
-    });
+//    /**
+//     * 募集内容登録
+//     */
+//    Route::group(['prefix' => '/new-recruitment'], function () {
+//        Route::get('/', 'MyPage\NewRecruitmentController@showForm')
+//             ->name('new-recruitment.showForm');
+//        Route::post('/', 'MyPage\NewRecruitmentController@create')
+//             ->name('new-recruitment.create');
+//    });
     /**
      * イベント、参加者管理
      */

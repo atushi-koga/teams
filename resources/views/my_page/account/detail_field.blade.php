@@ -17,25 +17,18 @@
         </div>
         <div>
           <div class="font18">{{ $res->getNickname() }}</div>
-          <div class="font16">{{ $res->getGenderValue() }}</div>
-          <div class="font16">{{ $res->getUserAge() }}歳</div>
+          <div class="font16">居住地: <span>{{ $res->getPrefectureValue() }}</span></div>
+          <div class="font16">
+            <span>{{ $res->getGenderValue() }}</span> <span>{{ $res->getUserAge() }}歳</span>
+          </div>
+          <div class="font16">{{ $res->getEmail() }}</div>
         </div>
-      </div>
-      <div class="mt20">
-        はじめまして。田中と申します。
-        宜しくお願いします。
       </div>
     </div>
     <div class="form-group row mb-0">
       <div class="col-md-6 offset-md-4">
-        <a href="{{ route('account.shoEditForm') }}" class="btn green">
-          編集する
-        </a>
-      </div>
-      <div class="col-md-6 offset-md-4">
-        <a href="{{ route('account.logout') }}" class="btn btn-dark">
-          ログアウト
-        </a>
+        <a href="{{ route('account.shoEditForm') }}" class="btn green"> 編集する </a>
+        <a href="{{ route('account.logout') }}" class="btn btn-dark"> ログアウト </a>
       </div>
     </div>
   </div>

@@ -29,7 +29,7 @@ class NewRecruitmentTest extends TestCase
      */
     public function testCanDisplayCreateForm()
     {
-        $this->get('/my-page/manage/event/create')
+        $this->get('/manage/event/create')
              ->assertStatus(200)
              ->assertViewIs('manage.new_event.form');
     }
@@ -65,13 +65,13 @@ class NewRecruitmentTest extends TestCase
 
         $this->instance(RecruitmentRepositoryInterface::class, $mock);
 
-        $this->post('/my-page/manage/event/create', $request)
-             ->assertRedirect('/my-page/manage/event/create/finish');
+        $this->post('/manage/event/create', $request)
+             ->assertRedirect('/manage/event/create/finish');
     }
 
     public function testCanDisplayCreateFinish()
     {
-        $this->get('/my-page/manage/event/create/finish')
+        $this->get('/manage/event/create/finish')
              ->assertStatus(200)
              ->assertViewIs('manage.new_event.finish');
     }

@@ -14,21 +14,12 @@ class AccountDetailInteractor implements AccountDetailUseCaseInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * NewRecruitmentInteractor constructor.
-     *
-     * @param UserRepositoryInterface $userRepository
-     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * @param AccountDetailRequest $request
-     * @return AccountDetail
-     */
-    public function handle(AccountDetailRequest $request)
+    public function handle(AccountDetailRequest $request): AccountDetail
     {
         /** @var User $user */
         $user = $this->userRepository->find($request->getUserId());

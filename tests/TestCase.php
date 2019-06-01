@@ -17,10 +17,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function login(): EloquentUser
     {
-        $user = factory(EloquentUser::class)->create([
-            'nickname' => '田中tarou'
-        ]);
-
+        $user = factory(EloquentUser::class)->create();
         $this->actingAs($user);
 
         return $user;

@@ -45,7 +45,6 @@ class AccountController extends Controller
      */
     public function shoEditForm(ShowAccountEditUseCaseInterface $interactor)
     {
-        // 登録情報とフォームに必要な情報を取得
         $request = new ShowAccountEditRequest(Auth::id());
 
         /** @var AccountEditForm $res */
@@ -68,7 +67,7 @@ class AccountController extends Controller
             $request->nickname,
             Prefecture::of(intval($request->prefecture)),
             Email::of($request->email),
-            Password::ofRowPassword($request->password)
+            $request->password
         );
 
         $interactor->handle($request);
