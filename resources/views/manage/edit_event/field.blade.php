@@ -1,6 +1,6 @@
 <div class="content-box">
-  <div class="list-title">イベント編集</div>
-  <div class="list-box">
+  <div class="content-header">イベント編集</div>
+  <div class="content-body">
     <div>
       <span>募集するに当たって必要な情報を入力してください</span>
       <form method="post" action="{{ route('manage-event.edit', ['id' => $recruitment->getId()]) }}">

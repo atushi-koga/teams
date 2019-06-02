@@ -1,13 +1,13 @@
 <div class="content-box">
   <div class="content-head">
-    <div class="list-title">
+    <div class="content-header">
       作成イベント
     </div>
     <div>
       <a href="{{ route('manage-event.create') }}" class="btn btn-primary">イベント作成</a>
     </div>
   </div>
-  <div class="list-box">
+  <div class="content-body">
     @if(count($res) === 0)
       <div class="recruitment-list">
         作成したイベントはありません

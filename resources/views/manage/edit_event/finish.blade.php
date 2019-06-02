@@ -5,8 +5,8 @@
 @section('content')
   <div class="container">
     <div class="content-box">
-      <div class="list-title">イベント編集</div>
-      <div class="list-box">
+      <div class="content-header">イベント編集</div>
+      <div class="content-body">
         <div>
           <span>イベントの編集を完了しました。</span>
         </div>
