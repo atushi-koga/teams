@@ -1,35 +1,30 @@
-@foreach($res->recruitment as $topRec)
-  <div class="recruitment-list">
-    <div class="recruitment-date">
-      <div class="year">{{ $topRec->getHeldYear() }}</div>
-      <div class="day">{{ $topRec->getHeldDate() }}</div>
-      <div class="time">13:00～21:00</div>
-    </div>
-    <div class="recruitment">
-      <div class="recruitment-owner">
+<div>
+  <div class="content-header">イベント一覧</div>
+  <div class="content-body">
+    @foreach($res->recruitment as $topRec)
+      <div class="recruitment">
         <div>
-          <a href="" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">
-            <span class="owner-nickname">{{ $topRec->getCreateUserNickname() }} さん</span> </a>
-        </div>
-      </div>
-      <div class="recruitment-info">
-        <div class="recruitment-image-box">
-          <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
-        </div>
-        <div class="recruitment-outline">
-          <div class="area">
-            <span class="label-area">{{ $topRec->getHeldPrefecture() }}</span>
+          <div class="mb10">
+            <span class="label-area">{{ $topRec->getHeldPrefecture() }}</span><span class="ml10">{{ $topRec->getMount() }}</span>
           </div>
-          <div class="recruitment-title">
+          <div class="recruitment-title mb10">
             <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link">{{ $topRec->getTitle() }}</a>
           </div>
-          <div class="mount">{{ $topRec->getMount() }}</div>
         </div>
-        <div class="recruitment-capacity">
-          <div class="font20">{{ $topRec->getEntryCount() }}人</div>
-          <div>／定員{{ $topRec->getCapacity() }}人</div>
+        <div class="recruitment-info">
+          <div class="recruitment-image-box">
+            <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
+          </div>
+          <div class="recruitment-outline">
+            <div class="font16 mt20">{{ $topRec->getHeldYear() }}/{{ $topRec->getHeldDate() }}</div>
+            <div class="font16">{{ $topRec->getEntryCount() }}人／定員{{ $topRec->getCapacity() }}人</div>
+            <div>
+              <a href="" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">
+                <span class="font14">{{ $topRec->getCreateUserNickname() }} さん</span> </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    @endforeach
   </div>
-@endforeach
+</div>

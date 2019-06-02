@@ -159,10 +159,6 @@ td {
     color: #000;
 }
 
-.area {
-    margin-bottom: 8px;
-}
-
 .label-area {
     background-color: #31b69f;
     color: #fff;
@@ -215,4 +211,12 @@ img:hover {
     box-shadow: none;
     outline: none;
     -webkit-box-shadow: none;
+}
+
+.flex-sb{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }

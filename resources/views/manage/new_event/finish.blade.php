@@ -5,8 +5,8 @@
 @section('content')
   <div class="container">
     <div class="content-box">
-      <div class="list-title">新規イベント登録</div>
-      <div class="list-box">
+      <div class="content-header">新規イベント登録</div>
+      <div class="content-body">
         <div>
           <span>イベントを登録しました。</span>
         </div>

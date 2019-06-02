@@ -1,8 +1,8 @@
 <div class="content-box">
-  <div class="list-title">
+  <div class="content-header">
     申込済みのイベント
   </div>
-  <div class="list-box">
+  <div class="content-body">
     @if(count($res) === 0)
       申込済みのイベントはありません。
     @else

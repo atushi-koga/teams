@@ -1,59 +1,28 @@
-.recruitment-list {
-    min-height: 135px;
-    padding: 15px 0;
-    border-bottom: 3px solid #d3d3d3;
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.recruitment-date {
-    text-align: center;
-    width: 160px;
-    min-height: 120px;
-}
-
-.year, time {
-    font-size: 14px;
-}
-
-.day {
-    font-size: 18px;
+.content-header {
+    padding-bottom: 30px;
+    font-size: 24px;
     font-weight: bold;
 }
 
-.recruitment {
-    padding-left: 20px;
-    border-left: 2px solid #d3d3d3;
-    min-height: 135px;
-}
-
-.recruitment-owner {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 11px;
-    padding-bottom: 4px;
-}
-
-.owner-icon {
-    width: 22px;
-    height: 22px;
+.content-body {
+    padding: 40px;
+    border-radius: 4px;
     background-color: #fff;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border-radius: 50%;
-    margin-right: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    box-shadow: 0 0 3px rgba(102, 102, 102, .16);
 }
 
-.owner-nickname {
-    font-size: 13px;
+.recruitment {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #d3d3d3;
+}
+
+.recruitment-title {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .recruitment-info {
@@ -65,43 +34,28 @@
 }
 
 .recruitment-image-box {
-    width: 120px;
-    height: 120px;
-    margin-right: 20px;
+    width: 110px;
+    height: 110px;
+    margin-right: 10px;
 }
 
 .recruitment-image {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    max-width: 110px;
+    max-height: 110px;
 }
 
 .recruitment-outline {
-    width: 400px;
-    min-height: 120px;
+    min-width: 200px;
+    height: 120px;
 }
 
-.mount {
-    font-size: 12px;
-}
-
-.recruitment-title {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1.5;
-    margin-bottom: 15px;
-}
-
-.list-title {
-    padding-bottom: 30px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.list-box {
-    padding: 40px;
-    border-radius: 4px;
+.owner-icon {
+    max-width: 30px;
+    max-height: 30px;
     background-color: #fff;
-    box-shadow: 0 0 3px rgba(102, 102, 102, .16);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    margin-right: 4px;
 }

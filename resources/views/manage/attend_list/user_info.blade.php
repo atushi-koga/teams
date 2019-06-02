@@ -1,5 +1,5 @@
 <div class="content-box">
-  <div class="list-title">
+  <div class="content-header">
     参加者一覧
   </div>
   <div class="mb20">
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="list-box">
+  <div class="content-body">
     @foreach($res as $r)
       <div style="margin-bottom: 40px; max-width: 600px; margin-left:auto; margin-right:auto;">
         <div style="display: flex; display: -webkit-flex; flex-direction: row; align-items: flex-start; justify-content: flex-start;">
