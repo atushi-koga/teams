@@ -44,6 +44,11 @@ class TopRecruitment
                                  ->getDateWithDayOfWeek();
     }
 
+    public function getCreateUserId(): int
+    {
+        return $this->createUser->getId();
+    }
+
     public function getCreateUserNickname(): string
     {
         return $this->createUser->getNickName();

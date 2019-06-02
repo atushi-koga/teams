@@ -52,17 +52,11 @@ class User
         $this->email      = $email;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getNickName(): string
     {
         return $this->nickname;

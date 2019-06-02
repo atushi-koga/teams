@@ -8,10 +8,10 @@
           <div class="card-body">
             編集を完了しました。
           </div>
-          <div class="ac">
-            <button type="button" class="btn bg-dark">
-              会員情報へ戻る
-            </button>
+          <div class="ac mb15">
+            <a href="{{ route('account.detail') }}" type="button" class="btn green">
+              会員情報へ
+            </a>
           </div>
         </div>
       </div>

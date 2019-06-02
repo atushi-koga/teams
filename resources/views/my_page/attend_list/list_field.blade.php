@@ -24,7 +24,7 @@
               <div class="font16">{{ $topRec->getHeldYear() }}/{{ $topRec->getHeldDate() }}</div>
               <div class="font16">{{ $topRec->getEntryCount() }}人／定員{{ $topRec->getCapacity() }}人</div>
               <div>
-                <a href="" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">
+                <a href="{{ route('user.profile', ['id' => $topRec->getCreateUserId()]) }}" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">
                   <span class="font14">{{ $topRec->getCreateUserNickname() }} さん</span> </a>
               </div>
             </div>
