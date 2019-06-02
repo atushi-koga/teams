@@ -8,12 +8,12 @@
             <span class="label-area">{{ $topRec->getHeldPrefecture() }}</span><span class="ml10">{{ $topRec->getMount() }}</span>
           </div>
           <div class="recruitment-title mb10">
-            <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link">{{ $topRec->getTitle() }}</a>
+            <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" class="link">{{ $topRec->getTitle() }}</a>
           </div>
         </div>
         <div class="recruitment-info">
           <div class="recruitment-image-box">
-            <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
+            <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
           </div>
           <div class="recruitment-outline">
             <div class="font16">{{ $topRec->getHeldYear() }}/{{ $topRec->getHeldDate() }}</div>

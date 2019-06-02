@@ -61,9 +61,10 @@ class UserRepository implements UserRepositoryInterface
     public function edit(AccountEditRequest $request): void
     {
         $values   = [
-            'nickname'   => $request->getNickname(),
-            'prefecture' => $request->getPrefectureKey(),
-            'email'      => $request->getEmail(),
+            'nickname'     => $request->getNickname(),
+            'prefecture'   => $request->getPrefectureKey(),
+            'email'        => $request->getEmail(),
+            'introduction' => $request->getIntroduction(),
         ];
         $hashPass = $request->getHashPass();
         if ($hashPass) {

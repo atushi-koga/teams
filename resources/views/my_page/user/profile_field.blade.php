@@ -16,9 +16,9 @@
         </div>
       </div>
     </div>
-    {{--ユーザ登録時に入れた自己紹介を表示--}}
-    {{--<div class="mt10">--}}
-      {{--自己紹介メッセージ--}}
-    {{--</div>--}}
+    <div class="mt15">
+      <div>自己紹介</div>
+      <div class="introduction">{!! nl2br(e($res->getIntroduction())) !!}</div>
+    </div>
   </div>
 </div>

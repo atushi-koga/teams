@@ -17,6 +17,10 @@
           <div class="font16">{{ $res->getEmail() }}</div>
         </div>
       </div>
+      <div class="mt15">
+        <div>自己紹介</div>
+        <div class="introduction">{!! nl2br(e($res->getIntroduction())) !!}</div>
+      </div>
     </div>
     <div class="form-group row mb-0">
       <div class="col-md-6 offset-md-4">
