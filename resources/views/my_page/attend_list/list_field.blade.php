@@ -1,56 +1,44 @@
-<div class="content-box">
+<div>
   <div class="content-header">
     申込済みのイベント
   </div>
   <div class="content-body">
     @if(count($res) === 0)
-      申込済みのイベントはありません。
+      <div>申込済みのイベントはありません。</div>
     @else
       @foreach($res as $topRec)
-        <div class="recruitment-list">
-          <div class="recruitment-date">
-            <div class="year">{{ $topRec->getHeldYear() }}</div>
-            <div class="day">{{ $topRec->getHeldDate() }}</div>
-            <div class="time">13:00～21:00</div>
+        <div class="recruitment">
+          <div>
+            <div class="mb10">
+              <span class="label-area">{{ $topRec->getHeldPrefecture() }}</span><span class="ml10">{{ $topRec->getMount() }}</span>
+            </div>
+            <div class="recruitment-title mb10">
+              <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link">{{ $topRec->getTitle() }}</a>
+            </div>
           </div>
-          <div class="recruitment">
-            <div class="recruitment-owner">
+          <div class="recruitment-info">
+            <div class="recruitment-image-box">
+              <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
+            </div>
+            <div class="recruitment-outline">
+              <div class="font16">{{ $topRec->getHeldYear() }}/{{ $topRec->getHeldDate() }}</div>
+              <div class="font16">{{ $topRec->getEntryCount() }}人／定員{{ $topRec->getCapacity() }}人</div>
               <div>
                 <a href="" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">
-                  <span class="owner-nickname">{{ $topRec->getCreateUserNickname() }}</span> </a>
+                  <span class="font14">{{ $topRec->getCreateUserNickname() }} さん</span> </a>
               </div>
             </div>
-            <div class="recruitment-info">
-              <div class="recruitment-image-box">
-                <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link">
-                  <img class="recruitment-image" src="/app_icon.jpeg"> </a>
-              </div>
-              <div class="recruitment-outline">
-                <div class="area">
-                  <span class="label-area">{{ $topRec->getHeldPrefecture() }}</span>
-                </div>
-                <div class="recruitment-title">
-                  <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" class="link">{{ $topRec->getTitle() }}</a>
-                </div>
-                <div class="mount">{{ $topRec->getMount() }}</div>
-                @if($topRec->afterDeadline())
-                  <div class="mt15">
-                    <div class="btn black">本イベントは終了しました</div>
-                  </div>
-                @else
-                  <div class="mt15">
-                    <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $topRec->getRecruitmentId()]) }}"
-                            data-recruitment-id="{{ $topRec->getRecruitmentId() }}">
-                      キャンセルする
-                    </button>
-                  </div>
-                @endif
-              </div>
-              <div class="recruitment-capacity">
-                <div class="count font20">{{ $topRec->getEntryCount() }}人</div>
-                <div class="max">／定員{{ $topRec->getCapacity() }}人</div>
-              </div>
-            </div>
+          </div>
+          <div class="mt10">
+            @if($topRec->afterDeadline())
+              {{--@todo: 開催期間を過ぎたらこの表示をだす。今は募集締め切りが条件になってしまっている。--}}
+              <div class="end">本イベントは終了しました</div>
+            @else
+              <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $topRec->getRecruitmentId()]) }}"
+                      data-recruitment-id="{{ $topRec->getRecruitmentId() }}">
+                キャンセルする
+              </button>
+            @endif
           </div>
         </div>
       @endforeach

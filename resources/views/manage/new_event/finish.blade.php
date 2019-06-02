@@ -10,6 +10,9 @@
         <div>
           <span>イベントを登録しました。</span>
         </div>
+        <div class="ac mt15 mb15">
+          <a href="{{ route('manage-event.list') }}" class="btn green">作成イベント一覧へ</a>
+        </div>
       </div>
     </div>
   </div>

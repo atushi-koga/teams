@@ -26,7 +26,7 @@
               <a href="{{ route('detail-recruitment', ['id' => $createdRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
             </div>
             <div class="recruitment-outline">
-              <div class="font16 mt20">{{ $createdRec->getHeldYear() }}/{{ $createdRec->getHeldDate() }}</div>
+              <div class="font16">{{ $createdRec->getHeldYear() }}/{{ $createdRec->getHeldDate() }}</div>
               <div class="font16">{{ $createdRec->getEntryCount() }}人／定員{{ $createdRec->getCapacity() }}人</div>
               <div>
                 <a href="{{ route('manage-attend.list', ['id' => $createdRec->getRecruitmentId()]) }}"> 参加者一覧 </a>
@@ -35,7 +35,8 @@
           </div>
           <div class="mt10">
             @if($createdRec->afterDeadline())
-              <div class="btn black">本イベントは終了しました</div>
+              {{--@todo: 開催期間を過ぎたらこの表示をだす。今は募集締め切りが条件になってしまっている。--}}
+              <div class="end">本イベントは終了しました</div>
             @else
               <div class="d-inline-block">
                 <a href="{{ route('manage-event.editForm', ['id' => $createdRec->getRecruitmentId()]) }}" type="button" class="btn btn-primary"> 編集 </a>
