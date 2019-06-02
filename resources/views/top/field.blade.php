@@ -16,7 +16,7 @@
             <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
           </div>
           <div class="recruitment-outline">
-            <div class="font16 mt20">{{ $topRec->getHeldYear() }}/{{ $topRec->getHeldDate() }}</div>
+            <div class="font16">{{ $topRec->getHeldYear() }}/{{ $topRec->getHeldDate() }}</div>
             <div class="font16">{{ $topRec->getEntryCount() }}人／定員{{ $topRec->getCapacity() }}人</div>
             <div>
               <a href="" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">

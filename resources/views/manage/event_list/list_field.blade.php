@@ -26,7 +26,7 @@
               <a href="{{ route('detail-recruitment', ['id' => $createdRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
             </div>
             <div class="recruitment-outline">
-              <div class="font16 mt20">{{ $createdRec->getHeldYear() }}/{{ $createdRec->getHeldDate() }}</div>
+              <div class="font16">{{ $createdRec->getHeldYear() }}/{{ $createdRec->getHeldDate() }}</div>
               <div class="font16">{{ $createdRec->getEntryCount() }}人／定員{{ $createdRec->getCapacity() }}人</div>
               <div>
                 <a href="{{ route('manage-attend.list', ['id' => $createdRec->getRecruitmentId()]) }}"> 参加者一覧 </a>

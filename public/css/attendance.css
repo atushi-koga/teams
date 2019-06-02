@@ -1,0 +1,27 @@
+.user {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #d3d3d3;
+}
+
+.user-info {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.user-image-box {
+    width: 110px;
+    height: 110px;
+    margin-right: 10px;
+}
+
+.user-image {
+    max-width: 110px;
+    max-height: 110px;
+}
