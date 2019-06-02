@@ -15,21 +15,12 @@ class ShowAccountEditInteractor implements ShowAccountEditUseCaseInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * NewRecruitmentInteractor constructor.
-     *
-     * @param UserRepositoryInterface $userRepository
-     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * @param ShowAccountEditRequest $request
-     * @return AccountEditForm
-     */
-    public function handle(ShowAccountEditRequest $request)
+    public function handle(ShowAccountEditRequest $request): AccountEditForm
     {
         /** @var User $user */
         $user = $this->userRepository->find($request->getUserId());

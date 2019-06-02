@@ -20,7 +20,7 @@ class CreatedEventListTest extends TestCase
     {
         parent::setUp();
 
-        $this->manageEventUrl = '/my-page/manage/event';
+        $this->manageEventUrl = '/manage/event';
 
         $this->setInitData();
         $this->user = $this->login();
@@ -28,8 +28,6 @@ class CreatedEventListTest extends TestCase
 
     public function testCanDisplayCreatedSomeEvents()
     {
-        $this->withoutExceptionHandling();
-
         factory(EloquentRecruitment::class)->create([
             'create_id' => $this->user->id,
         ]);

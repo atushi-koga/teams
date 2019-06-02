@@ -45,9 +45,6 @@
         <div class="btn black">募集を終了しました</div>
       </div>
     @elseif($res->browsingUserIsCreateUser())
-      <div class="mt20 ac">
-        <a href="" class="btn btn-primary">編集する</a>
-      </div>
     @elseif($res->haveEntry())
       <div class="mt20 ac">
         <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $res->getRecruitmentId()]) }}"
@@ -77,9 +74,6 @@
           <div class="btn black">募集を終了しました</div>
         </div>
       @elseif($res->browsingUserIsCreateUser())
-        <div class="ac">
-          <a href="" class="btn btn-primary">編集する</a>
-        </div>
       @elseif($res->haveEntry())
         <div class="ac">
           <button type="button" class="btn dark cancel" data-url="{{ route('attend.cancel', ['id' => $res->getRecruitmentId()]) }}"

@@ -21,9 +21,7 @@ class DetailRecruitmentTest extends TestCase
         parent::setUp();
 
         $this->setInitData();
-        $this->user = factory(EloquentUser::class)->create([
-            'nickname' => '田中tarou'
-        ]);
+        $this->user = factory(EloquentUser::class)->create();
     }
 
     public function testCanDisplayDetailRecruitmentView()
@@ -35,14 +33,4 @@ class DetailRecruitmentTest extends TestCase
         $response->assertStatus(200)
                  ->assertViewIs('detail_recruitment.index');
     }
-
-//    public function testCanDisplayDetailRecruitmentInfo()
-//    {
-//        $detailRecruitment = DetailRecruitment::ofByArray(
-//            $recruitment,
-//            $createUserInfo,
-//            $request->getBrowsingUserId(),
-//            $participantInfoList
-//        );
-//    }
 }

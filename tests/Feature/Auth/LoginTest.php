@@ -29,7 +29,7 @@ class LoginTest extends TestCase
      */
     public function testCanNotDisplayWithoutAuth()
     {
-        $this->get('/my-page/account')
+        $this->get('/account')
              ->assertRedirect('/login');
     }
 

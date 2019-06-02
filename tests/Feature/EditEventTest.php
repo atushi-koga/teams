@@ -32,13 +32,13 @@ class EditEventTest extends TestCase
 
     public function testCanDisplayEditRecruitmentForm()
     {
-        $this->get("/my-page/manage/event/edit/{$this->recruitment->id}")
+        $this->get("/manage/event/edit/{$this->recruitment->id}")
              ->assertStatus(200)
              ->assertViewIs('manage.edit_event.form');
     }
 
-    public function testCanDisplayCreatedRecruitmentInfoInEditForm()
-    {
-
-    }
+//    public function testCanDisplayCreatedRecruitmentInfoInEditForm()
+//    {
+//
+//    }
 }

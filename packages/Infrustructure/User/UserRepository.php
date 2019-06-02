@@ -60,14 +60,19 @@ class UserRepository implements UserRepositoryInterface
 
     public function edit(AccountEditRequest $request): void
     {
+        $values   = [
+            'nickname'   => $request->getNickname(),
+            'prefecture' => $request->getPrefectureKey(),
+            'email'      => $request->getEmail(),
+        ];
+        $hashPass = $request->getHashPass();
+        if ($hashPass) {
+            $values['password'] = $hashPass;
+        }
+
         EloquentUser::query()
                     ->findOrFail($request->getUserId())
-                    ->update([
-                        'nickname'   => $request->getNickname(),
-                        'prefecture' => $request->getPrefectureKey(),
-                        'email'      => $request->getEmail(),
-                        'password'   => $request->getHashPass()
-                    ]);
+                    ->update($values);
     }
 
     /**
@@ -79,7 +84,7 @@ class UserRepository implements UserRepositoryInterface
         $users = EloquentUser::query()
                              ->whereIn('id', $userIds)
                              ->get()
-                             ->map(function ($item /** @var EloquentUser $item */) {
+                             ->map(function ($item/** @var EloquentUser $item */) {
                                  return $item->toModel();
                              })
                              ->toArray();

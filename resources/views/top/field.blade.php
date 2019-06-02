@@ -8,13 +8,13 @@
     <div class="recruitment">
       <div class="recruitment-owner">
         <div>
-          <a href="" class="link"> <img class="owner-icon" src="/IMG_0838.PNG" alt="">
+          <a href="" class="link"> <img class="owner-icon" src="/default_icon.jpeg" alt="">
             <span class="owner-nickname">{{ $topRec->getCreateUserNickname() }} さん</span> </a>
         </div>
       </div>
       <div class="recruitment-info">
         <div class="recruitment-image-box">
-          <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/test_img.png"></a>
+          <a href="{{ route('detail-recruitment', ['id' => $topRec->getRecruitmentId()]) }}" target="_blank" class="link"><img class="recruitment-image" src="/app_icon.jpeg"></a>
         </div>
         <div class="recruitment-outline">
           <div class="area">

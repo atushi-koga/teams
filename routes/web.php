@@ -30,16 +30,13 @@ Route::group(['prefix' => 'login'], function () {
 /**
  * マイページ
  */
-Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
-    Route::get('/', 'MyPage\TopController@showTop')
-         ->name('my-page.top');
-    Route::get('logout', 'MyPage\TopController@logout')
-         ->name('my-page.logout');
-
+Route::group(['middleware' => 'auth'], function () {
     /**
      * アカウント情報詳細・編集
      */
     Route::group(['prefix' => 'account'], function () {
+        Route::get('/logout', 'MyPage\AccountController@logout')
+             ->name('account.logout');
         Route::get('/', 'MyPage\AccountController@detail')
              ->name('account.detail');
         Route::group(['prefix' => 'edit'], function () {
@@ -67,15 +64,6 @@ Route::group(['prefix' => 'my-page', 'middleware' => 'auth'], function () {
              ->name('attend.list');
         Route::post('/{id}/cancel', 'MyPage\AttendController@cancel')
              ->name('attend.cancel');
-    });
-    /**
-     * 募集内容登録
-     */
-    Route::group(['prefix' => '/new-recruitment'], function () {
-        Route::get('/', 'MyPage\NewRecruitmentController@showForm')
-             ->name('new-recruitment.showForm');
-        Route::post('/', 'MyPage\NewRecruitmentController@create')
-             ->name('new-recruitment.create');
     });
     /**
      * イベント、参加者管理

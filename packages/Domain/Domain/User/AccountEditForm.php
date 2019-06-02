@@ -15,12 +15,6 @@ class AccountEditForm
     /** @var array $prefectures */
     private $prefectures;
 
-    /**
-     * AccountDetail constructor.
-     *
-     * @param User  $user
-     * @param array $prefectures
-     */
     public function __construct(User $user, array $prefectures)
     {
         $this->user        = $user;
@@ -40,7 +34,7 @@ class AccountEditForm
     public function getPrefectureKey(): int
     {
         return $this->user->getPrefecture()
-            ->getKey();
+                          ->getKey();
     }
 
     public function getEmail(): string

@@ -30,19 +30,20 @@ class AccountDetail
     public function getPrefectureValue(): string
     {
         return $this->user->getPrefecture()
-            ->getValue();
+                          ->getValue();
     }
 
     public function getGenderValue(): string
     {
         return $this->user->getGender()
-            ->getValue();
+                          ->getValue();
     }
 
     public function getUserAge(): int
     {
-        return $this->user->getBirthDay()->calculateAge()
-            ->getValue();
+        return $this->user->getBirthDay()
+                          ->calculateAge()
+                          ->getValue();
     }
 
     public function getEmail(): string

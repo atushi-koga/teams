@@ -25,10 +25,9 @@ class RegisterUserTest extends TestCase
      */
     public function testCanDisplayRegisterForm()
     {
-        $response = $this->get('/register');
-
-        $response->assertStatus(200)
-                 ->assertViewIs('auth.register.form');
+        $this->get('/register')
+             ->assertStatus(200)
+             ->assertViewIs('auth.register.form');
     }
 
     /**
@@ -38,17 +37,16 @@ class RegisterUserTest extends TestCase
     {
         $this->post(
             '/register', [
-                'nickname'              => 'test user',
-                'prefecture'            => '1',
-                'gender'                => '1',
-                'birth_year'            => '1989',
-                'birth_month'           => '7',
-                'birth_day'             => '10',
-                'email'                 => 'test@gmail.com',
-                'password'              => 'abcd1234',
-                'password_confirmation' => 'abcd1234',
-            ]
-        )
+            'nickname'              => 'test user',
+            'prefecture'            => '1',
+            'gender'                => '1',
+            'birth_year'            => '1989',
+            'birth_month'           => '7',
+            'birth_day'             => '10',
+            'email'                 => 'test@gmail.com',
+            'password'              => 'abcd1234',
+            'password_confirmation' => 'abcd1234',
+        ])
              ->assertRedirect('/register/complete');
 
         $this->assertDatabaseHas(
@@ -61,5 +59,12 @@ class RegisterUserTest extends TestCase
         $user = EloquentUser::where('email', 'test@gmail.com')
                             ->first();
         $this->assertAuthenticatedAs($user);
+    }
+
+    public function testCanDisplayRegisterCompleteView()
+    {
+        $this->get('/register/complete')
+             ->assertStatus(200)
+             ->assertViewIs('auth.register.complete');
     }
 }

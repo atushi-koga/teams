@@ -8,11 +8,6 @@ class UserProfileRequest
     /** @var int $userId */
     public $userId;
 
-    /**
-     * DetailRecruitmentRequest constructor.
-     *
-     * @param int $userId
-     */
     public function __construct(int $userId)
     {
         $this->userId = $userId;

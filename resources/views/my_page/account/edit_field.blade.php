@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('account.edit') }}" autocomplete="off">
+<form method="post" action="{{ route('account.edit') }}" autocomplete="off">
   @csrf
   <div class="form-group row">
     <label for="nickname" class="col-md-4 col-form-label text-md-right">{{ __('register_user.nickname') }}</label>
@@ -29,18 +29,30 @@
       @error('email')
     </div>
   </div>
+
   <div class="form-group row">
+    <div class="col-md-6 offset-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="change_pass" name="change_pass" value="1" {{ old('change_pass') ? 'checked' : '' }}>
+        <label class="form-check-label" for="change_pass">
+          パスワードを変更する
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="pass" class="form-group row {{ old('change_pass') ? '' : 'd-none' }}">
     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('register_user.password') }}</label>
     <div class="col-md-6">
-      <input id="password" type="password" class="form-control @if($errors->has('password')) invalid @endif" name="password">
+      <input id="password" type="password" class="form-control @if($errors->has('password')) invalid @endif" name="password" {{ old('change_pass') ? '' : 'disabled' }}>
 
       @error('password')
     </div>
   </div>
-  <div class="form-group row">
+  <div id="pass-conf" class="form-group row {{ old('change_pass') ? '' : 'd-none' }}">
     <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('register_user.password_confirmation') }}</label>
     <div class="col-md-6">
-      <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+      <input id="password-confirm" type="password" class="form-control" name="password_confirmation" {{ old('change_pass') ? '' : 'disabled' }}>
     </div>
   </div>
   <div class="form-group row mb-0">

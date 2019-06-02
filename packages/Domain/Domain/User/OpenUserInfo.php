@@ -17,13 +17,10 @@ class OpenUserInfo
     private $nickname;
 
     /** @var Gender $gender */
-    public $gender;
-
-    /** @var Prefecture $prefecture */
-    public $prefecture;
+    private $gender;
 
     /** @var BirthDay $birthday */
-    public $birthday;
+    private $birthday;
 
     /**
      * ParticipantInfo constructor.
@@ -32,11 +29,10 @@ class OpenUserInfo
      */
     public function __construct(User $user)
     {
-        $this->user_id    = $user->getId();
-        $this->nickname   = $user->getNickName();
-        $this->gender     = $user->getGender();
-        $this->prefecture = $user->getPrefecture();
-        $this->birthday   = $user->getBirthDay();
+        $this->user_id  = $user->getId();
+        $this->nickname = $user->getNickName();
+        $this->gender   = $user->getGender();
+        $this->birthday = $user->getBirthDay();
     }
 
     public function getUserId(): int
@@ -57,11 +53,6 @@ class OpenUserInfo
     public function getGenderValue(): string
     {
         return $this->gender->getValue();
-    }
-
-    public function getPrefecture(): Prefecture
-    {
-        return $this->prefecture;
     }
 
     public function getBirthDay(): BirthDay
