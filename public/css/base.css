@@ -56,6 +56,10 @@ body {
     cursor: pointer;
 }
 
+.btn.default{
+    background-color: gray;
+}
+
 .btn.green {
     background-color: #0a8443;
 }

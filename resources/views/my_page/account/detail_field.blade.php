@@ -2,13 +2,6 @@
   <div class="content-header">
     アカウント情報
   </div>
-  {{--<div class="mb20">--}}
-    {{--<div>--}}
-      {{--<div>--}}
-        {{--<a href="{{ route('top') }}">TOP</a>&nbsp;&gt;&nbsp;<span>アカウント情報</span>--}}
-      {{--</div>--}}
-    {{--</div>--}}
-  {{--</div>--}}
   <div class="content-body">
     <div style="margin-bottom: 40px; max-width: 600px; margin-left:auto; margin-right:auto;">
       <div style="display: flex; display: -webkit-flex; flex-direction: row; align-items: flex-start; justify-content: flex-start;">
@@ -28,7 +21,7 @@
     <div class="form-group row mb-0">
       <div class="col-md-6 offset-md-4">
         <a href="{{ route('account.shoEditForm') }}" class="btn green"> 編集する </a>
-        <a href="{{ route('account.logout') }}" class="btn btn-dark"> ログアウト </a>
+        <a href="{{ route('account.logout') }}" class="btn default"> ログアウト </a>
       </div>
     </div>
   </div>

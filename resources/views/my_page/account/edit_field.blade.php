@@ -54,8 +54,7 @@
     </div>
   </div>
   <div class="ac mt20">
-    <button type="submit" class="btn green">
-      編集
-    </button>
+    <a href="{{ route('account.detail') }}" class="btn default">戻る</a>
+    <button type="submit" class="btn green">編集</button>
   </div>
 </form>
