@@ -212,3 +212,11 @@ img:hover {
     outline: none;
     -webkit-box-shadow: none;
 }
+
+.flex-sb{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
