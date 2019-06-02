@@ -24,12 +24,12 @@
               @error('mount')
             </td>
           </tr>
-          <tr>
-            <th>画像</th>
-            <td>
-              @error('image_path')
-            </td>
-          </tr>
+          {{--<tr>--}}
+            {{--<th>画像</th>--}}
+            {{--<td>--}}
+              {{--@error('image_path')--}}
+            {{--</td>--}}
+          {{--</tr>--}}
           <tr>
             <th><span class="required">必須</span>エリア</th>
             <td>
@@ -46,9 +46,7 @@
           <tr>
             <th><span class="required">必須</span>行動予定</th>
             <td>
-              <textarea id="schedule" name="schedule" class="form-control @if($errors->has('schedule')) invalid @endif" placeholder="{{ __('recruitment.schedule.placeholder') }}" required>
-                {{ old('schedule') }}
-              </textarea>
+              <textarea id="schedule" rows="6" name="schedule" class="form-control @if($errors->has('schedule')) invalid @endif" placeholder="{{ __('recruitment.schedule.placeholder') }}" required>{{ old('schedule') }}</textarea>
 
               @error('schedule')
             </td>
@@ -82,9 +80,7 @@
           <tr>
             <th><span class="required">必須</span>対象者</th>
             <td>
-              <textarea name="requirement" class="form-control @if($errors->has('requirement')) invalid @endif" required>
-                {{ old('requirement') }}
-              </textarea>
+              <textarea name="requirement" rows="6" class="form-control @if($errors->has('requirement')) invalid @endif" required>{{ old('requirement') }}</textarea>
 
               @error('requirement')
             </td>
@@ -92,9 +88,7 @@
           <tr>
             <th>持ち物</th>
             <td>
-              <textarea name="belongings" class="form-control @if($errors->has('')) invalid @endif">
-                {{ old('belongings') }}
-              </textarea>
+              <textarea name="belongings" rows="6" class="form-control @if($errors->has('')) invalid @endif">{{ old('belongings') }}</textarea>
 
               @error('belongings')
             </td>
@@ -102,40 +96,9 @@
           <tr>
             <th>ご参加にあたってのお願い</th>
             <td>
-              <textarea name="notes" class="form-control @if($errors->has('')) invalid @endif">
-                {{ old('notes') }}
-              </textarea>
+              <textarea name="notes" rows="6" class="form-control @if($errors->has('')) invalid @endif">{{ old('notes') }}</textarea>
 
               @error('notes')
-            </td>
-          </tr>
-          <tr>
-            <th rowspan="3">公開範囲</th>
-            <td>
-              性別：<select style="display: inline; width: 50%;" id="gender_limit" name="gender_limit" class="select @if($errors->has('gender_limit')) invalid @endif">
-                <option value="">----</option>
-                @foreach($res->genders as $key => $val)
-                  <option value="{{ $key }}" @if(old('gender_limit') == $key) selected @endif>{{ $val }}</option>
-                @endforeach
-              </select>
-
-              @error('gender_limit')
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" name="minimum_age" class="w-25 d-inline form-control @if($errors->has('minimum_age')) invalid @endif"
-                     value="{{ old('minimum_age') }}"> 歳以上
-
-                                                       @error('minimum_age')
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" name="upper_age" class="w-25 d-inline form-control @if($errors->has('upper_age')) invalid @endif"
-                     value="{{ old('upper_age') }}"> 歳以下
-
-                                                     @error('upper_age')
             </td>
           </tr>
           </tbody>

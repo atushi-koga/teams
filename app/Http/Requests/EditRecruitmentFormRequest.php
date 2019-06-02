@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use packages\Domain\Domain\Common\Prefecture;
-use packages\Domain\Domain\User\Gender;
 
-class NewRecruitmentFormRequest extends FormRequest
+class EditRecruitmentFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,11 +18,6 @@ class NewRecruitmentFormRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -48,8 +42,8 @@ class NewRecruitmentFormRequest extends FormRequest
             'date.after_or_equal'  => '明日以降の日付を選択してください',
             'capacity.numeric'     => '半角数値で入力してください',
             'capacity.regex'       => '半角数値で99人以内で入力してください',
-            'deadline.date_format' => '正しく選択してください',
             'deadline.before'      => '活動日より前の日付を選択してください',
+            'deadline.date_format' => '正しく選択してください',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\MyPage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditRecruitmentFormRequest;
 use App\Http\Requests\NewRecruitmentFormRequest;
 use Auth;
 use Illuminate\Http\Request;
@@ -77,8 +78,9 @@ class ManageEventController extends Controller
         return view('manage.new_event.finish');
     }
 
-    public function editForm($id, EditRecruitmentFormUseCaseInterface $interactor)
-    {
+    public function editForm($id,
+        EditRecruitmentFormUseCaseInterface $interactor
+    ) {
         $recruitmentId = RecruitmentId::of(intval($id));
 
         /** @var EditRecruitmentFormResponse $res */
@@ -90,8 +92,11 @@ class ManageEventController extends Controller
         ]);
     }
 
-    public function edit($id, Request $request, EditRecruitmentUseCaseInterface $interactor)
-    {
+    public function edit(
+        $id,
+        EditRecruitmentFormRequest $request,
+        EditRecruitmentUseCaseInterface $interactor
+    ) {
         $editUserId  = UserId::of(Auth::id());
         $recruitment = Recruitment::ofByArray($request->all());
         $recruitment->setId(intval($id));

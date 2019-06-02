@@ -24,12 +24,12 @@
               @error('mount')
             </td>
           </tr>
-          <tr>
-            <th>画像</th>
-            <td>
-              @error('image_path')
-            </td>
-          </tr>
+          {{--<tr>--}}
+            {{--<th>画像</th>--}}
+            {{--<td>--}}
+              {{--@error('image_path')--}}
+            {{--</td>--}}
+          {{--</tr>--}}
           <tr>
             <th><span class="required">必須</span>エリア</th>
             <td>

@@ -30,12 +30,6 @@ class CreateRecruitmentTables extends Migration
                   ->nullable();
             $table->text('image_path')
                   ->nullable();
-            $table->integer('gender_limit')
-                  ->nullable();
-            $table->integer('minimum_age')
-                  ->nullable();
-            $table->integer('upper_age')
-                  ->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at')
                   ->nullable();
