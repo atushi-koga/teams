@@ -35,7 +35,8 @@
           </div>
           <div class="mt10">
             @if($createdRec->afterDeadline())
-              <div class="btn black">本イベントは終了しました</div>
+              {{--@todo: 開催期間を過ぎたらこの表示をだす。今は募集締め切りが条件になってしまっている。--}}
+              <div class="end">本イベントは終了しました</div>
             @else
               <div class="d-inline-block">
                 <a href="{{ route('manage-event.editForm', ['id' => $createdRec->getRecruitmentId()]) }}" type="button" class="btn btn-primary"> 編集 </a>

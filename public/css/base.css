@@ -16,9 +16,9 @@ body {
     border-top: 4px solid #0a8443;
 }
 
-.header{
+.header {
     background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
 }
 
 .title {
@@ -48,9 +48,12 @@ body {
     font-family: inherit;
     font-size: 16px;
     text-decoration: none;
-    cursor: pointer;
     -webkit-appearance: none;
     margin: 5px;
+}
+
+.btn:not(:disabled) {
+    cursor: pointer;
 }
 
 .btn.green {
@@ -78,6 +81,21 @@ body {
     border: none;
 }
 
+.end {
+    display: inline-block;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    background-image: none;
+    background-color: black;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    text-decoration: none;
+    -webkit-appearance: none;
+    margin: 5px;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -87,7 +105,8 @@ table {
 table, th, td {
     border-bottom: 1px solid #e5e5e5;
 }
-tr{
+
+tr {
     min-height: 60px;
 }
 
@@ -213,7 +232,7 @@ img:hover {
     -webkit-box-shadow: none;
 }
 
-.flex-sb{
+.flex-sb {
     display: flex;
     display: -webkit-flex;
     flex-direction: row;

@@ -8,6 +8,11 @@
           <div class="card-body">
             編集を完了しました。
           </div>
+          <div class="ac">
+            <button type="button" class="btn bg-dark">
+              会員情報へ戻る
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@
             アカウント登録が完了しました。
           </div>
           <div class="ac mb15">
-            <a href="{{ route('top') }}" class="btn btn-primary">トップへ</a>
+            <a href="{{ route('top') }}" class="btn green">トップへ</a>
           </div>
         </div>
       </div>

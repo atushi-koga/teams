@@ -42,7 +42,7 @@
 
     @if($res->afterDeadline())
       <div class="mt20 ac">
-        <div class="btn black">募集を終了しました</div>
+        <div class="end">募集を終了しました</div>
       </div>
     @elseif($res->browsingUserIsCreateUser())
     @elseif($res->haveEntry())
@@ -71,7 +71,7 @@
       </div>
       @if($res->afterDeadline())
         <div class="ac">
-          <div class="btn black">募集を終了しました</div>
+          <div class="end">募集を終了しました</div>
         </div>
       @elseif($res->browsingUserIsCreateUser())
       @elseif($res->haveEntry())

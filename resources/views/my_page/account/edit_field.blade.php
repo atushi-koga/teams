@@ -34,9 +34,7 @@
     <div class="col-md-6 offset-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="change_pass" name="change_pass" value="1" {{ old('change_pass') ? 'checked' : '' }}>
-        <label class="form-check-label" for="change_pass">
-          パスワードを変更する
-        </label>
+        <label class="form-check-label" for="change_pass"> パスワードを変更する </label>
       </div>
     </div>
   </div>
@@ -55,11 +53,9 @@
       <input id="password-confirm" type="password" class="form-control" name="password_confirmation" {{ old('change_pass') ? '' : 'disabled' }}>
     </div>
   </div>
-  <div class="form-group row mb-0">
-    <div class="col-md-6 offset-md-4">
-      <button type="submit" class="btn green">
-        編集
-      </button>
-    </div>
+  <div class="ac mt20">
+    <button type="submit" class="btn green">
+      編集
+    </button>
   </div>
 </form>
