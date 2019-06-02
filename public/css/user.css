@@ -25,3 +25,17 @@
     max-width: 110px;
     max-height: 110px;
 }
+
+.introduction{
+    display: block;
+    color: #333;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    word-break: break-all;
+    /*word-wrap: break-word;*/ /* 両方を指定すると word-breakのみ適用されるためコメントアウト(要検証) */
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: auto;
+}

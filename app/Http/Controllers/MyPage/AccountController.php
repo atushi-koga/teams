@@ -67,7 +67,8 @@ class AccountController extends Controller
             $request->nickname,
             Prefecture::of(intval($request->prefecture)),
             Email::of($request->email),
-            $request->password
+            $request->password,
+            $request->introduction
         );
 
         $interactor->handle($request);

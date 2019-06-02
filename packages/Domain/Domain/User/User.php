@@ -29,27 +29,33 @@ class User
     /** @var Password */
     private $password;
 
+    /** @var string|null $introduction */
+    private $introduction;
+
     /**
      * User constructor.
      *
-     * @param string     $nickname
-     * @param Prefecture $prefecture
-     * @param Gender     $gender
-     * @param BirthDay   $birthday
-     * @param Email      $email
+     * @param string      $nickname
+     * @param Prefecture  $prefecture
+     * @param Gender      $gender
+     * @param BirthDay    $birthday
+     * @param Email       $email
+     * @param string|null $introduction
      */
     public function __construct(
         string $nickname,
         Prefecture $prefecture,
         Gender $gender,
         BirthDay $birthday,
-        Email $email
+        Email $email,
+        ?string $introduction
     ) {
-        $this->nickname   = $nickname;
-        $this->prefecture = $prefecture;
-        $this->gender     = $gender;
-        $this->birthday   = $birthday;
-        $this->email      = $email;
+        $this->nickname     = $nickname;
+        $this->prefecture   = $prefecture;
+        $this->gender       = $gender;
+        $this->birthday     = $birthday;
+        $this->email        = $email;
+        $this->introduction = $introduction;
     }
 
     public function getId(): int
@@ -96,17 +102,11 @@ class User
         return $this->gender->getKey();
     }
 
-    /**
-     * @return string
-     */
     public function getGenderValue(): string
     {
         return $this->gender->getValue();
     }
 
-    /**
-     * @return Carbon
-     */
     public function getBirthDate(): Carbon
     {
         return $this->birthday->getBirthDate();
@@ -117,28 +117,24 @@ class User
         return $this->birthday;
     }
 
-    /**
-     * @return string
-     */
     public function getFormatBirthDate(): string
     {
         return $this->birthday->getFormatBirthDate();
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email->getValue();
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password->getHash();
+    }
+
+    public function getIntroduction(): ?string
+    {
+        return $this->introduction;
     }
 
     public function setId(int $id)
@@ -158,7 +154,8 @@ class User
             Prefecture::of(intval($attributes['prefecture'])),
             Gender::of(intval($attributes['gender'])),
             BirthDay::ofFormat($attributes['birthday']),
-            Email::of($attributes['email'])
+            Email::of($attributes['email']),
+            $attributes['introduction'] ?? null
         );
 
         if (isset($attributes['id'])) {

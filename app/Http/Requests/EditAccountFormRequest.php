@@ -28,16 +28,17 @@ class EditAccountFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nickname'   => ['required', 'max:20'],
-            'prefecture' => ['required', Rule::in(array_keys(Prefecture::Enum()))],
-            'email'      => [
+            'nickname'     => ['required', 'max:20'],
+            'prefecture'   => ['required', Rule::in(array_keys(Prefecture::Enum()))],
+            'email'        => [
                 'required',
                 'email',
                 'max:100',
                 Rule::unique('users')
                     ->ignore(Auth::id())
             ],
-            'password'   => ['required_if:change_pass,1', new PasswordRule(), 'confirmed'],
+            'introduction' => ['nullable', 'max:5000'],
+            'password'     => ['required_if:change_pass,1', new PasswordRule(), 'confirmed'],
         ];
     }
 

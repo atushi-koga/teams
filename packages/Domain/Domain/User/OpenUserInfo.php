@@ -22,6 +22,9 @@ class OpenUserInfo
     /** @var BirthDay $birthday */
     private $birthday;
 
+    /** @var string|null $introduction */
+    private $introduction;
+
     /**
      * ParticipantInfo constructor.
      *
@@ -29,10 +32,11 @@ class OpenUserInfo
      */
     public function __construct(User $user)
     {
-        $this->user_id  = $user->getId();
-        $this->nickname = $user->getNickName();
-        $this->gender   = $user->getGender();
-        $this->birthday = $user->getBirthDay();
+        $this->user_id      = $user->getId();
+        $this->nickname     = $user->getNickName();
+        $this->gender       = $user->getGender();
+        $this->birthday     = $user->getBirthDay();
+        $this->introduction = $user->getIntroduction();
     }
 
     public function getUserId(): int
@@ -64,5 +68,10 @@ class OpenUserInfo
     {
         return $this->birthday->calculateAge()
                               ->getValue();
+    }
+
+    public function getIntroduction(): ?string
+    {
+        return $this->introduction;
     }
 }

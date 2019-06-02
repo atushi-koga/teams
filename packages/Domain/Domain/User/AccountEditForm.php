@@ -41,4 +41,9 @@ class AccountEditForm
     {
         return $this->user->getEmail();
     }
+
+    public function getIntroduction(): ?string
+    {
+        return $this->user->getIntroduction();
+    }
 }
