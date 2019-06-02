@@ -2,26 +2,23 @@
   <div class="content-header">
   プロフィール
   </div>
-  {{--<div class="mb20">--}}
-    {{--<div>--}}
-      {{--<div>--}}
-        {{--<a href="{{ route('top') }}">TOP</a>&nbsp;&gt;&nbsp;<span>プロフィールページ</span>--}}
-      {{--</div>--}}
-    {{--</div>--}}
-  {{--</div>--}}
   <div class="content-body">
-    <div style="margin-bottom: 40px; max-width: 600px; margin-left:auto; margin-right:auto;">
-      <div style="display: flex; display: -webkit-flex; flex-direction: row; align-items: flex-start; justify-content: flex-start;">
-        <div style="width: 120px; height: 120px; margin-right: 20px;">
-          <img src="/default_icon.jpeg" style="max-width: 100%; max-height: 100%; width: auto; height: auto;">
+    <div class="user border-bottom-0">
+      <div class="user-info">
+        <div class="user-image-box">
+          <img src="/default_icon.jpeg" class="user-image">
         </div>
         <div>
-          <div class="font24">{{ $res->getNickname() }}</div>
+          <div class="font18">{{ $res->getNickname() }}</div>
           <div class="font16">
-            <span>{{ $res->getGenderValue() }} {{ $res->getUserAge() }}歳</span>
+            {{ $res->getGenderValue() }} {{ $res->getUserAge() }}歳
           </div>
         </div>
       </div>
     </div>
+    {{--ユーザ登録時に入れた自己紹介を表示--}}
+    {{--<div class="mt10">--}}
+      {{--自己紹介メッセージ--}}
+    {{--</div>--}}
   </div>
 </div>

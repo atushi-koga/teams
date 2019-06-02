@@ -11,8 +11,9 @@
           </div>
           <div>
             <div class="font18"><a href="{{ route('user.profile', ['id' => $r->getUserId()]) }}">{{ $r->getNickname() }}</a></div>
-            <div class="font16">{{ $r->getGenderValue() }}</div>
-            <div class="font16">{{ $r->getUserAge() }}歳</div>
+            <div class="font16">
+              {{ $r->getGenderValue() }} {{ $r->getUserAge() }}歳
+            </div>
           </div>
         </div>
       </div>
