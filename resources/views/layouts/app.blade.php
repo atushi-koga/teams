@@ -32,6 +32,7 @@
     @yield('content')
   </main>
 </div>
+<script src="/js/toggle_menu.js"></script>
 @stack('script')
 </body>
 </html>
