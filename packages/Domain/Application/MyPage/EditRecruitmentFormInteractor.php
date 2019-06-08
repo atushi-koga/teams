@@ -17,11 +17,6 @@ class EditRecruitmentFormInteractor implements EditRecruitmentFormUseCaseInterfa
     /** @var RecruitmentRepositoryInterface */
     private $recruitmentRepository;
 
-    /**
-     * NewRecruitmentInteractor constructor.
-     *
-     * @param RecruitmentRepositoryInterface $recruitmentRepository
-     */
     public function __construct(RecruitmentRepositoryInterface $recruitmentRepository)
     {
         $this->recruitmentRepository = $recruitmentRepository;

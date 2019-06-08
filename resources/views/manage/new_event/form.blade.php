@@ -14,21 +14,5 @@
   </div>
 @endsection
 @push('script')
-  <script>
-      $(function () {
-          $("#date").bootstrapMaterialDatePicker({
-              weekStart: 0,
-              lang: "ja",
-              time: false,
-              format: "YYYY/MM/DD",
-              minDate: moment() // 本日以降
-          });
-          $("#deadline").bootstrapMaterialDatePicker({
-              weekStart: 0,
-              lang: "ja",
-              time: false,
-              format: "YYYY/MM/DD"
-          });
-      });
-  </script>
+  <script src="/js/datepicker.js"></script>
 @endpush
