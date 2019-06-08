@@ -45,16 +45,14 @@ class NewRecruitmentTest extends TestCase
             'mount'       => '丹沢大山',
             'prefecture'  => 14,
             'schedule'    => '伊勢原駅→登山開始→下山完了',
-            'date'        => '2019/10/03',
+            'date'        => '2019-10-3',
             'capacity'    => 5,
-            'deadline'    => '2019/09/28',
+            'deadline'    => '2019-9-28',
             'requirement' => 'ルールを守れる方',
             'belongings'  => '昼食、登山靴、着替類',
             'notes'       => '自己責任でお願いします',
             'create_id'   => $this->user->id,
         ];
-
-        $this->withoutExceptionHandling();
 
         $recruitment = Recruitment::ofByArray($request);
         $recruitment->setId(1);

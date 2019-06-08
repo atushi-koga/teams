@@ -2,6 +2,8 @@
 
 namespace App\Eloquent;
 
+use App\Notifications\ResetPasswordJaNotification;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,6 +32,18 @@ class EloquentUser extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordJaNotification($token));
+    }
+
 
     public function toModel(): User
     {

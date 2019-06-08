@@ -26,6 +26,21 @@ Route::group(['prefix' => 'login'], function () {
     Route::post('/', 'Auth\LoginController@login')
          ->name('login');
 });
+/**
+ * パスワードリセット
+ */
+Route::group(['prefix' => 'password'], function () {
+    Route::get('request', 'Auth\ForgotPasswordController@showLinkRequestForm')
+         ->name('password.showForm');
+    Route::post('request', 'Auth\ForgotPasswordController@sendResetLinkEmail')
+         ->name('password.sendEmail');
+    Route::get('reset/{token}', 'Auth\ResetPasswordController@showResetForm')
+         ->name('password.reset');
+    Route::post('reset', 'Auth\ResetPasswordController@reset')
+         ->name('password.update');
+    Route::get('finish', 'Auth\ResetPasswordController@finish')
+         ->name('password.finish');
+});
 
 /**
  * マイページ

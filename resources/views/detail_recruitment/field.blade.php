@@ -67,7 +67,6 @@
       <h2 class="event-aside-header mb-0">活動日時</h2>
       <div class="event-aside-body ac">
         <p class="mb-0 font18">{{ $res->getHeldDay() }}</p>
-        <p class="mb-0 font16">13:00～18:00</p>
       </div>
       @if($res->afterDeadline())
         <div class="ac">
