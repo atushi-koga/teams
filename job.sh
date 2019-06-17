@@ -1,3 +1,4 @@
-docker exec apache-php composer install
-docker exec apache-php php artisan migrate --seed
-docker exec apache-php ./vendor/bin/phpunit
+docker-compose up -d
+bash job_script.sh ; RETURN=$?
+docker-compose down
+exit $RETURN
