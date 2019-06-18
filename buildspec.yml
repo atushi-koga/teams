@@ -29,7 +29,6 @@ phases:
     commands:
       - php --version
       - echo test
-      - docker version
       - docker-compose version
       # - command
   #post_build:
