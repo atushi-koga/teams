@@ -27,10 +27,11 @@ phases:
       # - command
   build:
     commands:
-      - php --version
-      - echo test
-      - docker-compose version
-      # - command
+      - echo build-start
+      - mv .env.example .env
+      - docker-compose up -d
+      - docker exec apache-php composer install
+      - docker exec apache-php php artisan migrate --seed
   #post_build:
     #commands:
       # - command
