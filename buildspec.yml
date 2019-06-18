@@ -1,0 +1,48 @@
+version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  #git-credential-helper: yes
+
+phases:
+  install:
+    #Ubuntu 標準イメージ 2.0 以降を使用する場合、ランタイムバージョンを指定する必要があります。
+    runtime-versions:
+        php: 7.3
+    #ランタイムバージョンを指定して、Ubuntu 標準イメージ 2.0 以外のイメージを使用すると、ビルドは失敗します。
+    #runtime-versions:
+      # name: version
+      # name: version
+    #commands:
+      # - command
+      # - command
+  #pre_build:
+    #commands:
+      # - command
+      # - command
+  build:
+    commands:
+      - php --version
+      - echo test
+      - docker version
+      - docker-compose version
+      # - command
+  #post_build:
+    #commands:
+      # - command
+      # - command
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
